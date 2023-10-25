@@ -14,11 +14,26 @@
     <main>
         <section>
             <h3>Local Resources:</h3>
+            
             <h4>Appalachian State University Resources:</h4>
+
             <button type="button" class="collapsible">Wellness and Prevention Services:</button>
             <div class="content">
                 <p>I will add content here.</p>
             </div>
+
+            <button type="button" class="collapsible">The Counseling Center:</button>
+            <div class="content">
+                <p>I will add content here.</p>
+            </div>
+
+            <h4>Outside of Appalachian State University Resources:</h4>
+
+            <button type="button" class="collapsible">Daymark Recovery Services: Watauga Center:</button>
+            <div class="content">
+                <p>I will add content here.</p>
+            </div>
+
         </section>
 
         <section>
@@ -43,5 +58,21 @@
         <p>&copy; 2023 The Journey. All rights reserved.</p>
         <p>Contact here</p>
     </footer>
+    <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
 </body>
 </html>

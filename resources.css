@@ -73,7 +73,7 @@ footer {
   }
   
   .active, .collapsible:hover {
-    background-color: #ccc;
+    background-color: #929292;
   }
   
   /* Style the collapsible content. Note: hidden by default */
