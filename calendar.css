@@ -1,17 +1,77 @@
+/* This is the CSS page for the Calendar Tab of the Journey website. 
+The purpose of this file is to input proper formating for efficient use of the 
+Calendar page. */
+ul {list-style-type: none;}
+
 /*styling the main body of the page*/
 body {
-    background-color: aliceblue;
+    background-color: whitesmoke;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 h1 {
-    color: whitesmoke;
+    color: black;
+    text-align: center;
+    align-self: center;
+}
+
+subheader {
+    color:blueviolet;
     text-align: center;
 }
 
-p {
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    font-size: 20px;
+.calendar {
+    display: grid;
+    margin: auto;
+
+}
+/* Header for the month */
+.month {
+    padding: 70px 25px;
+    width: 100%;
+    background: center;
+    text-align: center;
 }
 
-calendar {
+/* Month list */
+.month ul {
+    margin: 0;
+    padding: 0;
+}
 
+.month ul li {
+     color: white; 
+     font-size: 20px;
+     text-transform: uppercase;
+     letter-spacing: 3px;
+}
+
+/* Previous button inside month header */
+.month .prev {
+    float: left;
+    padding-top: 10px;
+}
+
+.month .next {
+    float: right;
+    padding-top: 10px;
+}
+
+.weekdays {
+    margin: 0;
+    padding: 10px 0;
+    background-color: #ddd
+}
+
+.weekdays li {
+    display: inline-block;
+    width: 13.6%;
+    color: azure;
+    text-align: center;
+}
+
+.days {
+    padding: 10px 0;
+    background: goldenrod;
+    margin: 0;
 }
