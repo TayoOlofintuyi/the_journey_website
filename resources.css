@@ -70,6 +70,17 @@ footer {
   .active, .collapsible:hover {
     background-color: #929292;
   }
+  .collapsible:after {
+    content: '\02795';
+    font-size: 13px;
+    color: white;
+    float: right;
+    margin-left: 5px;
+  }
+  
+  .active:after {
+    content: "\2796";
+  }
   
   .content {
     padding: 0 18px;
