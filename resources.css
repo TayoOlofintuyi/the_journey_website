@@ -10,14 +10,14 @@ body {
 }
 
 header {
-    background-color: #333;
+    background-color: #1b6e1b;
     color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 13px;
 }
 
 nav {
-    background-color: #333;
+    background-color: #1b6e1b;
     color: #fff;
     padding: 10px;
 }
@@ -49,7 +49,7 @@ section {
 }
 
 footer {
-    background-color: #333;
+    background-color: #1b6e1b;
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -57,7 +57,7 @@ footer {
 
 .collapsible {
     background-color: #eee;
-    color: #444;
+    color: #1b6e1b;
     cursor: pointer;
     padding: 18px;
     width: 100%;
