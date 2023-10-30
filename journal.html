@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Journey</title>
-    <link rel="stylesheet" href="main_page.css">
+    <link rel="stylesheet" href="journal.css">
 </head>
 <body>
     <header>
@@ -19,14 +19,27 @@
             <li><a href="journal.html">Journal</a></li>
         </ul>
     </nav>
-    
-    <form action="/action_page.php" id="new_journal">
-        <label for="fname">First name:</label><br>
-        <input type="text" id="fname" name="fname" value="John"><br>
-        <label for="lname">Last name:</label><br>
-        <input type="text" id="lname" name="lname" value="Doe"><br><br>
-        <input type="submit" value="Submit">
-      </form> 
-    
+
+      <br>
+      <br>
+
+
+<center>
+      <h2>Create a New Journal Entry</h2>
+    <form action="submit_post.php" method="post" class="new">
+        <br>
+        <label for="title">Title:</label>
+        <br>
+        <input type="text" id="title" name="title" required class="form-input">
+        <br>
+        <br>
+        <label for="content">Content:</label>
+        <br>
+        <textarea id="content" name="content" class="form-input" required></textarea>
+        <br>
+        <button type="submit">Submit</button>   
+    </form>
+    <br>
+    </center>
 </body>
 </html>

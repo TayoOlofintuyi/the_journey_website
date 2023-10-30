@@ -1,0 +1,111 @@
+/* Reset some default styles to ensure consistency */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color for the entire page */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the header */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style the navigation menu */
+nav {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+}
+
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Style the main content area */
+main {
+    padding: 20px;
+}
+
+section {
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Style the footer */
+footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+form {
+    margin: 0 auto;
+    width: 70%;
+    padding: 1em;   
+    background-color: #c1ddcb;
+    border-radius: 1em;
+}
+
+.form-input {
+    margin: 0 auto;
+    border-radius: 10%;
+    border-color: #f9f6f6;
+    width: 70%;
+}
+
+.form-input:focus {
+    border-color: #c1ddcb;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+#content{
+    width: 70%;
+    height: 250px;
+    border-radius: 5%;
+}
+
+.form-input:hover {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+label {
+    width: 100px;
+    text-align: right;
+    font-weight: bold;
+}
+
+button {
+    margin-top: 2%;
+    width: 20%;
+    height: 10%;
+    border-radius: 10%;
+    border-color: #f9f6f6;
+    background-color: #f9f6f6;
+    color: #c1ddcb;
+    font-weight: bold;
+}   
+
+
+
