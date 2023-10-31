@@ -1,36 +1,58 @@
 /* This is the CSS page for the Calendar Tab of the Journey website. 
 The purpose of this file is to input proper formating for efficient use of the 
 Calendar page. */
-ul {list-style-type: none;}
+/*Syling the format of the page*/
 
-/*styling the main body of the page*/
-body {
-    background-color: whitesmoke;
+ body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color for the entire page */
+ body {
+    background-color: #f0f0f0;
     font-family: Georgia, 'Times New Roman', Times, serif;
-
 }
-h1 {
-    color: black;
+
+/* Style the header */
+ header {
+    background-color: #404F24;
+    color: #fff;
     text-align: center;
-    align-self: center;
+    padding: 20px;
 }
 
-subheader {
-    color:blueviolet;
-    text-align: center;
+/* Style the navigation menu */
+ nav { 
+     background-color: #668D3C;
+    color: #fff;
+    padding: 10px;
+ } 
+nav ul {
+    list-style-type: none;
 }
 
-.calendar {
-    display: grid;
-    margin: auto;
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff; 
+} 
+
+.calendar-container {
 
 }
 /* Header for the month */
 .month {
-    padding: 70px 25px;
-    width: 100%;
+    padding: 40px 25px;
+    width: 80%;
     background: center;
     text-align: center;
+    background-color: #BDD09F;
+    position: relative;
 }
 
 /* Month list */
@@ -40,7 +62,7 @@ subheader {
 }
 
 .month ul li {
-     color: white; 
+     color: black; 
      font-size: 20px;
      text-transform: uppercase;
      letter-spacing: 3px;
@@ -60,18 +82,53 @@ subheader {
 .weekdays {
     margin: 0;
     padding: 10px 0;
-    background-color: #ddd
+    width:82.7%;
+    background-color: #668D3C;
+    position: relative;
 }
 
 .weekdays li {
     display: inline-block;
     width: 13.6%;
-    color: azure;
+    color: white;
     text-align: center;
 }
 
 .days {
     padding: 10px 0;
-    background: goldenrod;
+    background: #BDD09F;
     margin: 0;
+    width:82.7%;
+    position: relative;
 }
+
+.days li {
+    list-style-type: none;
+    display: inline-block;
+    width: 13.6%;
+    text-align: center;
+    margin-bottom: 5px;
+    font-size: 12px;
+    color: black;
+}
+
+/*Highlights the current day*/
+.days li .active {
+    padding: 5px;
+    background: transparent;
+    border-style: dotted;
+    border-width: thin;
+    color: black !important
+}
+/* Style the footer */
+footer {
+    background-color: #404F24;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}
+
+
