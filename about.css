@@ -1,0 +1,53 @@
+/*This was taken from the calender page to test layout for the about page*/
+/*Syling the format of the page*/
+
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color for the entire page */
+ body {
+    background-color: #f0f0f0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Style the header */
+ header {
+    background-color: #404F24;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
+/* Style the navigation menu */
+ nav { 
+     background-color: #668D3C;
+    color: #fff;
+    padding: 10px;
+ } 
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff; 
+} 
+body {
+    background-color: #f0f0f0;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+/* Style the header */
+header {
+    background-color: #404F24;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
+
