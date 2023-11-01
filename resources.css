@@ -13,9 +13,8 @@ header {
     background-color: #333;
     color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 13px;
 }
-
 nav {
     background-color: #333;
     color: #fff;
@@ -57,7 +56,7 @@ footer {
 
 .collapsible {
     background-color: #eee;
-    color: #444;
+    color: #333;
     cursor: pointer;
     padding: 18px;
     width: 100%;
