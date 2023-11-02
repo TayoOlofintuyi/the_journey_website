@@ -49,5 +49,36 @@ header {
     color: #fff;
     text-align: center;
     padding: 20px;
+
+}
+/* Style the navigation menu */
+nav { 
+    background-color: #668D3C;
+   color: #fff;
+   padding: 10px;
+} 
+nav ul {
+   list-style-type: none;
 }
 
+nav ul li {
+   display: inline;
+   margin-right: 20px;
+}
+
+nav a {
+   text-decoration: none;
+   color: #fff; 
+} 
+
+h1 {
+    background-color: #404F24;
+    color: #fff;
+    text-align: center;
+    padding: 20px; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+pre {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
