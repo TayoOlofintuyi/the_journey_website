@@ -44,8 +44,8 @@ nav a {
 
 /* Header for the month */
 .month {
-    padding: 40px 25px;
-    width: 80%;
+    padding: 20px 15px;
+    width: 20%;
     background: center;
     text-align: center;
     background-color: #BDD09F;
@@ -68,18 +68,18 @@ nav a {
 /* Previous button inside month header */
 .month .prev {
     float: left;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 .month .next {
     float: right;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 .weekdays {
     margin: 0;
     padding: 10px 0;
-    width:82.7%;
+    width:22.2%;
     background-color: #668D3C;
     position: relative;
 }
@@ -95,7 +95,7 @@ nav a {
     padding: 10px 0;
     background: #BDD09F;
     margin: 0;
-    width:82.7%;
+    width:22%;
     position: relative;
 }
 
