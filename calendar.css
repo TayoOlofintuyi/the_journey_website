@@ -72,17 +72,13 @@ nav a {
      letter-spacing: 3px;
 }
 
-/* Previous button inside month header */
-/* .month .prev {
-    float: left;
-    padding-top: 5px;
+table.mN {
+    table-layout: fixed;
+    width:max-content;
+    column-count: 7;
+    grid-row-start: 0;
+    grid-row-end: 3;
 }
-
-.month .next {
-    float: right;
-    padding-top: 5px;
-} */
-
 .weekdays {
     margin: 0;
     padding: 10px 0;
