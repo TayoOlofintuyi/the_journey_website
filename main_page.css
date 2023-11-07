@@ -7,12 +7,12 @@ body, h1, h2, p, ul, li {
 /* Set a background color for the entire page */
 body {
     background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Style the header */
 header {
-    background-color: #333;
+    background-color: #404F24;
     color: #fff;
     text-align: center;
     padding: 20px;
@@ -20,7 +20,7 @@ header {
 
 /* Style the navigation menu */
 nav {
-    background-color: #333;
+    background-color: #668D3C;
     color: #fff;
     padding: 10px;
 }
@@ -54,10 +54,13 @@ section {
 
 /* Style the footer */
 footer {
-    background-color: #333;
+    background-color: #404F24;
     color: #fff;
     text-align: center;
     padding: 10px;
+    bottom:0;
+    width: 100%;
+    postions: absolute;
 }
 
 
