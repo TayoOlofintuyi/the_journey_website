@@ -7,22 +7,23 @@ body, h1, h2, p, ul, li {
 /* Set a background color for the entire page */
 body {
     background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Style the header */
 header {
-    background-color: #333;
+    background-color: #404F24; 
     color: #fff;
     text-align: center;
-    padding: 20px;
+    padding: 20px; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Style the navigation menu */
 nav {
-    background-color: #333;
-    color: #fff;
+    background-color: #668D3C; 
     padding: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 nav ul {
@@ -64,7 +65,7 @@ form {
     margin: 0 auto;
     width: 70%;
     padding: 1em;   
-    background-color: #c1ddcb;
+    background: #BDD09F;
     border-radius: 1em;
 }
 
@@ -76,7 +77,7 @@ form {
 }
 
 .form-input:focus {
-    border-color: #c1ddcb;
+    background: #BDD09F;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
@@ -94,6 +95,7 @@ label {
     width: 100px;
     text-align: right;
     font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 button {
@@ -103,8 +105,9 @@ button {
     border-radius: 10%;
     border-color: #f9f6f6;
     background-color: #f9f6f6;
-    color: #c1ddcb;
+    color: #060606;
     font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
 }   
 
 
