@@ -24,8 +24,8 @@
       <br>
       <br>
 
-<div id="journal-entry-form">
-    <center>
+    <div id="journal-entry-form">
+        <center>
         <h2>Create a New Journal Entry</h2>
         <form action="" method="post" class="new">
             <br>
@@ -43,5 +43,51 @@
         <br>
         </center>
     </div>
+
+        <center><h1>Journal Entries</h1></center>
+    <div id="journal-entry">
+        <h2 id="entry-title"></h2>
+        <p id="entry-content"></p>
+
+    </div>
+
+    <script>
+        // Retrieve data from local storage
+        const storedEntries = localStorage.getItem('journal_entries');
+        const entriesContainer = document.getElementById('journal-entry');
+
+        // const storedTitle = localStorage.getItem('journal_entry_title');
+        // const storedContent = localStorage.getItem('journal_entry_content');
+
+        // Check if data is available in local storage
+        if (storedEntries) {
+            // Display the data in the HTML template
+            // document.getElementById('entry-title').textContent = storedTitle;
+            // document.getElementById('entry-content').textContent = storedContent;
+
+            // Parse the JSON string back into an object
+            const parsedEntries = JSON.parse(storedEntries);
+
+            // Loop through the parsed object
+            parsedEntries.forEach(entry => {
+                // Display the data in the HTML template
+                // document.getElementById('entry-title').textContent = entry.title;
+                // document.getElementById('entry-content').textContent = entry.content;
+
+
+                const entryDiv = document.createElement('div');
+                entryDiv.innerHTML = `<br><h2 class="journal-entry-title">${entry.title}</h2><p class="journal-entry-content">${entry.content}</p><br>`;
+                entriesContainer.appendChild(entryDiv);
+            });
+
+        } else {
+            // Handle the case when no data is available
+            document.getElementById('entry-title').textContent = 'No Entry Found';
+            document.getElementById('entry-content').textContent = 'Please create a journal entry.';
+        }
+    </script>
+
+
+
 </body>
 </html>
