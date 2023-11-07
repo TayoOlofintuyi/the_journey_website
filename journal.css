@@ -110,5 +110,17 @@ button {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }   
 
+#journal-entry {
+    text-align: center;
+}
 
+.journal-entry-title {
+    font-weight: bold;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: auto;
+}
 
+.journal-entry-content {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    padding: auto;
+}

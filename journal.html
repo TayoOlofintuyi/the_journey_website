@@ -44,7 +44,7 @@
         </center>
     </div>
 
-        <h1>Journal Entry</h1>
+        <center><h1>Journal Entries</h1></center>
     <div id="journal-entry">
         <h2 id="entry-title"></h2>
         <p id="entry-content"></p>
@@ -54,6 +54,7 @@
     <script>
         // Retrieve data from local storage
         const storedEntries = localStorage.getItem('journal_entries');
+        const entriesContainer = document.getElementById('journal-entry');
 
         // const storedTitle = localStorage.getItem('journal_entry_title');
         // const storedContent = localStorage.getItem('journal_entry_content');
@@ -70,12 +71,13 @@
             // Loop through the parsed object
             parsedEntries.forEach(entry => {
                 // Display the data in the HTML template
-                document.getElementById('entry-title').textContent = entry.title;
-                document.getElementById('entry-content').textContent = entry.content;
+                // document.getElementById('entry-title').textContent = entry.title;
+                // document.getElementById('entry-content').textContent = entry.content;
 
-                // const entryDiv = document.createElement('div');
-                // entryDiv.innerHTML = `<h2>${entry.title}</h2><p>${entry.content}</p>`;
-                // entriesContainer.appendChild(entryDiv);
+
+                const entryDiv = document.createElement('div');
+                entryDiv.innerHTML = `<br><h2 class="journal-entry-title">${entry.title}</h2><p class="journal-entry-content">${entry.content}</p><br>`;
+                entriesContainer.appendChild(entryDiv);
             });
 
         } else {
