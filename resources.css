@@ -1,4 +1,3 @@
-* Reset some default styles to ensure consistency */
 body, h1, h2, p, ul, li {
     margin: 0;
     padding: 0;
@@ -6,19 +5,23 @@ body, h1, h2, p, ul, li {
 
 body {
     background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+    font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 header {
-    background-color: #333;
+    background-color: #404F24; 
     color: #fff;
     text-align: center;
-    padding: 13px;
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 nav {
-    background-color: #333;
+    background-color: #668d3C;
     color: #fff;
     padding: 10px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 
 nav ul {
@@ -48,7 +51,7 @@ section {
 }
 
 footer {
-    background-color: #333;
+    background-color: #668D3C;
     color: #fff;
     text-align: center;
     padding: 10px;
@@ -56,33 +59,33 @@ footer {
 
 .collapsible {
     background-color: #eee;
-    color: #333;
+    color: #668D3C;
     cursor: pointer;
-    padding: 18px;
+    padding: 20px;
     width: 100%;
     border: none;
     text-align: left;
     outline: none;
-    font-size: 13px;
+    font-size: 14px;
   }
   
   .active, .collapsible:hover {
-    background-color: #929292;
+    background-color: #BDD09F;
   }
   .collapsible:after {
-    content: '\02795';
+    content: '\002B';
     font-size: 13px;
-    color: white;
+    color: #668D3C;
     float: right;
-    margin-left: 5px;
+    margin-left: 7px;
   }
   
   .active:after {
-    content: "\2796";
+    content: "\2212";
   }
   
   .content {
-    padding: 0 18px;
+    padding: 0 20px;
     display: none;
     overflow: hidden;
     background-color: #f1f1f1;
