@@ -82,3 +82,12 @@ h1 {
 pre {
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
+footer {
+    background-color: #404F24;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}

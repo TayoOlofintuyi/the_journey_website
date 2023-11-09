@@ -30,11 +30,12 @@ Calendar page. */
  } 
 nav ul {
     list-style-type: none;
+    /* display:grid; */
 }
 
 nav ul li {
     display: inline;
-    margin-right: 20px;
+    /* margin-right: 20px; */
 }
 
 nav a {
@@ -42,10 +43,17 @@ nav a {
     color: #fff; 
 } 
 
+/* New container for a smaller, more interactive calendar */
+.container {
+    display: grid;
+    max-width: 25%;
+    align-items: center;
+
+} 
+
 /* Header for the month */
 .month {
     padding: 20px 15px;
-    width: 20%;
     background: center;
     text-align: center;
     background-color: #BDD09F;
@@ -65,28 +73,22 @@ nav a {
      letter-spacing: 3px;
 }
 
-/* Previous button inside month header */
-.month .prev {
-    float: left;
-    padding-top: 5px;
+table.mN {
+    table-layout: fixed;
+    width:max-content;
+    column-count: 7;
+    grid-row-start: 0;
+    grid-row-end: 3;
 }
-
-.month .next {
-    float: right;
-    padding-top: 5px;
-}
-
 .weekdays {
     margin: 0;
     padding: 10px 0;
-    width:22.2%;
     background-color: #668D3C;
     position: relative;
 }
 
 .weekdays li {
     display: inline-block;
-    width: 13.6%;
     color: white;
     text-align: center;
 }
@@ -95,14 +97,12 @@ nav a {
     padding: 10px 0;
     background: #BDD09F;
     margin: 0;
-    width:22%;
     position: relative;
 }
 
 .days li {
     list-style-type: none;
     display: inline-block;
-    width: 13.6%;
     text-align: center;
     margin-bottom: 5px;
     font-size: 12px;
@@ -125,7 +125,7 @@ footer {
     padding: 10px;
     bottom: 0;
     width: 100%;
-    position: absolute;
+    position: fixed;
 }
 
 
