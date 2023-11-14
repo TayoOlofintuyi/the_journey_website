@@ -27,21 +27,21 @@
                         <li>November<br><span style="font-size:18px">2023</span></li>
                     </ul>
                 </div>
-                <ul class="weekdays">
-                    <li>Mon</li>
-                    <li>Tue</li>
-                    <li>Wed</li>
-                    <li>Thurs</li>
-                    <li>Fri</li>
-                    <li>Sat</li>
-                    <li>Sun</li>
-                </ul>
-
-                <ul class="days">
-                    <table class="mN">
-                    
-                    </table>
-                </ul>
+                <div>
+                    <ul class="weekdays">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thurs</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                    </ul>
+                </div>
+                    <ol class="calendar-dates">
+                       <li id="dates"></li>
+                    </ol>
+                
             </div>
             <section>
                 <h2>What your month looks like so far!</h2>
@@ -51,9 +51,96 @@
             <p>Contacts</p>
         </footer>
         <script>
-            var numberedDays = document.getElementsByClassName("days");
+            var numberedDays = document.getElementsByClassName("calendar-dates");
             var month = document.getElementsByClassName("month");
+            message.innerHTML = " ";
+            var monthSet;
+                const Months = {
+                    1: 'January',
+                    2: 'February',
+                    3: 'March',
+                    4: 'April',
+                    5: 'May',
+                    6: 'June',
+                    7: 'July',
+                    8: 'August',
+                    9: 'September',
+                    10: 'October',
+                    11: 'November',
+                    12: 'December'
+                }
+            
+                const mDates = {
+                  J: 31,
+                  F: 28,
+                  M: 31,
+                  A: 30,
+                  Ma: 31,
+                  Jn: 30,
+                  Jl: 31,
+                  Au: 31,
+                  S: 30,
+                  O: 31,
+                  N: 30,
+                  D: 31
+                }
+            
+                function getMonth() {
+                    return this.month;
+                }
+           
+                function daysandMonths(Months, mDates) {
+                    var set;
+                    switch(getMonth()) {
+                        case 1:
+                            set = mDates.J;
+                            break;
+                        case 2:
+                            set = mDates.F;
+                            break;
+                        case 3:
+                            set = mDates.M;
+                            break;
+                        case 4:
+                            set = mDates.A;
+                            break;
+                        case 5:
+                            set = mDates.Ma;
+                            break;
+                        case 6:
+                            set = mDates.Jn;
+                            break;
+                        case 7:
+                            set = mDates.Jl;
+                            break;
+                        case 8: 
+                            set = mDates.Au;
+                            break;
+                        case 9:
+                            set = mDates.S;
+                            break;
+                        case 10:
+                            set = mDates.O;
+                            break;
+                        case 11:
+                            set = mDates.N;
+                            break;
+                        case 12:
+                            set = mDates.D;
+                            break;
+                        default:
+                            set = mDates.J;
+                    }
+                    return set;
+                }
 
+                function finalMonth(string) {
+                     meme = "";
+                    for (let i = 0; i < daysandMonths; i++) {
+                         meme += "" + 1;
+                    }
+                }
+                document.getElementById("dates").innerHTML = finalMonth();
         </script>
     </body>
 </html>
