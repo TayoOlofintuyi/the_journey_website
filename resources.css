@@ -1,89 +1,92 @@
-* Reset some default styles to ensure consistency */
 body, h1, h2, p, ul, li {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background-color: #f0f0f0;
-    font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  font-family:  Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 13px;
+  background-color: #404F24; 
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 nav {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
+  background-color: #668d3C;
+  color: #fff;
+  padding: 10px;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+
 }
 
 nav ul {
-   list-style-type: none;
+  list-style-type: none;
 }
 
 nav ul li {
-   display: inline;
-   margin-right: 20px;
+  display: inline;
+  margin-right: 20px;
 }
 
 nav a {
-   text-decoration: none;
-   color: #fff; 
-} 
+  text-decoration: none;
+  color: #fff;
+}
 
-/* Style drop down boxes */
+main {
+  padding: 20px;
+}
+
 section {
-    background-color: #fff;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 footer {
-    background-color: #333;
-    color: #fff;
-    text-align: center;
-    padding: 10px;
-    bottom: 0;
-    width: 100%;
-    position: relative;
+  background-color: #668D3C;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
 }
 
 .collapsible {
-    background-color: #eee;
-    color: #333;
-    cursor: pointer;
-    padding: 20px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 13px;
-  }
-  
-  .active, .collapsible:hover {
-    background-color: #BDD09F;
-  }
-  .collapsible:after {
-    content: '\002B';
-    font-size: 13px;
-    color: white;
-    float: right;
-    margin-left: 7px;
-  }
-  
-  .active:after {
-    content: "\2212";
-  }
-  
-  .content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f9f6f6;
-  }
+  background-color: #eee;
+  color: #668D3C;
+  cursor: pointer;
+  padding: 20px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 14px;
+}
+
+.active, .collapsible:hover {
+  background-color: #BDD09F;
+}
+.collapsible:after {
+  content: '\002B';
+  font-size: 13px;
+  color: #668D3C;
+  float: right;
+  margin-left: 7px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.content {
+  padding: 0 20px;
+  display: none;
+  overflow: hidden;
+  background-color: #f1f1f1;
+}
