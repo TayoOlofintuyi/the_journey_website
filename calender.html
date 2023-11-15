@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <title>Calendar</title>
     <link rel="stylesheet" href="calendar.css">
+    <script src="script.js"></script>
     <body>
         <header>
         <h1>Calendar</h1>
@@ -38,109 +39,34 @@
                         <li>Sat</li>
                     </ul>
                 </div>
-                    <ol class="calendar-dates">
-                       <li id="dates"></li>
-                    </ol>
-                
+                <div class="calendar-dates">
+                    <ul class="dates"></ul>
+                </div>
             </div>
-            <section>
-                <h2>What your month looks like so far!</h2>
-            </section>
+            <label> Events and Reminders</label>
+            <form>
+                
+            </form>
         <footer>
             <p>&copy; 2023 The Journey. All rights reserved.</p>
             <p>Contacts</p>
         </footer>
-        <script>
-            var numberedDays = document.getElementsByClassName("calendar-dates");
-            var month = document.getElementsByClassName("month");
-            message.innerHTML = " ";
-            var monthSet;
-                const Months = {
-                    1: 'January',
-                    2: 'February',
-                    3: 'March',
-                    4: 'April',
-                    5: 'May',
-                    6: 'June',
-                    7: 'July',
-                    8: 'August',
-                    9: 'September',
-                    10: 'October',
-                    11: 'November',
-                    12: 'December'
-                }
-            
-                const mDates = {
-                  J: 31,
-                  F: 28,
-                  M: 31,
-                  A: 30,
-                  Ma: 31,
-                  Jn: 30,
-                  Jl: 31,
-                  Au: 31,
-                  S: 30,
-                  O: 31,
-                  N: 30,
-                  D: 31
-                }
-            
-                function getMonth() {
-                    return this.month;
-                }
-           
-                function daysandMonths(Months, mDates) {
-                    var set;
-                    switch(getMonth()) {
-                        case 1:
-                            set = mDates.J;
-                            break;
-                        case 2:
-                            set = mDates.F;
-                            break;
-                        case 3:
-                            set = mDates.M;
-                            break;
-                        case 4:
-                            set = mDates.A;
-                            break;
-                        case 5:
-                            set = mDates.Ma;
-                            break;
-                        case 6:
-                            set = mDates.Jn;
-                            break;
-                        case 7:
-                            set = mDates.Jl;
-                            break;
-                        case 8: 
-                            set = mDates.Au;
-                            break;
-                        case 9:
-                            set = mDates.S;
-                            break;
-                        case 10:
-                            set = mDates.O;
-                            break;
-                        case 11:
-                            set = mDates.N;
-                            break;
-                        case 12:
-                            set = mDates.D;
-                            break;
-                        default:
-                            set = mDates.J;
-                    }
-                    return set;
-                }
 
-                function finalMonth(string) {
-                     meme = "";
-                    for (let i = 0; i < daysandMonths; i++) {
-                         meme += "" + 1;
-                    }
+        <script>
+
+
+        // storing full name of all months in array
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"];
+
+       
+        document.write("<table>")
+        for (let i = 1; i <= 30; i++) {
+            let list = document.createElement('li');
+            list.innerText = i;
+            document.querySelector('.dates').appendChild(list);
                 }
-                document.getElementById("dates").innerHTML = finalMonth();
+        cocument.write("</table>");
         </script>
     </body>
 </html>

@@ -30,12 +30,11 @@ Calendar page. */
  } 
 nav ul {
     list-style-type: none;
-    /* display:grid; */
 }
 
 nav ul li {
     display: inline;
-    /* margin-right: 20px; */
+    margin-right: 20px;
 }
 
 nav a {
