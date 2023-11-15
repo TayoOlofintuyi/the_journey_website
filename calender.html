@@ -3,6 +3,7 @@
     <meta charset="UTF-8">
     <title>Calendar</title>
     <link rel="stylesheet" href="calendar.css">
+    <script src="script.js"></script>
     <body>
         <header>
         <h1>Calendar</h1>
@@ -27,33 +28,45 @@
                         <li>November<br><span style="font-size:18px">2023</span></li>
                     </ul>
                 </div>
-                <ul class="weekdays">
-                    <li>Mon</li>
-                    <li>Tue</li>
-                    <li>Wed</li>
-                    <li>Thurs</li>
-                    <li>Fri</li>
-                    <li>Sat</li>
-                    <li>Sun</li>
-                </ul>
-
-                <ul class="days">
-                    <table class="mN">
-                    
-                    </table>
-                </ul>
+                <div>
+                    <ul class="weekdays">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thurs</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                    </ul>
+                </div>
+                <div class="calendar-dates">
+                    <ul class="dates"></ul>
+                </div>
             </div>
-            <section>
-                <h2>What your month looks like so far!</h2>
-            </section>
+            <label> Events and Reminders</label>
+            <form>
+                
+            </form>
         <footer>
             <p>&copy; 2023 The Journey. All rights reserved.</p>
             <p>Contacts</p>
         </footer>
-        <script>
-            var numberedDays = document.getElementsByClassName("days");
-            var month = document.getElementsByClassName("month");
 
+        <script>
+
+
+        // storing full name of all months in array
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"];
+
+       
+        document.write("<table>")
+        for (let i = 1; i <= 30; i++) {
+            let list = document.createElement('li');
+            list.innerText = i;
+            document.querySelector('.dates').appendChild(list);
+                }
+        cocument.write("</table>");
         </script>
     </body>
 </html>

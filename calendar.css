@@ -30,12 +30,11 @@ Calendar page. */
  } 
 nav ul {
     list-style-type: none;
-    /* display:grid; */
 }
 
 nav ul li {
     display: inline;
-    /* margin-right: 20px; */
+    margin-right: 20px;
 }
 
 nav a {
@@ -46,8 +45,7 @@ nav a {
 /* New container for a smaller, more interactive calendar */
 .container {
     display: grid;
-    max-width: 25%;
-    align-items: center;
+    max-width: 30%;
 
 } 
 
@@ -73,13 +71,6 @@ nav a {
      letter-spacing: 3px;
 }
 
-table.mN {
-    table-layout: fixed;
-    width:max-content;
-    column-count: 7;
-    grid-row-start: 0;
-    grid-row-end: 3;
-}
 .weekdays {
     margin: 0;
     padding: 10px 0;
@@ -88,29 +79,31 @@ table.mN {
 }
 
 .weekdays li {
-    display: inline-block;
+    display:inline-table;
     color: white;
+    width: 12.8%;
     text-align: center;
 }
 
-.days {
+.calendar-dates {
     padding: 10px 0;
     background: #BDD09F;
     margin: 0;
     position: relative;
 }
 
-.days li {
+.calendar-dates li {
     list-style-type: none;
     display: inline-block;
     text-align: center;
+    width: 12.8%;
     margin-bottom: 5px;
     font-size: 12px;
     color: black;
 }
 
 /*Highlights the current day*/
-.days li .active {
+.calendar-dates li .active {
     padding: 5px;
     background: transparent;
     border-style: dotted;
