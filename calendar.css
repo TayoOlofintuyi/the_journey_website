@@ -45,8 +45,7 @@ nav a {
 /* New container for a smaller, more interactive calendar */
 .container {
     display: grid;
-    max-width: 30%;
-
+    max-width: 70%;
 } 
 
 /* Header for the month */
@@ -109,6 +108,12 @@ nav a {
     border-style: dotted;
     border-width: thin;
     color: black !important
+}
+
+.RemAEvents {
+    text-align: end;
+    position: relative;
+
 }
 /* Style the footer */
 footer {

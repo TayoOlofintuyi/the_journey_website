@@ -21,7 +21,6 @@
         </nav>
         
             <!-- Basics for the calendar outline -->
-            <label> Inspiring quote to be inserted here!</label>
             <div class="container">
                  <div class="month">
                     <ul>
@@ -43,10 +42,13 @@
                     <ul class="dates"></ul>
                 </div>
             </div>
-            <label> Events and Reminders</label>
-            <form>
-                
-            </form>
+            <br>
+            <div class="RemAEvents">
+                <form>
+                    <label>Events & Reminders</label><br>
+                    <input type="datetime-local">
+                </form>
+            </div>
         <footer>
             <p>&copy; 2023 The Journey. All rights reserved.</p>
             <p>Contacts</p>
@@ -59,14 +61,40 @@
         const months = ["January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"];
 
+        const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
        
-        document.write("<table>")
+    //    function createTable() {
+    //     const tbl = document.createElement("table");
+    //     const tblBody = document.createElement("tbody");
+
+    //     for (let i = 0; i < 5; i++) {
+    //         const tr = tbl.insertRow();
+    //         for(let j = 0; j < 7; j++) {
+    //             const cell = document.createElement('td');
+    //             const cellText = document.createTextNode(i);
+    //             cell.appendChild(cellText);
+    //             tr.appendChild(cell);
+    //         }
+    //     }
+    //     document.body.querySelector('.dates').appendChild(tbl);
+    //     cell.style.setAttribute('width', '100px');
+    //    }
+    //    createTable();
+       
+        function fillCalendar() {
         for (let i = 1; i <= 30; i++) {
             let list = document.createElement('li');
             list.innerText = i;
             document.querySelector('.dates').appendChild(list);
-                }
-        cocument.write("</table>");
+            list.addEventListener("click", nReminder);
+            }
+        }
+        fillCalendar();
+
+        function nReminder() {
+
+        }
         </script>
     </body>
 </html>
