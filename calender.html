@@ -24,7 +24,9 @@
             <div class="container">
                  <div class="month">
                     <ul>
+                        <button style="float:left;" class="navi" onclick="">prev</button>
                         <li>November<br><span style="font-size:18px">2023</span></li>
+                        <button class="navi" style="float:right;" type="button" onclick="">next</button>
                     </ul>
                 </div>
                 <div>
@@ -36,15 +38,15 @@
                         <li>Thurs</li>
                         <li>Fri</li>
                         <li>Sat</li>
-                        <button type="button" onclick="">+</button>
+                        <button type="button" class="collapsible" onclick="toggleRem()">+</button>
                     </ul>
                 </div>
                 <div class="calendar-dates">
                     <ul class="dates"></ul>
                 </div>
             </div>
-            <br>
-            <div style="float:right; float:top;" class="RemAEvents">
+            <!-- style="position:relative; float:right; right:0px; bottom:670px -->
+            <div class="RemAEvents">
                 <form method="post">
                     <label>Events & Reminders</label><br>
                     <label for="name">Name: </label>
@@ -66,34 +68,58 @@
             <p>Contacts</p>
         </footer>
 
+
         <script>
-
-
         // storing full name of all months in array
         const months = ["January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"];
 
         const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+        var mheader = document.querySelector('.month');
+        var i = 1;
 
-       
-    //    function createTable() {
-    //     const tbl = document.createElement("table");
-    //     const tblBody = document.createElement("tbody");
+        // var coll = document.getElementById("collapsible");
+        // var x;
 
-    //     for (let i = 0; i < 5; i++) {
-    //         const tr = tbl.insertRow();
-    //         for(let j = 0; j < 7; j++) {
-    //             const cell = document.createElement('td');
-    //             const cellText = document.createTextNode(i);
-    //             cell.appendChild(cellText);
-    //             tr.appendChild(cell);
-    //         }
-    //     }
-    //     document.body.querySelector('.dates').appendChild(tbl);
-    //     cell.style.setAttribute('width', '100px');
-    //    }
-    //    createTable();
+        // function Collapse() {
+        //     for (x = 0; x < coll.length; x++) {
+        //         coll[x].addEventListener("click", function() {
+        //             this.classList.toggle("active");
+        //             var content = this.nextElementSibling;
+        //             if (content.style.display === "block") {
+        //                 content.style.display = "none";
+        //              } else {
+        //                 content.style.display = "block";
+        //              }   
+        //         })
+        //     }
+        // }
+
+        function toggleRem() {
+            var div = document.getElementsByClassName("RemAEvents");
+            if (div.style.display === "block") {
+                 div.style.display = "none";
+             } else {
+                        div.style.display = "block";
+                    }  
+        }
        
+        function prev() {
+            if (i == 0) {
+                document.getElementsByClassName('prev').disabled = true;
+                document.getElementsByClassName('next').disabled = false;
+            } else {
+                i--;
+            }
+        }
+        function next() {
+            if (i == 11) {
+                document.getElementsByClassName('prev').disabled = false;
+                document.getElementsByClassName('next').disabled = true;
+            } else {
+                i++;
+            }
+        }
         function fillCalendar() {
         for (let i = 1; i <= 30; i++) {
             let list = document.createElement('li');
@@ -107,6 +133,8 @@
         function nReminder() {
 
         }
+
+
         </script>
     </body>
 </html>

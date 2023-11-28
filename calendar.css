@@ -45,8 +45,7 @@ nav a {
 /* New container for a smaller, more interactive calendar */
 .container {
     display: grid;
-    max-width: 70%;
-    max-height: 70%;
+    max-width: 100%;
 } 
 
 /* Header for the month */
@@ -69,6 +68,16 @@ nav a {
      font-size: 20px;
      text-transform: uppercase;
      letter-spacing: 3px;
+    list-style-type: none;
+}
+
+.navi {
+    background-color:#668D3C;
+}
+
+.navi:hover {
+    color: #404F24;
+    background-color: #BDD09F;
 }
 
 .weekdays {
@@ -102,22 +111,32 @@ nav a {
     color: black;
 }
 
-/*Highlights the current day*/
-.calendar-dates li .active {
-    padding: 5px;
-    background: transparent;
-    border-style: dotted;
-    border-width: thin;
-    color: black !important
+.dates li {
+    font-size:16px;
+    margin-left: 2px;
+    margin-bottom: 104px;
+    gap: 10px;
+    max-height: max-content;
+}
+
+.collapsible {
+    cursor: pointer;
+    background-color: #BDD09F;
+}
+
+.active, .collapsible:hover {
+    background-color:#668D3C;
 }
 
 .RemAEvents {
-    text-align: end;
+    text-align: start;
     background-color: #668D3C;
-    padding:10px;
+    padding:18px;
     border-width: 2px;
     border-style:solid;
     border-color: #404F24;
+    position:relative;
+    display:hidden;
 }
 
 .description {
@@ -131,7 +150,7 @@ footer {
     padding: 10px;
     bottom: 0;
     width: 100%;
-    position: fixed;
+    position: relative;
 }
 
 
