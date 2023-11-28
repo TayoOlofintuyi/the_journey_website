@@ -36,6 +36,7 @@
                         <li>Thurs</li>
                         <li>Fri</li>
                         <li>Sat</li>
+                        <button type="button" onclick="">+</button>
                     </ul>
                 </div>
                 <div class="calendar-dates">
@@ -43,10 +44,21 @@
                 </div>
             </div>
             <br>
-            <div class="RemAEvents">
-                <form>
+            <div style="float:right; float:top;" class="RemAEvents">
+                <form method="post">
                     <label>Events & Reminders</label><br>
-                    <input type="datetime-local">
+                    <label for="name">Name: </label>
+                    <input type ="text" id="name" name="name"><br>
+                    <br>
+                    <label for="dateTime">Date:</label>
+                    <input type="datetime-local" id="dateTime" name="dateTime"><br>
+                    <br>
+                    <label for="description">Description</label><br>
+                    <textarea name="description" rows="4" cols="30"></textarea>
+                    <br>
+                    <input style="float:left;" type="submit" value="Save">
+                    <input type="reset" value="Exit">
+                    
                 </form>
             </div>
         <footer>

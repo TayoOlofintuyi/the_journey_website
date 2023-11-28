@@ -46,6 +46,7 @@ nav a {
 .container {
     display: grid;
     max-width: 70%;
+    max-height: 70%;
 } 
 
 /* Header for the month */
@@ -112,8 +113,15 @@ nav a {
 
 .RemAEvents {
     text-align: end;
-    position: relative;
+    background-color: #668D3C;
+    padding:10px;
+    border-width: 2px;
+    border-style:solid;
+    border-color: #404F24;
+}
 
+.description {
+    border-style: double;
 }
 /* Style the footer */
 footer {
