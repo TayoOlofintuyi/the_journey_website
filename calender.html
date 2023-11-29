@@ -38,15 +38,14 @@
                         <li>Thurs</li>
                         <li>Fri</li>
                         <li>Sat</li>
-                        <button type="button" class="collapsible" onclick="toggleRem()">+</button>
+                        <button class="collapsible" onclick="toggleRem(this)">+</button>
                     </ul>
                 </div>
                 <div class="calendar-dates">
                     <ul class="dates"></ul>
                 </div>
             </div>
-            <!-- style="position:relative; float:right; right:0px; bottom:670px -->
-            <div class="RemAEvents">
+            <div hidden class="RemAEvents">
                 <form method="post">
                     <label>Events & Reminders</label><br>
                     <label for="name">Name: </label>
@@ -78,31 +77,22 @@
         var mheader = document.querySelector('.month');
         var i = 1;
 
-        // var coll = document.getElementById("collapsible");
-        // var x;
-
-        // function Collapse() {
-        //     for (x = 0; x < coll.length; x++) {
-        //         coll[x].addEventListener("click", function() {
-        //             this.classList.toggle("active");
-        //             var content = this.nextElementSibling;
-        //             if (content.style.display === "block") {
-        //                 content.style.display = "none";
-        //              } else {
-        //                 content.style.display = "block";
-        //              }   
-        //         })
-        //     }
-        // }
+       
 
         function toggleRem() {
-            var div = document.getElementsByClassName("RemAEvents");
-            if (div.style.display === "block") {
-                 div.style.display = "none";
-             } else {
-                        div.style.display = "block";
-                    }  
-        }
+
+            document.querySelector('collapsible').onclick = function() {
+                let element = document.getElementsByClassName("RemAEvents");
+                let hidden = elemement.getAttribute("hidden");
+                if(hidden) {
+                    element.removeAttribute("hidden");
+                    button.innerText = "-";
+                } else {
+                    element.setAttribute("hidden", "hidden");
+                    button.innerText = "+";
+                }
+                }
+            }
        
         function prev() {
             if (i == 0) {
