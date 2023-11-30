@@ -24,9 +24,9 @@
             <div class="container">
                  <div class="month">
                     <ul>
-                        <button style="float:left;" class="navi" onclick="">prev</button>
-                        <li>November<br><span style="font-size:18px">2023</span></li>
-                        <button class="navi" style="float:right;" type="button" onclick="">next</button>
+                        <button style="float:left;" class="prev" onclick="prev()">prev</button>
+                        <li id="mName">November<br><span style="font-size:18px">2023</span></li>
+                        <button class="next" style="float:right;" type="button" onclick="">next</button>
                     </ul>
                 </div>
                 <div>
@@ -38,14 +38,14 @@
                         <li>Thurs</li>
                         <li>Fri</li>
                         <li>Sat</li>
-                        <button class="collapsible" onclick="toggleRem(this)">+</button>
+                        <button class="collapsible" onclick="toggleRem()">+</button>
                     </ul>
                 </div>
                 <div class="calendar-dates">
                     <ul class="dates"></ul>
                 </div>
             </div>
-            <div hidden class="RemAEvents">
+            <div id="form" class="RemAEvents">
                 <form method="post">
                     <label>Events & Reminders</label><br>
                     <label for="name">Name: </label>
@@ -74,34 +74,42 @@
                     "August", "September", "October", "November", "December"];
 
         const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-        var mheader = document.querySelector('.month');
-        var i = 1;
+            var button = document.getElementsByClassName("collapsible");
 
-       
 
         function toggleRem() {
-
-            document.querySelector('collapsible').onclick = function() {
-                let element = document.getElementsByClassName("RemAEvents");
-                let hidden = elemement.getAttribute("hidden");
-                if(hidden) {
-                    element.removeAttribute("hidden");
-                    button.innerText = "-";
-                } else {
-                    element.setAttribute("hidden", "hidden");
-                    button.innerText = "+";
-                }
-                }
-            }
-       
-        function prev() {
-            if (i == 0) {
-                document.getElementsByClassName('prev').disabled = true;
-                document.getElementsByClassName('next').disabled = false;
+            var x = document.getElementById("form");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+                button.value = "-";
             } else {
-                i--;
+                x.style.display = "none";
+                button.value = "+";
             }
+            }
+            toggleRem();
+
+            //Plan for prev function:  get the ids/names for  necessary elements.
+            // on click - the function will check  which value the header matches within
+            // the months array. If it is not 0, the prev button will be enabled and the header text
+            // will update with each click
+            /* get the element id/classnames
+            *   get the header value and try to match it with the string values in the array.
+            *   decrement through the array while updating header text with values from the array.
+            */
+        function prev() {
+            var m = document.getElementById("mName");
+            prevB = document.getElementById("prev");
+            // for (i = 0; i < months.length; i++) {
+                if (i == 0) {
+                    document.getElementsByClassName('prev').disabled = true;
+                    document.getElementsByClassName('next').disabled = false;
+                } else {
+                    i--;
+                }
+            
         }
+        prev();
         function next() {
             if (i == 11) {
                 document.getElementsByClassName('prev').disabled = false;
