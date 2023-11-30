@@ -4,16 +4,32 @@ body, h1, h2, p, ul, li {
     padding: 0;
 }
 
+h2{
+    text-align: center;
+    border: #404F24;
+    border: 3px solid;
+}
+
+h3{
+    text-align: center; 
+}
+/* Image scale */
+img {
+    max-Width :50%;
+    height: 50%;
+
+}
+
 /* Set a background color for the entire page */
 body {
-    background-color: #f0f0f0;
+    background-color: #f8f4f4;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Style the header */
 header {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 20px;
 }
@@ -21,7 +37,7 @@ header {
 /* Style the navigation menu */
 nav {
     background-color: #668D3C;
-    color: #fff;
+    color: #f8f4f4;
     padding: 10px;
 }
 
@@ -36,7 +52,7 @@ nav ul li {
 
 nav a {
     text-decoration: none;
-    color: #fff;
+    color: #f8f4f4;
 }
 
 /* Style the main content area */
@@ -45,9 +61,9 @@ main {
 }
 
 section {
-    background-color: #fff;
+    background-color: #f8f4f4;
     padding: 20px;
-    border: 1px solid #ccc;
+
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
@@ -55,7 +71,7 @@ section {
 /* Style the footer */
 footer {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 10px;
     bottom:0;
