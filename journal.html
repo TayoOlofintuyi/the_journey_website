@@ -22,43 +22,56 @@
     </nav>
 
     <br>
-    <br>
+
 
         <!-- mood check form-->
-    <div id="mood-check-form">
+    <!-- <div id="mood-check-form">
         <center>
         <h2>How are you feeling today?</h2>
         <form action="" method="post" class="new">
             <br>
-            <label for="mood">Mood:</label>
+            <label for="mood" class="label-heading">Mood:</label>
             <br>
             <input type="text" id="mood" name="mood" required class="form-input">
             <br>
             <br>
-            <label for="reason">Reason:</label>
+            <label for="reason" class="label-heading">Reason:</label>
             <br>
             <textarea id="reason" name="reason" class="form-input" required></textarea>
             <br>
-            <button type="submit">Submit</button>   
+            <button type="submit" class="label-heading">Submit</button>   
         </form>
         <br>
         </center>
-    </div>
-
-      <br>
-      <br>
+    </div> -->
 
     <div id="journal-entry-form">
         <center>
         <h2>Create a New Journal Entry</h2>
+        <br>
         <form action="" method="post" class="new">
+            <!-- <p>&#128512</p> -->
             <br>
-            <label for="title">Title:</label>
+            <label for="title" class="label-heading">Title:</label>
             <br>
             <input type="text" id="title" name="title" required class="form-input">
             <br>
             <br>
-            <label for="content">Content:</label>
+            <label for="mood" class="label-heading">Pick Your Mood:</label>
+            <br>
+            <input type="checkbox" id="mood" name="mood" required class="form-input">
+                <label for="mood">Happy</label>
+            <input type="checkbox" id="mood" name="mood" required class="form-input">
+                <label for="mood">Sad</label>
+            <input type="checkbox" id="mood" name="mood" required class="form-input">
+                <label for="mood">Angry</label>
+            <input type="checkbox" id="mood" name="mood" required class="form-input">
+                <label for="mood">Anxious</label>
+            <input type="checkbox" id="mood" name="mood" required class="form-input">
+                <label for="mood">Excited</label>
+            <br>
+            <br>
+            <label for="content" class="label-heading">Content:</label>
             <br>
             <textarea id="content" name="content" class="form-input" required></textarea>
             <br>
