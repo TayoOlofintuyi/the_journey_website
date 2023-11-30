@@ -15,7 +15,7 @@ body, h1, h2, p, ul, li {
 /* Style the header */
  header {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 20px;
 }
@@ -23,7 +23,7 @@ body, h1, h2, p, ul, li {
 /* Style the navigation menu */
  nav { 
      background-color: #668D3C;
-    color: #fff;
+    color: #f8f4f4;
     padding: 10px;
  } 
 nav ul {
@@ -37,7 +37,7 @@ nav ul li {
 
 nav a {
     text-decoration: none;
-    color: #fff; 
+    color: #f8f4f4; 
 } 
 body {
     background-color: #f0f0f0;
@@ -54,7 +54,7 @@ header {
 /* Style the navigation menu */
 nav { 
     background-color: #668D3C;
-   color: #fff;
+   color: #f8f4f4;
    padding: 10px;
 } 
 nav ul {
@@ -68,12 +68,12 @@ nav ul li {
 
 nav a {
    text-decoration: none;
-   color: #fff; 
+   color: #f8f4f4; 
 } 
 
 h1 {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 20px; 
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -84,10 +84,18 @@ pre {
 }
 footer {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 10px;
     bottom: 0;
     width: 100%;
     position: absolute;
+}
+
+section {
+    background-color: #f8f4f4;
+    padding: 20px;
+
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
