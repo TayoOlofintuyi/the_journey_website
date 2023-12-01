@@ -10,14 +10,14 @@ Calendar page. */
 
 /* Set a background color for the entire page */
  body {
-    background-color: #f0f0f0;
+    background-color: #f8f4f4;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Style the header */
  header {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 20px;
 }
@@ -25,7 +25,7 @@ Calendar page. */
 /* Style the navigation menu */
  nav { 
      background-color: #668D3C;
-    color: #fff;
+    color: #f8f4f4;
     padding: 10px;
  } 
 nav ul {
@@ -39,7 +39,7 @@ nav ul li {
 
 nav a {
     text-decoration: none;
-    color: #fff; 
+    color: #f8f4f4; 
 } 
 
 /* New container for a smaller, more interactive calendar */
@@ -89,7 +89,7 @@ nav a {
 
 .weekdays li {
     display:inline-table;
-    color: white;
+    color: #f8f4f4;
     width: 12.8%;
     text-align: center;
 }
@@ -145,7 +145,7 @@ nav a {
 /* Style the footer */
 footer {
     background-color: #404F24;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 10px;
     bottom: 0;

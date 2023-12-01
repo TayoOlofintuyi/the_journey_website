@@ -6,17 +6,11 @@ body, h1, h2, p, ul, li {
 
 h2{
     text-align: center;
-    border: #404F24;
-    border: 3px solid;
+    color:#404F24;
 }
 
 h3{
     text-align: center; 
-}
-/* Image scale */
-img {
-    max-Width :50%;
-    height: 50%;
 
 }
 
