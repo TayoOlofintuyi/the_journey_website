@@ -27,9 +27,6 @@ button{
   font-family: Georgia, 'Times New Roman', Times, serif;
   background-color:#f8f4f4;
 }
-button{
-  
-}
 
 nav ul {
   list-style-type: none;
@@ -65,7 +62,7 @@ footer {
 }
 
 .collapsible {
-  background-color: #;
+  background-color: #eee;
   color: #668D3C;
   cursor: pointer;
   padding: 20px;

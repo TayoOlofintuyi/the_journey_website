@@ -86,14 +86,11 @@
         <br>
         </center>
     </div>
-
-        <center><h1>Journal Entries</h1></center>
+        <center><h1>Your Journal Entries:</h1></center>
     <div id="journal-entry">
-        <h2 id="entry-title"></h2>
-        <p id="entry-content"></p>
-
+                <h2 id="entry-title"></h2>
+                <p id="entry-content"></p>
     </div>
-
     <script>
         // Retrieve data from local storage
         const storedEntries = localStorage.getItem('journal_entries');
@@ -113,9 +110,9 @@
 
             // Loop through the parsed object
             parsedEntries.forEach(entry => {
-                // Display the data in the HTML template
-                // document.getElementById('entry-title').textContent = entry.title;
-                // document.getElementById('entry-content').textContent = entry.content;
+            // Display the data in the HTML template
+            // document.getElementById('entry-title').textContent = entry.title;
+            // document.getElementById('entry-content').textContent = entry.content;
 
 
                 const entryDiv = document.createElement('div');
@@ -129,9 +126,8 @@
             document.getElementById('entry-content').textContent = 'Please create a journal entry.';
         }
     </script>
-
 <footer>
-    <p>&copy; 2023 Your Website Name. All rights reserved.</p>
+    <p>&copy; 2023 The Journey. All rights reserved.</p>
     <p>Contacts</p>
 </footer>
 

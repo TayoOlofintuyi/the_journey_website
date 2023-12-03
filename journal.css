@@ -56,7 +56,7 @@ section {
     
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    brder: #404F24;
+    border: #404F24;
     border: 3px solid;;
 }
 
@@ -111,6 +111,7 @@ button {
     height: 10%;
     border-radius: 10%;
     border-color: #f8f4f4;
+    display: inline-block;
     background-color: #f8f4f4;
     color: #060606;
     font-weight: bold;
@@ -119,17 +120,30 @@ button {
 
 #journal-entry {
     text-align: center;
+    background-color: #BDD09F;
+    padding: 20px;
+    width: 50%;
+    border: 1px solid #ccc;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .journal-entry-title {
     font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .journal-entry-content {
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 footer {
@@ -139,5 +153,5 @@ footer {
     padding: 10px;
     bottom:0;
     width: 100%;
-    postions: relative;
+    position: relative;
 }
