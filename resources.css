@@ -4,13 +4,13 @@ body, h1, h2, p, ul, li {
 }
 
 body {
-  background-color: #f0f0f0;
+  background-color: #f8f4f4;
   font-family:  Georgia, 'Times New Roman', Times, serif;
 }
 
 header {
   background-color: #404F24; 
-  color: #fff;
+  color: #f8f4f4;
   text-align: center;
   padding: 20px;
   font-family: Georgia, 'Times New Roman', Times, serif;
@@ -18,15 +18,14 @@ header {
 }
 nav {
   background-color: #668d3C;
-  color: #fff;
+  color: #f8f4f4;
   padding: 10px;
   font-family: Georgia, 'Times New Roman', Times, serif;
 
 }
-dl{
-  color: #fff;
-  padding: 10px;
+button{
   font-family: Georgia, 'Times New Roman', Times, serif;
+  background-color:#f8f4f4;
 }
 
 nav ul {
@@ -40,7 +39,7 @@ nav ul li {
 
 nav a {
   text-decoration: none;
-  color: #fff;
+  color: #f8f4f4;
 }
 
 main {
@@ -48,7 +47,7 @@ main {
 }
 
 section {
-  background-color: #fff;
+  background-color: #f8f4f4;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -57,7 +56,7 @@ section {
 
 footer {
   background-color: #668D3C;
-  color: #fff;
+  color: #f8f4f4;
   text-align: center;
   padding: 10px;
 }
@@ -93,5 +92,14 @@ footer {
   padding: 0 20px;
   display: none;
   overflow: hidden;
-  background-color: #f1f1f1;
+  background-color: #f8f4f4;
+}
+footer {
+  background-color: #404F24;
+  color: #f8f4f4;
+  text-align: center;
+  padding: 10px;
+  bottom: 0;
+  width: 100%;
+  position: relative;
 }

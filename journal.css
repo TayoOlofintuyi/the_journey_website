@@ -6,19 +6,24 @@ body, h1, h2, p, ul, li {
 
 /* Set a background color for the entire page */
 body {
-    background-color: #f0f0f0;
+    background-color: #f8f4f4;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 
 /* Style the header */
 header {
     background-color: #404F24; 
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 20px; 
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
-
+h1{
+    color:#f8f4f4
+}
+h2{
+    color:#f8f4f4
+}
 /* Style the navigation menu */
 nav {
     background-color: #668D3C; 
@@ -37,7 +42,7 @@ nav ul li {
 
 nav a {
     text-decoration: none;
-    color: #fff;
+    color: #f8f4f4;
 }
 
 /* Style the main content area */
@@ -46,17 +51,19 @@ main {
 }
 
 section {
-    background-color: #fff;
+    background-color: #f8f4f4;
     padding: 20px;
-    border: 1px solid #ccc;
+    
     border-radius: 5px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border: #404F24;
+    border: 3px solid;;
 }
 
 /* Style the footer */
 footer {
     background-color: #333;
-    color: #fff;
+    color: #f8f4f4;
     text-align: center;
     padding: 10px;
 }
@@ -103,8 +110,9 @@ button {
     width: 20%;
     height: 10%;
     border-radius: 10%;
-    border-color: #f9f6f6;
-    background-color: #f9f6f6;
+    border-color: #f8f4f4;
+    display: inline-block;
+    background-color: #f8f4f4;
     color: #060606;
     font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -112,15 +120,38 @@ button {
 
 #journal-entry {
     text-align: center;
+    background-color: #BDD09F;
+    padding: 20px;
+    width: 50%;
+    border: 1px solid #ccc;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .journal-entry-title {
     font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .journal-entry-content {
     font-family: Georgia, 'Times New Roman', Times, serif;
     padding: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+footer {
+    background-color: #404F24;
+    color: #f8f4f4;
+    text-align: center;
+    padding: 10px;
+    bottom:0;
+    width: 100%;
+    position: relative;
 }

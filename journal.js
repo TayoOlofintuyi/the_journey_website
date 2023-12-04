@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (form) {
         form.addEventListener('submit', function (event) {
             event.preventDefault();
+            alert("Journal Entry Submitted!");
 
             // Get the values from the form inputs
             const title = document.getElementById('title').value;
