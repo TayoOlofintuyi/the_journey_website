@@ -30,9 +30,10 @@
             <!-- Basics for the calendar outline -->
             <div class="container">
                  <div class="month">
-                    <ul>
+                    <ul >
                         <button style="float:left;" class="prev" onclick="prev()">prev</button>
-                        <li id="mName">November<br><span style="font-size:18px">2023</span></li>
+                        <li id="mName" value="12">December<br></li>
+                        <li><span style="font-size:18px">2023</span></li>
                         <button class="next" style="float:right;" type="button" onclick="">next</button>
                     </ul>
                 </div>
@@ -83,6 +84,7 @@
         const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
             var button = document.getElementById("add").innerText;
             console.log("button symbol is : ", button);
+            console.log("", months);
 
         function toggleRem() {
             var x = document.getElementById("form");
@@ -105,19 +107,23 @@
             
            
         function prev() {
-            var m = document.getElementById("mName").textContent;
-            prevB = document.getElementById("prev");
-           for(i = 0; i < months.length; i++) {
-                if (m != months[i]) {
-                    continue;
-                } else if (m === months[i]){
-                    break;
-                    document.getElementById("mName").textContent = "" + i;
+             m = document.getElementById("mName").textContent;
+            prevB = document.getElementsByClassName("prev");
+            for (i = 0; i < months.length; i++){
+                if (m.value = months[i].textContent){
+                    console.log("", i);
                 }
-                console.log(months[i]);
+            }
+
+            // for(i = m; i < months.length; i++) {
+            //      if (m != months[i].textContent) {
+            //          i--;
+            //      } else if (m === months[i].textContent){
+            //          document.getElementById("mName").textContent = "" + i;
+            //      }
+            //      console.log(months[i]);
            }
             
-        }
         prev();
         function next() {
             if (i == 11) {
