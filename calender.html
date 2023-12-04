@@ -38,7 +38,7 @@
                         <li>Thurs</li>
                         <li>Fri</li>
                         <li>Sat</li>
-                        <button class="collapsible" onclick="toggleRem()">+</button>
+                        <button id="add" class="collapsible" onclick="toggleRem()">+</button>
                     </ul>
                 </div>
                 <div class="calendar-dates">
@@ -74,17 +74,15 @@
                     "August", "September", "October", "November", "December"];
 
         const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            var button = document.getElementsByClassName("collapsible");
-
+            var button = document.getElementById("add").innerText;
+            console.log("button symbol is : ", button);
 
         function toggleRem() {
             var x = document.getElementById("form");
             if (x.style.display === "none") {
                 x.style.display = "block";
-                button.value = "-";
             } else {
                 x.style.display = "none";
-                button.value = "+";
             }
             }
             toggleRem();
@@ -97,16 +95,20 @@
             *   get the header value and try to match it with the string values in the array.
             *   decrement through the array while updating header text with values from the array.
             */
+            
+           
         function prev() {
-            var m = document.getElementById("mName");
+            var m = document.getElementById("mName").textContent;
             prevB = document.getElementById("prev");
-            // for (i = 0; i < months.length; i++) {
-                // if (i == 0) {
-                //     document.getElementsByClassName('prev').disabled = true;
-                //     document.getElementsByClassName('next').disabled = false;
-                // } else {
-                //     i--;
-                // }
+           for(i = 0; i < months.length; i++) {
+                if (m != months[i]) {
+                    continue;
+                } else if (m === months[i]){
+                    break;
+                    document.getElementById("mName").textContent = "" + i;
+                }
+                console.log(months[i]);
+           }
             
         }
         prev();
