@@ -30,10 +30,11 @@
             <!-- Basics for the calendar outline -->
             <div class="container">
                  <div class="month">
-                    <ul>
-                        <button style="float:left;" class="prev" onclick="prev()">prev</button>
-                        <li id="mName">November<br><span style="font-size:18px">2023</span></li>
-                        <button class="next" style="float:right;" type="button" onclick="">next</button>
+                    <ul >
+                        <button style="float:left;" class="prev" onclick="nextprev()">prev</button>
+                        <li id="mName" value="11">December<br></li>
+                        <li><span style="font-size:18px">2023</span></li>
+                        <button class="next" style="float:right;" type="button" onclick="next()">next</button>
                     </ul>
                 </div>
                 <div>
@@ -45,7 +46,7 @@
                         <li>Thurs</li>
                         <li>Fri</li>
                         <li>Sat</li>
-                        <button class="collapsible" onclick="toggleRem()">+</button>
+                        <button id="add" class="collapsible" onclick="toggleRem()">+</button>
                     </ul>
                 </div>
                 <div class="calendar-dates">
@@ -55,7 +56,7 @@
             <div id="form" class="RemAEvents">
                 <form method="post">
                     <label>Events & Reminders</label><br>
-                    <label for="name">Name: </label>
+                    <label for="name">Title: </label>
                     <input type ="text" id="name" name="name"><br>
                     <br>
                     <label for="dateTime">Date:</label>
@@ -68,6 +69,10 @@
                     <input type="reset" value="Exit">
                     
                 </form>
+                <div hidden id="savedReminders">
+                    <h2 id ="savedTitle"></h2>
+                    <p id="savedDescription"></p>
+                </div>
             </div>
         <footer>
             <p>&copy; 2023 The Journey. All rights reserved.</p>
@@ -79,64 +84,101 @@
         // storing full name of all months in array
         const months = ["January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"];
-
+            const mName = document.getElementById("mName").textContent;
+            var index = document.getElementById("mName").value;
+            console.log("number", index);
         const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            var button = document.getElementsByClassName("collapsible");
-
+            var currentMonth = months[index];
+            const maxMonth = 11;
+            let currMonthindex = 0;
+            let currentmName = "";
 
         function toggleRem() {
             var x = document.getElementById("form");
             if (x.style.display === "none") {
                 x.style.display = "block";
-                button.value = "-";
             } else {
                 x.style.display = "none";
-                button.value = "+";
             }
             }
             toggleRem();
 
-            //Plan for prev function:  get the ids/names for  necessary elements.
-            // on click - the function will check  which value the header matches within
-            // the months array. If it is not 0, the prev button will be enabled and the header text
-            // will update with each click
-            /* get the element id/classnames
-            *   get the header value and try to match it with the string values in the array.
-            *   decrement through the array while updating header text with values from the array.
-            */
-        function prev() {
-            var m = document.getElementById("mName");
-            prevB = document.getElementById("prev");
-            // for (i = 0; i < months.length; i++) {
-                // if (i == 0) {
-                //     document.getElementsByClassName('prev').disabled = true;
-                //     document.getElementsByClassName('next').disabled = false;
-                // } else {
-                //     i--;
-                // }
             
-        }
-        prev();
-        function next() {
-            if (i == 11) {
-                document.getElementsByClassName('prev').disabled = false;
-                document.getElementsByClassName('next').disabled = true;
-            } else {
-                i++;
+            for (i = 0; i <months.length; i++) {
+                if(months[i] == mName) {
+                currentMonth = i;
+                }
             }
+            currentmName = months[currentMonth];
+            findnewMonth();
+        
+
+              function nextprev() {
+                if (index > 0) {
+                    index--;
+                }
+                currentMonth = months[index];
+                currentmName = currentMonth;
+                console.log("previous month to load: ", currentMonth);
+                findnewMonth();
+              }
+              nextprev();
+
+
+        function next() {
+            if (index < 11) {
+                    index++;
+                }
+                currentMonth = months[index];
+                currentmName = currentMonth;
+                console.log("next month to load: ", currentMonth);
+                findnewMonth();
         }
+        next();
+
+        function findnewMonth() {
+            var content = document.getElementById('mName');
+            content.textContent = " " + currentmName;
+            console.log("Now4: ", currentMonth);
+            //console.log("name5:", currentmName);
+        }
+        findnewMonth();
+
+        
         function fillCalendar() {
-        for (let i = 1; i <= 30; i++) {
+
+        for (let i = 1; i <= 31; i++) {
             let list = document.createElement('li');
-            list.innerText = i;
+            if (i < 6) {
+
+                list.innerText = "." ;
+            } else {
+            list.innerText = i - 5;
+            }
             document.querySelector('.dates').appendChild(list);
             list.addEventListener("click", nReminder);
             }
         }
         fillCalendar();
+        console.log("length: ", currentMonth.length);
 
         function nReminder() {
+            const savedReminders = localStorage.getItem("");
+            const remContainer = document.getElementById("savedReminders");
 
+            if (savedReminders) {
+                const storedReminders = JSon.parse(savedReminders);
+
+                storedReminders.forEach(rem => {
+                    const reminDer = document.createElement('div');
+                    reminDer.innerHTML = `<br><h2 class="saved-title">${rem.title}</h2><br><h2 class="saved-date">${rem.date}</h2>
+                        <p class="saved-desc">${rem.description}</p><br>`;
+                })
+            }
+            else {
+                document.getElementById('savedTitle'). textContent = ""
+                document.getElementById('savedDescription').textContent = "Nothing has been added.";
+            }
         }
 
 
