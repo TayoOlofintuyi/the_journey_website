@@ -80,7 +80,7 @@ form {
     margin: 0 auto;
     border-radius: 10%;
     border-color: #f9f6f6;
-    width: 70%;
+    /* width: 70%; */
 }
 
 .form-input:focus {
@@ -155,3 +155,34 @@ footer {
     width: 100%;
     position: relative;
 }
+
+#id {
+    justify-content: left;
+    text-align: left;
+    align-items: first baseline;
+}
+
+#journal-entry-form {
+    justify-content: center;
+     align-items: center;
+    text-align: center;
+    /*margin: auto;
+    width: 50%;
+    height: 50%;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    background-color: #BDD09F;
+    padding: 20px;
+    border: 1px solid #ccc;
+    margin: auto;
+    border-radius: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); */
+}
+
+#title {
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 70%;
+}
+
