@@ -1,6 +1,7 @@
 [
     {
-        "name" : "",
+        "object_type": "savedReminders",
+        "title" : "",
         "date" : "",
         "description" : ""
     }
