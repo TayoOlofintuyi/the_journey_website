@@ -32,9 +32,9 @@
                  <div class="month">
                     <ul >
                         <button style="float:left;" class="prev" onclick="prev()">prev</button>
-                        <li id="mName" value="12">December<br></li>
+                        <li id="mName" value="11">December<br></li>
                         <li><span style="font-size:18px">2023</span></li>
-                        <button class="next" style="float:right;" type="button" onclick="">next</button>
+                        <button class="next" style="float:right;" type="button" onclick="next()">next</button>
                     </ul>
                 </div>
                 <div>
@@ -80,11 +80,15 @@
         // storing full name of all months in array
         const months = ["January", "February", "March", "April", "May", "June", "July",
                     "August", "September", "October", "November", "December"];
-
+            var mName = document.getElementById("mName").textContent;
+            var index = document.getElementById("mName").value;
+            console.log("number", index);
         const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
             var button = document.getElementById("add").innerText;
-            console.log("button symbol is : ", button);
-            console.log("", months);
+            let currentMonth = 0;
+            let maxMonth = 11;
+            let currMonthindex = 0;
+            let currentmName = "";
 
         function toggleRem() {
             var x = document.getElementById("form");
@@ -105,34 +109,50 @@
             *   decrement through the array while updating header text with values from the array.
             */
             
-           
-        function prev() {
-             m = document.getElementById("mName").textContent;
-            prevB = document.getElementsByClassName("prev");
-            for (i = 0; i < months.length; i++){
-                if (m.value = months[i].textContent){
-                    console.log("", i);
+        function iterateMonths() {
+            for (i = 0; i <months.length; i++) {
+                if(months[i] == mName) {
+                // console.log("Found it: ", i);
+                currMonthindex = i;
+                currentmName = "" + months[i];
+                console.log("name: ", currentmName);
                 }
             }
-
-            // for(i = m; i < months.length; i++) {
-            //      if (m != months[i].textContent) {
-            //          i--;
-            //      } else if (m === months[i].textContent){
-            //          document.getElementById("mName").textContent = "" + i;
-            //      }
-            //      console.log(months[i]);
-           }
-            
-        prev();
-        function next() {
-            if (i == 11) {
-                document.getElementsByClassName('prev').disabled = false;
-                document.getElementsByClassName('next').disabled = true;
-            } else {
-                i++;
-            }
+            console.log("name2:", currentmName)
+            findnewMonth();
         }
+        iterateMonths();
+
+        function prev() {
+            iterateMonths();
+            currentMonth = index;
+            if (currentMonth > 0){
+                currentMonth--;
+                months[currentMonth]--;
+                currMonthindex--;
+                console.log("WTF: ", currMonthindex);
+            }
+            findnewMonth();
+
+        }
+        prev();
+
+        function next() {
+            currentMonth = index;
+            if (currentMonth < maxMonth){
+                currentMonth++;
+                months[currentMonth]++;
+            }
+            findnewMonth();
+        }
+        next();
+        function findnewMonth() {
+            var content = document.getElementById('mName');
+            content.textContent = "Now: " + currentmName;
+            console.log("Now4: ", months[currentMonth]);
+        }
+        findnewMonth();
+
         function fillCalendar() {
         for (let i = 1; i <= 30; i++) {
             let list = document.createElement('li');
