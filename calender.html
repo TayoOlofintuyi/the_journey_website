@@ -107,20 +107,25 @@
             for (i = 0; i <months.length; i++) {
                 if(months[i] == mName) {
                 currentMonth = i;
+                currMonthindex = i;
                 }
             }
             currentmName = months[currentMonth];
+            console.log("WTF: ", currMonthindex);
             findnewMonth();
         
 
               function nextprev() {
                 if (index > 0) {
                     index--;
+                    currMonthindex--;
                 }
                 currentMonth = months[index];
                 currentmName = currentMonth;
                 console.log("previous month to load: ", currentMonth);
+                //console.log("index: ", currMonthindex);
                 findnewMonth();
+                //fillCalendar();
               }
               nextprev();
 
@@ -128,11 +133,14 @@
         function next() {
             if (index < 11) {
                     index++;
+                    currMonthindex++;
                 }
                 currentMonth = months[index];
                 currentmName = currentMonth;
                 console.log("next month to load: ", currentMonth);
                 findnewMonth();
+                resetCalendar();
+                //fillCalendar();
         }
         next();
 
@@ -144,10 +152,10 @@
         }
         findnewMonth();
 
-        
+        var monthStart = {}
         function fillCalendar() {
-
-        for (let i = 1; i <= 31; i++) {
+            //console.log("Whats the index: ", currMonthindex);
+        for (let i = 1; i <= numberedmonths[currMonthindex]; i++) {
             let list = document.createElement('li');
             if (i < 6) {
 
@@ -158,9 +166,14 @@
             document.querySelector('.dates').appendChild(list);
             list.addEventListener("click", nReminder);
             }
+            console.log("index is: ", currentMonth);
+            console.log("Whats the index: ", currMonthindex);
         }
         fillCalendar();
-        console.log("length: ", currentMonth.length);
+
+        function resetCalendar() {
+            document.querySelector('.dates').remove;
+        }
 
         function nReminder() {
             const savedReminders = localStorage.getItem("");
