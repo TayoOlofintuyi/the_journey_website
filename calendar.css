@@ -119,6 +119,7 @@ nav a {
     max-height: max-content;
 }
 
+
 .collapsible {
     cursor: pointer;
     background-color: #BDD09F;
@@ -138,6 +139,10 @@ nav a {
     position:relative;
 }
 
+.savedReminders {
+    border-radius: 0%;
+    border-style: solid;
+}
 .description {
     border-style: double;
 }
