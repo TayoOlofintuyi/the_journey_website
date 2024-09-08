@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>The Journey</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+
+<header>
+    <h1>Welcome to The Journey</h1>
+    <% if (typeof username !== 'undefined') { %>
+        <div class="header">
+            <p>Welcome, <%= username %>!</p>
+        </div>
+    <% } else { %>
+        <div class="header">
+        <p><a href="/login">Login</a></p>
+        </div>
+    <% } %>
+</header>
+
+<nav>
+    <ul>
+        <li><a href="/main">Home</a></li> 
+        <li><a href="/about">About</a></li>
+        <li><a href="/resources">Resources</a></li>
+        <li><a href="/calender">Calendar</a></li>
+        <li><a href="/journal">Journal</a></li>
+
+    </ul>
+</nav>
+
+<main>
+    <section>
+    <h2> Welcome To The Journey, Where Your Self Care Journey Begins</h2>
+    <h3>Here you can keep track and record your thoughts and feelings with suport from local resources.</h3>
+     <hr>
+    <!---
+    <center>
+    <img src="Tree.jpg" alt="Leaves in the sky" align="middle" >
+    </center>
+    --> 
+    <style>
+        body{
+            background-image: url('images/Background.jpg');
+        }
+    </style>
+
+    <h3>Tips and tricks for journaling</h3>
+    
+    <b>1. Find a time that works best for you.</b>
+    <p>Whenever you have free time start to journal. You can write in the morning allowing you to plan out your day, relflect on how you can deal with the anticipated events of the day, and or what you excited for throughout the day. Try writing at different times of the day and see if it has an effect on how you feel.</p>
+    
+    <br>
+    <center>
+    <img src="images/Clock.jpg.webp" alt="Clock" style="width: 500px;height:500px">
+    </center>
+
+    <br>    
+    
+    <b>2. Find quotes that inspire you. </b>
+    <p>When you're feeling stuck look online for quotes that inpsire you. How does it make you feel? How can it to your life?</p>
+    
+    <br>
+    
+    <center>
+    <img src="images/Morrison.jpg" alt="Morrison qutoe" style="width: 500px;height:500px">
+    </center>
+   
+    <br> 
+   
+    <b>3. Find someone to write to.</b>
+    <p>Find someone to write to when journaling, whether it be your future self, younger self, someone who has passed, or someone who hurt you.</p>
+    <br>
+
+    <center>
+    <img src="images/Talk.jpg" alt="People talking" style="width: 500px;height:500px">
+    </center>
+
+    <br>
+    <b>4. Be Honest.</b>
+    <p> To get the full benefits of journaling, you have to be honest with yourself. Take the time to open up and be comfortable, your journal is your private space so allow yourself to be honest with your truth.</p>
+    <br>
+
+    <center>
+        <img src="images/Be Honest.jpg" alt="Be honest" style="width: 500px;height:500px"> 
+    </center>
+
+    <br>
+    <b>5. Enjoy the process. </b>
+    <p>Journaling is a way to practice self-care so make your journaling process enjoyable and take the time to get to know yourself through your writing. Enjoy your journey!</p>
+    <br> 
+    <img src="images/The Journey.jpg" alt=" The Journey">
+    <br>
+    <br>
+    <nav>
+        <a href="main">Back to Top</a>
+    </nav>
+
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2023 The Journey. All rights reserved.</p>
+    <p>Contacts</p>
+</footer>
+</body>
+</html>

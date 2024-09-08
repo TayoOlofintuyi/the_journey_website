@@ -1,0 +1,176 @@
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Journey</title>
+    <link rel="stylesheet" href="journal.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+    <script src="journal.js"></script> 
+</head>
+<body>
+    <header>
+        <h1>Journaling</h1>
+        <% if (typeof username !== 'undefined') { %>
+            <div class="header">
+                <p>Welcome, <%= username %>!</p>
+            </div>
+        <% } else { %>
+            <div class="header">
+            <p><a href="/login">Login</a></p>
+            </div>
+        <% } %>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/main">Home</a></li> 
+            <li><a href="/about">About</a></li>
+            <li><a href="/resources">Resources</a></li>
+            <li><a href="/calender">Calendar</a></li>
+            <li><a href="/journal">Journal</a></li>
+        </ul>
+    </nav>
+    <br>
+
+
+        <!-- mood check form-->
+    <!-- <div id="mood-check-form">
+        <center>
+        <h2>How are you feeling today?</h2>
+        <form action="" method="post" class="new">
+            <br>
+            <label for="mood" class="label-heading">Mood:</label>
+            <br>
+            <input type="text" id="mood" name="mood" required class="form-input">
+            <br>
+            <br>
+            <label for="reason" class="label-heading">Reason:</label>
+            <br>
+            <textarea id="reason" name="reason" class="form-input" required></textarea>
+            <br>
+            <button type="submit" class="label-heading">Submit</button>   
+        </form>
+        <br>
+        </center>
+    </div> -->
+    <div class="float-container">
+        <div class="float-right">
+            <div id="journal-entry-form">
+                <!-- <center> -->
+                <h2>Create a New Journal Entry</h2>
+                <br>
+                <form action="/journal" method="post" class="new">
+                    <!-- <p>&#128512</p> -->
+                    <br>
+                    <label for="title" class="label-heading" id="title">Title:</label>
+                    <br>
+                    <input type="text" id="title" name="title" required class="form-input">
+                    <br>
+                    <br>             
+                    <div class="form-row">
+                        <label for="mood" class="label-heading">Mood:</label>
+                        <select id="mood" name="mood" class="form-input" required>
+                            <option value="happy">Happy &#128512</option>
+                            <option value="sad">Sad &#128546</option>
+                            <option value="angry">Angry &#128545</option>
+                            <option value="anxious">Anxious &#128547</option>
+                            <option value="excited">Excited &#128562</option>
+                        </select>
+                        
+                        <label for="date" class="label-heading">Date:</label>
+                        <input type="date" id="date" name="date" class="form-input">
+                    </div>
+                    <br>
+                    <label for="content" class="label-heading">Content:</label>
+                    <br>
+                    <br>
+                    <div id="editor-container" style="height: 200px;"></div>
+                    <br>
+                    <input type="hidden" name="content" id="content">
+                    <button type="submit">Submit</button>   
+                </form>
+                <br>
+                <!-- </center> -->
+            </div>
+        </div>
+        <div class="float-left">
+            <h2>Past Entries</h2>
+            <div id="journal-entry">
+                    <h4 id="entry-title"></h4>
+                    <p id="entry-content"></p>
+            </div>
+        </div>
+    </div>
+    <script>
+        var quill = new Quill('#editor-container', {
+            theme: 'snow', 
+            modules: {
+                toolbar: [
+                    [{ 'font': [] }, { 'size': [] }],
+                    ['bold', 'italic', 'underline'],
+                    [{ 'color': [] }, { 'background': [] }],
+                    [{ 'align': [] }],
+                    ['clean'] 
+                ]
+            }
+        });
+    
+        const form = document.querySelector('form');
+        form.onsubmit = function(event) {
+            event.preventDefault();
+                const contentInput = document.querySelector('input[name=content]');
+            contentInput.value = quill.root.innerHTML;
+    
+            const title = document.querySelector('input[name=title]').value;
+            const content = quill.root.innerHTML;
+            const mood = document.querySelector('input[name=mood]:checked') ? document.querySelector('input[name=mood]:checked').value : '';
+            const date = document.querySelector('input[name=date]').value;
+
+            const newEntry = {
+                title: title,
+                content: content,
+                mood: mood
+            };
+    
+            let journalEntries = JSON.parse(localStorage.getItem('journal_entries')) || [];
+    
+            journalEntries.push(newEntry);
+    
+            localStorage.setItem('journal_entries', JSON.stringify(journalEntries));
+    
+            form.reset();
+            quill.root.innerHTML = '';
+    
+            displayEntries();
+        };
+    
+        function displayEntries() {
+            const storedEntries = localStorage.getItem('journal_entries');
+            const entriesContainer = document.getElementById('journal-entry');
+    
+            entriesContainer.innerHTML = '';
+    
+            if (storedEntries) {
+                const parsedEntries = JSON.parse(storedEntries);
+    
+            parsedEntries.forEach(entry => {
+                const previewContent = entry.content.length > 10 ? entry.content.substring(0, 10) + '...' : entry.content;
+
+                const entryDiv = document.createElement('div');
+                entryDiv.innerHTML = `<br><h2 class="journal-entry-title">${entry.title}<p class="journal-entry-content">${previewContent}</p><br>`;
+                
+                entriesContainer.appendChild(entryDiv);
+            });
+
+            } else {
+                entriesContainer.innerHTML = '<h2>No Entry Found</h2><p>Please create a journal entry.</p>';
+            }
+        }
+    
+        displayEntries();
+    </script>
+    
+</body>
+</html>
