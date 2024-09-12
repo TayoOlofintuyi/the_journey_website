@@ -90,6 +90,7 @@ app.post("/signup", async (req, res) => {
         const userData = await collection.insertMany(data);
         console.log(userData);
     }
+    res.render('main', {username: req.body.username});
 
 });
 

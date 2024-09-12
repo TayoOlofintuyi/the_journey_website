@@ -135,4 +135,9 @@ section a{
     font-size: large;
     background: #404F24;
     border: none;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:active {
+    background-color: #333;
 }
