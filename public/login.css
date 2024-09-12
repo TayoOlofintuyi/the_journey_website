@@ -42,16 +42,16 @@ body{
 }
 .center
 {
-  display: flex;
+  display:flex;
   align-items: top;
   justify-content: center;
-  position:absolute;
-  margin:0px;
-  top: 0;
+  position: absolute;
+  top: 3px;
   right: 0;
-  bottom: 0;
+  bottom: 3px;
   left: 0;
   border-radius: 0px;
+  margin-bottom: 60px;
 }
 .center h1{
   text-align:center;
@@ -63,14 +63,14 @@ body{
   text-transform:uppercase;
 }
 
-
 .login-box{
     display: flex;
     justify-content: center;
     position: relative;
     flex-direction: column;
+    margin-top: 70px;
     width: 440px;
-    height: 480px;
+    height: 440px;
     padding: 30px;
     background-color: #D9D8CE;
 
