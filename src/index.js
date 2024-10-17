@@ -58,6 +58,10 @@ app.get('/about', (req, res) => {
     res.render('about', { username: req.session.username });
 });
 
+app.get('/user', (req, res) => {
+    res.render('user', { username: req.session.username });
+});
+
 app.get('/resources', (req, res) => {
     res.render('resources', { username: req.session.username });
 });

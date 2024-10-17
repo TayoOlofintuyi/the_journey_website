@@ -15,7 +15,7 @@
         <h1>Journaling</h1>
         <% if (typeof username !== 'undefined') { %>
             <div class="header">
-                <p>Welcome, <%= username %>!</p>
+                <a href="/user"><p>Go to, <%= username %>'s Profile!</p></a>
             </div>
         <% } else { %>
             <div class="header">
@@ -83,7 +83,7 @@
                         <input type="date" id="date" name="date" class="form-input">
                     </div>
                     <br>
-                    <label for="content" class="label-heading">Content:</label>
+                    <label for="content" class="label-heading">Content:</label> 
                     <br>
                     <br>
                     <div id="editor-container" style="height: 200px;"></div>

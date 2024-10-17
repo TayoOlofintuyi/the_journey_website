@@ -14,7 +14,6 @@ body, h1, h2, p, ul, li {
     padding: 0;
 }
 
-/* Set a background color for the entire page */
 body {
     background-color: #404F24;
     font-family: "Arsenal SC", sans-serif;
@@ -68,7 +67,6 @@ h2{
     font-size: xx-large;
     color:#060606;
 }
-/* Style the navigation menu */
 nav {
     background-color: #668D3C; 
     padding: 10px;
@@ -98,6 +96,7 @@ form {
     padding: 1em;   
     border-radius: 1em;
     border: 2px solid #645822bb;
+    background-color: #D9D8CE;
 
 }
 
@@ -119,7 +118,7 @@ form {
     width: 100px;
     text-align: right;
     font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: "Arsenal SC", sans-serif;
 }
 
 button {
@@ -132,27 +131,37 @@ button {
     background-color: #f8f4f4;
     color: #060606;
     font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: "Arsenal SC", sans-serif;
 }   
 
 #journal-entry {
-    text-align: left;
-    padding: 70px;
-    border: 2px solid #645822bb;
+    text-align: left; 
+    padding: 10px;
+    /*border: 2px solid #645822bb;*/
+    border: 10px solid transparent;
+    border-image: url('images/vine.png') 30 round;
     margin: auto;
-    border-radius: 15px;
+    border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .journal-entry-title {
     font-weight: bold;
     font-size: medium;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: "Arsenal SC", sans-serif;
     white-space: nowrap;
     padding: auto;
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+#editor-container {
+    height: 200px;
+    background-color: #c9c8c0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
 
 .journal-entry-content {
     font-family: Georgia, 'Times New Roman', Times, serif;
