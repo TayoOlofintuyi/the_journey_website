@@ -83,7 +83,7 @@ app.post("/signup", async (req, res) => {
     const existingUser = await collection.findOne({username: data.username});
 
     if(existingUser){
-        res.send("An account already exists with that username. Please choose a different username.");
+        return res.send("An account already exists with that username. Please choose a different username.");
     }
     else{
         const saltRounds = 10;
