@@ -65,7 +65,6 @@ h1{
 }
 h2{
     font-size: xx-large;
-    color:#060606;
 }
 nav {
     background-color: #668D3C; 
@@ -95,14 +94,14 @@ form {
     width: 95%;
     padding: 1em;   
     border-radius: 1em;
-    border: 2px solid #645822bb;
-    background-color: #D9D8CE;
+    border: 2px solid #a7a7a775;
+    background-color: #ffffffaf;
 
 }
 
 .form-input {
     margin: 0 auto;
-    border-radius: 10%;
+    border-radius: 10px;
     border-color: #f9f6f6;
 }
 
@@ -125,7 +124,7 @@ button {
     margin-top: 2%;
     width: 20%;
     height: 8%;
-    border-radius: 10%;
+    border-radius: 30px;
     border-color: #f8f4f4;
     display: inline-block;
     background-color: #f8f4f4;
@@ -133,6 +132,15 @@ button {
     font-weight: bold;
     font-family: "Arsenal SC", sans-serif;
 }   
+
+#form-title {
+    color:#ffffff;
+    background-color: #1c29048a;
+    width: 50%;
+    margin: auto;
+    border-radius: 10px;
+}
+
 
 #journal-entry {
     text-align: left; 
@@ -156,9 +164,9 @@ button {
 
 #editor-container {
     height: 200px;
-    background-color: #c9c8c0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background-color: #ffffff;
+    border: 5px solid #204916b9;
+    border-radius: 20px;
 }
 
 
@@ -172,7 +180,7 @@ button {
 }
 
 footer {
-    background-color: #404F24;
+    background-color: #1c2904;
     text-align: center;
     padding: 10px;
     width: 100%;
@@ -191,9 +199,10 @@ footer {
     text-align: center;
     margin: auto;
     border-radius: 15px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-    background-color: #D9D8CE;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.705);
+    background-color: #5f6e4165;
     padding: 20px;
+    /*color:#ffff; /*text?*/
 }
 
 #title {
