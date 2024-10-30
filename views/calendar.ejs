@@ -1,143 +1,64 @@
 <!DOCTYPE html>
 <html>
+<head>
     <meta charset="UTF-8">
     <title>Calendar</title>
-    <link rel="stylesheet" href="calendar.css">
-    <script src="script.js"></script>
-    <body>
-        <header>
-            <% if (typeof username !== 'undefined') { %>
-                <div class="header">
-                    <h1 class="title">Calendar</h1>
-                    <img src="/images/noprofilephoto.jpg" alt="Profile Photo" class="profile-photo">
-                    <div class="username-dropdown">
-                        <span class="profile-name"><%= username %></span>
-                        <div class="dropdown-content">
-                            <p><a href="/user">Profile</a></p>
-        
-                        </div>
-                    </div>
-                </div>
-            <% } else { %>
-                <div class="header">
-                <p><a href="/login">Login</a></p>
-                </div>
-            <% } %>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="/main">Home</a></li> 
-                <li><a href="/about">About</a></li>
-                <li><a href="/resources">Resources</a></li>
-                <li><a href="/calender">Calendar</a></li>
-                <li><a href="/journal">Journal</a></li>
-            </ul>
-    
-        </nav>
-        
-        <style>
-            body{
-                background-image: url('images/Background.jpg');
-            }
-        </style>
-        
-            <!-- Basics for the calendar outline -->
-            <div class="container">
-                <table id="calendar">
-                    <thead>
-                        <tr id="days">
-                            <th>Sunday</th>
-                            <th>Monday</th>
-                            <th>Tuesday</th>
-                            <th>Wednesday</th>
-                            <th>Thursday</th>
-                            <th>Friday</th>
-                            <th>Saturday</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- 1st Week -->
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                            <!-- 2nd Week -->
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <!-- 3rd Week -->
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <!-- 4th Week -->
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <!-- 5th Week -->
-                        <tr>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                
-                <div class="Events">
-                    <!-- where the the event list and another place you can create an event -->
-                     <fieldset>
-                        <legend>Events</legend>
-                        <label for="nameId"> Name:
-                        <input type="text" id="nameId"><br></label>
-
-                        <br><label for="dateId">Date:<br>
-                        <input type="date" id="dateId"><br></label>
-
-                        <br><label for="note">Make a Note:<br>
-                        <textarea name="body" cols="15" rows="5" id="note" required placeholder="Leave a note here..."></textarea></label><br>
-
-                        <br><input type="submit" value="Submit">
-                     </fieldset>
-                </div>
-
+    <link rel="stylesheet" href="/calendar.css">
+    <style>
+        body {
+            background-image: url('images/Background.jpg');
+        }
+        .active { background-color: yellow; }
+        .inactive { color: gray; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Calendar</h1>
+        <% if (typeof username !== 'undefined') { %>
+            <div class="header">
+                <p>Welcome, <%= username %>!</p>
             </div>
+        <% } else { %>
+            <div class="header">
+                <p><a href="/login">Login</a></p>
+            </div>
+        <% } %>
+    </header>
 
-          
-        <footer>
-            <p>&copy; 2023 The Journey. All rights reserved.</p>
-            <p>Contacts</p>
-        </footer>
+    <nav>
+        <ul>
+            <li><a href="/main">Home</a></li> 
+            <li><a href="/about">About</a></li>
+            <li><a href="/resources">Resources</a></li>
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/journal">Journal</a></li>
+        </ul>
+    </nav>
 
+    <div class="container">
+        <table id="calendar">
+            <thead>
+                <tr class="month-name"></tr>
+                <tr id="days">
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                </tr>
+            </thead>
+            <tbody class="month-dates"></tbody>
+        </table>
+    </div>
 
-        <script>
+    <footer>
+        <p>&copy; 2023 The Journey. All rights reserved.</p>
+        <p>Contacts</p>
+    </footer>
 
-
-        </script>
-    </body>
+    <script src="/calendar.js"></script> <!-- Correct path for JavaScript -->
+</body>
 </html>
