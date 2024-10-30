@@ -12,6 +12,7 @@ Calendar page. */
  body {
     background-color: #f8f4f4;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: url('images/Background.jpg');
 }
 
 /* Style the header */
@@ -44,6 +45,10 @@ nav ul li {
     margin-right: 20px;
 }
 
+.active {background-color: yellow;}
+
+.inactive {color: gray;}
+
 nav a {
     text-decoration: none;
     color: #f8f4f4; 
@@ -52,7 +57,7 @@ nav a {
 /* New container for a smaller, more interactive calendar */
 .container {
     padding: 5px;
-    width: 500px;
+    width: 100%;
 
 } 
 
@@ -65,28 +70,24 @@ nav a {
 }
 
 th, td {
-    padding:37px;
+    padding: 36px;
     text-align: center;
     border-width: 3px; 
     border-style:double;
 }
 
-#days {
+
+  th {
     background-color: #404F24;
-    border-style: dotted;
-    border-width: 2px;
+    border: none;
+    padding: 30px;
 }
 
-.temp {
-  /* width:fit-content;
-  display:block; */
-}
 
 .Events {
     position:absolute;
     top: 160px;
     right: 3px;
-    height: 510px;
     width: 200px;
     background-color: #BDD09F;
     
