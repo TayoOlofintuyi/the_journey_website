@@ -200,7 +200,7 @@ app.post('/change-username', async (req, res) => {
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if(err){
-            console.log("Error loggint out");
+            console.log("Error logging out");
         }
     });
     res.redirect('/login');
