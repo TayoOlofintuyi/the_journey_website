@@ -134,13 +134,14 @@
     
             const title = document.querySelector('input[name=title]').value;
             const content = quill.root.innerHTML;
-            const mood = document.querySelector('input[name=mood]:checked') ? document.querySelector('input[name=mood]:checked').value : '';
+            const mood = document.querySelector('select[name=mood]').value
             const date = document.querySelector('input[name=date]').value;
 
             const newEntry = {
                 title: title,
                 content: content,
-                mood: mood
+                mood: mood,
+                date: date
             };
     
             let journalEntries = JSON.parse(localStorage.getItem('journal_entries')) || [];

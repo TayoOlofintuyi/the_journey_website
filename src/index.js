@@ -5,7 +5,6 @@ const session = require('express-session');
 const collection = require("./config");
 const bodyParser = require('body-parser');
 
-
 const app = express();
 
 app.use(express.json());
@@ -181,13 +180,12 @@ app.post('/change-username', async (req, res) => {
                 { $set: { username: newUsername } }
         );
 
-        // Log to check the result of the update query
         console.log("Update Result: ", result);
 
         if (result.modifiedCount === 1) {
             req.session.username = newUsername;
             console.log("Username successfully updated!");
-            res.redirect('/user');  // Success
+            res.redirect('/user');
         } else {
             console.log("Username update failed!");
             res.status(500).send('Error updating username.');
