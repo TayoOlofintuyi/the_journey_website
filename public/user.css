@@ -1,0 +1,179 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #404F24;
+
+}
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+header {
+    background-color: #404F24; 
+    color: #f8f4f4;
+    text-align: center;
+    padding: 20px;
+    font-family: Georgia, 'Times New Roman', Times, serif;  
+}
+
+.header {
+    background-color: #404F24;
+    color: #ffff;
+    padding: 10px;
+    text-align: right;
+    font-size: 1.0em;
+}
+
+/* Style the navigation menu */
+ nav { 
+     background-color: #668D3C;
+    color: #f8f4f4;
+    padding: 10px;
+ } 
+nav ul {
+    list-style-type: none;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #f8f4f4; 
+} 
+/* Style the header */
+header {
+    background-color: #404F24;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+
+}
+/* Style the navigation menu */
+nav {
+    background-color: #668D3C; /* Background color for the nav */
+    width: 200px; /* Set a width for the vertical nav */
+    position: fixed; /* Keep it fixed on the left */
+    top: 0; /* Align to the top */
+    left: 0; /* Align to the left */
+    height: 100%; /* Full height */
+    padding-top: 20px; /* Space from the top */
+}
+
+nav ul {
+    list-style-type: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+}
+
+nav ul li a {
+    color: white; /* Text color */
+    text-decoration: none; /* Remove underline */
+    display: block; /* Make links block elements */
+}
+
+nav ul li a:hover {
+    background-color: #BDD09F; /* Darken background on hover */
+}
+
+
+h1 {
+    background-color: #404F24;
+    color: #f8f4f4;
+    text-align: center;
+    padding: 20px; 
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+
+pre {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+footer {
+    background-color: #404F24;
+    color: #f8f4f4;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}
+
+section {
+    background-color: #f8f4f4;
+    padding: 20px;
+
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+/* Flexbox container for the image and reminders */
+.settings-content {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 90px;
+    margin-left: 220px;
+
+}
+
+/* Image section */
+.image-container {
+    width: 10%; /* Adjust width as needed */
+}
+
+.image-container img {
+    width: 700px; /* Set a specific width */
+    height: 500px; /* Set a specific height */
+    padding: 10px 10px;
+}
+
+/* Reminders section */
+.reminders {
+    width: 15%; /* Adjust width as needed */
+    background-color: #D9D8CE;
+    padding: 40px;
+    margin-left: 100px; /* Push reminders to the left */
+    border-radius: 0px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.reminders h2 {
+    margin-top: 0;
+}
+
+/* Collapsible list section */
+.collapsible-section {
+    padding: 20px;
+    margin-left: 220px;
+}
+
+.collapsible {
+    background-color: #eee;
+    color: #668D3C;
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 14px;
+}
+
+.active, .collapsible:hover {
+    background-color: #BDD09F;
+}
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+.content p {
+    padding: 10px;
+}
+.title{
+    text-align: right;
+
+}

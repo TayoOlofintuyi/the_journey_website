@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <title>Calendar</title>
+    <link rel="stylesheet" href="calendar.css">
+    <script src="script.js"></script>
+    <body>
+        <header>
+            <% if (typeof username !== 'undefined') { %>
+                <div class="header">
+                    <h1 class="title">Calendar</h1>
+                    <img src="/images/noprofilephoto.jpg" alt="Profile Photo" class="profile-photo">
+                    <div class="username-dropdown">
+                        <span class="profile-name"><%= username %></span>
+                        <div class="dropdown-content">
+                            <p><a href="/user">Profile</a></p>
+                            <p><a href="/user">Settings</a></p>
+                            <p><a href="/user">Logout</a></p>
+        
+                        </div>
+                    </div>
+                </div>
+            <% } else { %>
+                <div class="header">
+                <p><a href="/login">Login</a></p>
+                </div>
+            <% } %>
+        </header>
+        <nav>
+            <ul>
+                <li><a href="/main">Home</a></li> 
+                <li><a href="/about">About</a></li>
+                <li><a href="/resources">Resources</a></li>
+                <li><a href="/calender">Calendar</a></li>
+                <li><a href="/journal">Journal</a></li>
+            </ul>
+    
+        </nav>
+        
+        <style>
+            body{
+                background-image: url('images/Background.jpg');
+            }
+        </style>
+        
+            <!-- Basics for the calendar outline -->
+            <div class="container">
+                 <div class="month">
+                    <ul >
+                        <button style="float:left;" class="prev" onclick="nextprev()">prev</button>
+                        <li id="mName" value="11">December<br></li>
+                        <li><span style="font-size:18px">2023</span></li>
+                        <button class="next" style="float:right;" type="button" onclick="next()">next</button>
+                    </ul>
+                </div>
+                <div>
+                    <ul class="weekdays">
+                        <li>Sun</li>
+                        <li>Mon</li>
+                        <li>Tue</li>
+                        <li>Wed</li>
+                        <li>Thurs</li>
+                        <li>Fri</li>
+                        <li>Sat</li>
+                        <button id="add" class="collapsible" onclick="toggleRem()">+</button>
+                    </ul>
+                </div>
+                <div class="calendar-dates">
+                    <ul class="dates"></ul>
+                </div>
+            </div>
+            <div id="form" class="RemAEvents">
+                <form method="post">
+                    <label>Events & Reminders</label><br>
+                    <label for="name">Title: </label>
+                    <input type ="text" id="name" name="name"><br>
+                    <br>
+                    <label for="dateTime">Date:</label>
+                    <input type="datetime-local" id="dateTime" name="dateTime"><br>
+                    <br>
+                    <label for="description">Description</label><br>
+                    <textarea id="descInfo" name="description" rows="4" cols="30"></textarea>
+                    <br>
+                    <input style="float:left;" type="submit" value="Save">
+                    <input type="reset" value="Exit">
+                    <input type="button", onclick="nReminder()", value="Saved Events">
+
+                </form>
+
+                <div id="savedReminders">
+                    <h2 id ="savedTitle"></h2>
+                    <p id="savedDescription"></p>
+                </div>
+            </div>
+        <footer>
+            <p>&copy; 2023 The Journey. All rights reserved.</p>
+            <p>Contacts</p>
+        </footer>
+
+
+        <script>
+        // storing full name of all months in array
+        const months = ["January", "February", "March", "April", "May", "June", "July",
+                    "August", "September", "October", "November", "December"];
+            const mName = document.getElementById("mName").textContent;
+            var index = document.getElementById("mName").value;
+            console.log("number", index);
+        const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+            var currentMonth = months[index];
+            const maxMonth = 11;
+            let currMonthindex = 0;
+            let currentmName = "";
+            var monthStart = [1, 4, 4, 7, 2, 5, 7, 3, 6, 1, 4, 6];
+            let start = 0;
+            //let emptyvalues = document.createElement('li');
+
+
+        function toggleRem() {
+            var x = document.getElementById("form");
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+            }
+            toggleRem();
+
+            
+            for (i = 0; i <months.length; i++) {
+                if(months[i] == mName) {
+                currentMonth = i;
+                currMonthindex = i;
+                }
+            }
+            currentmName = months[currentMonth];
+            //console.log("WTF: ", currMonthindex);
+            findnewMonth();
+        
+
+              function nextprev() {
+                if (index > 0) {
+                    index--;
+                    currMonthindex--;
+                }
+                currentMonth = months[index];
+                currentmName = currentMonth;
+                start = monthStart[index];
+                //console.log("previous month to load: ", currentMonth);
+                console.log("index: ", currMonthindex);
+                document.query
+                findnewMonth();
+                resetCalendar();
+                updateCalendar();
+              }
+              nextprev();
+
+
+        function next() {
+            if (index < 11) {
+                    index++;
+                    currMonthindex++;
+                }
+                currentMonth = months[index];
+                currentmName = currentMonth;
+                start = monthStart[index];
+                console.log("next month to load: ", currentMonth);
+                findnewMonth();
+                resetCalendar();
+                updateCalendar();
+        }
+        next();
+
+        function findnewMonth() {
+            var content = document.getElementById('mName');
+            content.textContent = " " + currentmName;
+            console.log("Now4: ", currentMonth);
+            //console.log("name5:", currentmName);
+        }
+        findnewMonth();
+
+
+        function resetCalendar() {
+            var data = document.querySelector('.dates');
+            while(data.hasChildNodes()) {
+                data.removeChild(data.firstChild);
+            }
+        }
+        resetCalendar();
+
+        function updateCalendar() {
+            var num = numberedmonths[currMonthindex];
+            var name = currentmName;
+            var startofMonth = start;
+            console.log("What does this get? : ", startofMonth);
+
+            if (startofMonth != 1) {
+                for (i = 1; i < startofMonth; i++) {
+                    emptyvalues = document.createElement('li');
+                    emptyvalues.innerText = ".";
+                    document.querySelector('.dates').appendChild(emptyvalues);
+                    emptyvalues.addEventListener("click", nReminder);
+                
+                    if ( i == startofMonth - 1){ 
+                        for (j = 1; j <= numberedmonths[currMonthindex]; j++) {
+                           let apples = document.querySelector('.dates').lastElementChild;
+                            newNode = document.createElement('li');
+                            newNode.innerText = j;
+                            document.querySelector('.dates').insertBefore(newNode, null);
+                            newNode.addEventListener("click", nReminder);
+                        }
+                    }
+                }
+            }
+            else if (start == 1) {
+                for ( a = 1; a <= numberedmonths[currMonthindex]; a++) {
+                let list = document.createElement('li');
+                list.innerText = a;
+                document.querySelector('.dates').appendChild(list);
+                list.addEventListener("click", nReminder);
+                }
+            }
+        }
+        updateCalendar();
+
+
+        function nReminder() {
+            const savedReminders = localStorage.getItem("Reminders");
+            const remContainer = document.getElementById("savedReminders");
+
+            if (savedReminders) {
+                const storedReminders = JSon.parse(savedReminders);
+
+                storedReminders.forEach(rem => {
+                    const reminDer = document.createElement('div');
+                    reminDer.innerHTML = `<br><h2 class="saved-title">${rem.title}</h2><br><h2 class="saved-date">${rem.date}</h2>
+                        <p class="saved-desc">${rem.description}</p><br>`;
+                        remContainer.appendChild(reminDer);
+                })
+            }
+            else {
+                document.getElementById('savedTitle'). textContent = ""
+                document.getElementById('savedDescription').textContent = "Nothing has been added.";
+            }
+        }
+
+
+        </script>
+    </body>
+</html>
