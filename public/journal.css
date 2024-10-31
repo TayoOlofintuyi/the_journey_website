@@ -154,8 +154,8 @@ button {
     text-align: left; 
     padding: 10px;
     /*border: 2px solid #645822bb;*/
-    border: 10px solid transparent;
-    border-image: url('images/vine.png') 30 round;
+    border: 2px solid #a7a7a775;
+    /* border-image: url('images/vine.png') 30 round; */
     margin: auto;
     border-radius: 10px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
