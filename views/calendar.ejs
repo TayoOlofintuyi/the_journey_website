@@ -29,7 +29,7 @@
         </ul>
     </nav>
 
-    <div class="container">
+    <main class="container">
         <table id="calendar">
             <thead>
                 <tr class="month-name"></tr>
@@ -39,13 +39,40 @@
                     <th>Tuesday</th>
                     <th>Wednesday</th>
                     <th>Thursday</th>
-                    <th>Friday</th>
+                    <th> Friday </th>
                     <th>Saturday</th>
                 </tr>
             </thead>
             <tbody class="month-dates"></tbody>
         </table>
-    </div>
+    </main>
+
+    <aside class="create-event">
+        <form>
+            <h1>Events and Reminders.</h1>
+            <hr>
+            <fieldset>
+                <legend>Create an event</legend>
+
+                <label for="name">Name:<br>
+                    <input type="text" id="name"></label><br>
+                
+                <br><label for="date">Date:<br>
+                <input type="datetime-local" id="date"></label><br>
+
+                <br><label for="notes">Event Notes:<br>
+                <textarea name="body" cols="40" rows="20" id="notes" placeholder="Type your message here..."></textarea></label><br>
+
+                <input type="submit" value="Create Event">
+            </fieldset>
+        </form>
+
+        <article>Note1</article>
+        <article>Note2</article>
+        <article>Note3</article>
+
+    </aside>
+
 
     <footer>
         <p>&copy; 2023 The Journey. All rights reserved.</p>
@@ -101,6 +128,10 @@
         };
 
         generate();
+
+        prenexIcons.forEach(icon => {
+            icon
+        })
     </script> 
 </body>
 </html>

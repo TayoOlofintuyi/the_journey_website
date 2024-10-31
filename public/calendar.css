@@ -19,7 +19,12 @@ html, body {
 body {
     margin: 0;
     padding:0;
-    width:100%;
+    display: grid;
+    grid-template:
+    "hd hd hd hd"
+    "nv nv nv nv"
+    "mn mn mn ae"
+    "ft ft ft ft";
 }
 /* Active and inactive styles */
 .active {
@@ -33,12 +38,25 @@ body {
     color: gray;
 }
 
+hr {
+    color:#BDD09F;
+    box-shadow: 1px 1px 1px black;
+}
+
+fieldset {
+    text-align: center;
+}
+
+label, input {
+    width: 100%;
+}
 /* Header styles */
 header {
     background-color: #404F24;
     color: #f8f4f4;
     text-align: center;
     padding: 20px;
+    grid-area: hd;
 }
 
 .header {
@@ -54,6 +72,7 @@ nav {
     background-color: #668D3C;
     color: #f8f4f4;
     padding: 10px;
+    grid-area: nv
 }
 
 nav ul {
@@ -79,13 +98,13 @@ nav a {
     padding-bottom: 10px;
 }
 
-#calendar {
-    width: 100%;
-    max-width: 800px;
+main {
+    width: auto;
     border-width: 3px;
     border-style: groove;
     background-color: #BDD09F;
     border-spacing: 10px;
+    grid-area: mn;
 }
 
 @media(max-width:600px) {
@@ -115,19 +134,25 @@ th {
     font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-/* Events container */
-.Events {
-    position: absolute;
-    top: 160px;
-    right: 3px;
-    width: 200px;
-    background-color: #BDD09F;
+aside {
+    margin: 1%;
+    background-color: #668D3C;
+    width:auto;
+    position: relative;
+    grid-area: ae;
 }
 
-/* Collapsible elements */
-.collapsible {
-    cursor: pointer;
-    background-color: #BDD09F;
+article {
+    margin: 3px;
+    padding: 5px;
+    color: white;
+    background-color: #404F24;
+}
+
+form {
+    margin: 2px;
+    position:relative;
+    text-align: center;
 }
 
 /* Footer styles */
@@ -139,6 +164,7 @@ footer {
     bottom: 0;
     width: 100%;
     position: relative; /* Adjust based on your layout needs */
+    grid-area:ft;
 }
 
 
