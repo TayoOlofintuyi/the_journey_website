@@ -1,159 +1,136 @@
 /* This is the CSS page for the Calendar Tab of the Journey website. 
-The purpose of this file is to input proper formating for efficient use of the 
-Calendar page. */
-/*Syling the format of the page*/
+The purpose of this file is to input proper formatting for efficient use of the Calendar page. */
 
- body, h1, h2, p, ul, li {
+/* Reset margins and paddings */
+body, h1, h2, p, ul, li {
     margin: 0;
     padding: 0;
 }
 
 /* Set a background color for the entire page */
- body {
+html, body {
     background-color: #f8f4f4;
     font-family: Georgia, 'Times New Roman', Times, serif;
+    background-image: url('images/Background.jpg');
+    overflow: auto;
+    height: auto;;
 }
 
-/* Style the header */
- header {
+body {
+    margin: 0;
+    padding:0;
+    width:100%;
+}
+/* Active and inactive styles */
+.active {
+    background-color:#668D3C; /* Change to a visible color */
+    border-style: groove;
+    border-color:#BDD09F;
+    box-shadow: 0 0 10px #404F24;
+}
+
+.inactive {
+    color: gray;
+}
+
+/* Header styles */
+header {
     background-color: #404F24;
     color: #f8f4f4;
     text-align: center;
     padding: 20px;
 }
+
 .header {
     background-color: #404F24;
-    color: #ffff;
+    color: #fff;
     padding: 10px;
     text-align: right;
     font-size: 1.0em;
 }
 
-/* Style the navigation menu */
- nav { 
-     background-color: #668D3C;
+/* Navigation menu styles */
+nav { 
+    background-color: #668D3C;
     color: #f8f4f4;
     padding: 10px;
- } 
+}
+
 nav ul {
+    display: flex; /* Use Flexbox for the navigation */
+    justify-content: space-around; /* Evenly space items */
     list-style-type: none;
 }
 
 nav ul li {
-    display: inline;
     margin-right: 20px;
 }
 
 nav a {
     text-decoration: none;
     color: #f8f4f4; 
-} 
+}
 
-/* New container for a smaller, more interactive calendar */
+/* Calendar container styles */
 .container {
     display: grid;
-    max-width: 100%;
-} 
+    margin: 1%;
+    min-height: 100vh;
+    padding-bottom: 10px;
+}
 
-/* Header for the month */
-.month {
-    padding: 20px 15px;
-    background: center;
-    text-align: center;
+#calendar {
+    width: 100%;
+    max-width: 800px;
+    border-width: 3px;
+    border-style: groove;
     background-color: #BDD09F;
-    position: relative;
+    border-spacing: 10px;
 }
 
-/* Month list */
-.month ul {
-    margin: 0;
-    padding: 0;
+@media(max-width:600px) {
+    th, td {
+       padding: 1%;
+       font-size: 0.9em;
+    }
+     #calendar {
+        font-size: 0.8em;
+     }
+
 }
 
-.month ul li {
-     color: black; 
-     font-size: 20px;
-     text-transform: uppercase;
-     letter-spacing: 3px;
-    list-style-type: none;
+th, td {
+    padding: 2%;
+    text-align: center;
+    border-width: 3px; 
+    border-style: double;
+    width: 14.285%;
 }
 
-.navi {
-    background-color:#668D3C;
+th {
+    background-color: #404F24;
+    border: none;
+    padding: 30px;
+    color: white;
+    font-family:Georgia, 'Times New Roman', Times, serif;
 }
 
-.navi:hover {
-    color: #404F24;
+/* Events container */
+.Events {
+    position: absolute;
+    top: 160px;
+    right: 3px;
+    width: 200px;
     background-color: #BDD09F;
 }
 
-.weekdays {
-    margin: 0;
-    padding: 10px 0;
-    background-color: #668D3C;
-    position: relative;
-}
-
-.weekdays li {
-    display:inline-table;
-    color: #f8f4f4;
-    width: 12.8%;
-    text-align: center;
-}
-
-.calendar-dates {
-    padding: 10px 0;
-    background: #BDD09F;
-    margin: 0;
-    position: relative;
-}
-
-.calendar-dates li {
-    list-style-type: none;
-    display: inline-block;
-    text-align: center;
-    width: 12.8%;
-    margin-bottom: 5px;
-    font-size: 12px;
-    color: black;
-}
-
-.dates li {
-    font-size:16px;
-    margin-left: 2px;
-    margin-bottom: 104px;
-    gap: 10px;
-    max-height: max-content;
-}
-
-
+/* Collapsible elements */
 .collapsible {
     cursor: pointer;
     background-color: #BDD09F;
 }
 
-.active, .collapsible:hover {
-    background-color:#668D3C;
-}
-
-.RemAEvents {
-    text-align: start;
-    background-color: #668D3C;
-    padding:18px;
-    border-width: 2px;
-    border-style:solid;
-    border-color: #404F24;
-    position:relative;
-}
-
-.savedReminders {
-    border-radius: 0%;
-    border-style: solid;
-}
-.description {
-    border-style: double;
-}
-/* Style the footer */
+/* Footer styles */
 footer {
     background-color: #404F24;
     color: #f8f4f4;
@@ -161,7 +138,8 @@ footer {
     padding: 10px;
     bottom: 0;
     width: 100%;
-    position: relative;
+    position: relative; /* Adjust based on your layout needs */
 }
+
 
 
