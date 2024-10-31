@@ -28,22 +28,6 @@
         </ul>
     </nav>
     <main>
-        <div class="main-content">
-            <div class="image-container">
-                <img src="images/Line-Graph.png" alt="Line Graph">
-            </div>
-    
-            <div class="reminders">
-                <h2>Reminders</h2>
-                <br>
-                <ul>
-                    <li>Reminder 1: Do something</li>
-                    <li>Reminder 2: Do something else</li>
-                    <li>Reminder 3: Another task</li>
-                </ul>
-            </div>
-        </div>
-    
         <div class="collapsible-section">
             <button class="collapsible">Collapsible List Item 1</button>
             <div class="content">
@@ -59,6 +43,24 @@
             <div class="content">
                 <p>This is the content for item 3.</p>
             </div>
+        </div>
+        <h2>Settings</h2>
+        <div class="settings-content">
+            <button onclick="toggleForm('usernameForm')">Change Username</button>
+            <form id="usernameForm" action="/change-username" method="POST" style="display:none;">
+                <label for="newUsername">New Username:</label>
+                <input type="text" id="newUsername" name="newUsername" required>
+                <button type="submit">Update Username</button>
+            </form>
+
+            <button onclick="toggleForm('passwordForm')">Change Password</button>
+            <form id="passwordForm" action="/change-password" method="POST" style="display:none;">
+                <label for="newPassword">New Password:</label>
+                <input type="password" id="newPassword" name="newPassword" required>
+                <button type="submit">Update Password</button>
+            </form>
+
+            <button><a href="/logout">Logout</a></button>
         </div>
     </main>
     
@@ -77,6 +79,46 @@
                 }
             });
         });
+
+        function toggleForm(formId) {
+            var form = document.getElementById(formId);
+            if (form.style.display === "block") {
+                form.style.display = "none";
+            } else {
+                form.style.display = "block";
+            }
+        }
+    const changePasswordForm = document.getElementById("changePasswordForm");
+
+    // Add an event listener for form submission
+    changePasswordForm.addEventListener("submit", function (event) {
+        event.preventDefault();  // Prevent the default form submission
+
+        // Get the form data
+        const formData = new FormData(changePasswordForm);
+        const newPassword = formData.get("newPassword");
+
+        // Send an AJAX request to the server to update the password
+        fetch("/change-password", {
+            method: "POST",
+            body: new URLSearchParams(formData),  // Serialize the form data
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+        })
+        .then(response => response.text())
+        .then((data) => {
+            // Show a message to the user
+            alert("Password successfully updated!");
+
+            // Force page reload
+            window.location.reload(true);  // Reload the page from the server
+        })
+        .catch((error) => {
+            console.error("Error updating password:", error);
+            alert("Something went wrong. Please try again.");
+        });
+    });
     </script>
 </body>
 </html>

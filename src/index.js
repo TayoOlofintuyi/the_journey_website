@@ -3,12 +3,17 @@ const path = require("path");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const collection = require("./config");
+const bodyParser = require('body-parser');
+
 
 const app = express();
 
 app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use(session({
     secret: 'your-secret-key',
@@ -109,6 +114,7 @@ app.post("/login", async (req, res) => {
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
         if (isPasswordMatch) {
             req.session.username = check.username;
+            req.session.userId = check._id;
             res.render('main', { username: req.session.username });
         } else {
             res.send("Incorrect password");
@@ -121,15 +127,48 @@ app.post("/login", async (req, res) => {
 });
 
 app.post('/journal', (req, res) => {
-    // Handle the form submission
     const title = req.body.title;
     const content = req.body.content;
     const mood = req.body.mood;
     
-    // Process the journal entry, save it, etc.
     res.redirect('/journal');
 });
 
+app.post('/change-password', async (req, res) => {
+    const newPassword = req.body.newPassword;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+        // Log to check if the password is being hashed
+        console.log("Hashed Password: ", hashedPassword);
+
+        // Update the password in the database
+        const result = await collection.updateOne(
+            { _id: userId }, // Ensure you are using the correct user identifier
+            { $set: { password: hashedPassword } }
+        );
+
+        // Log to check the result of the update query
+        console.log("Update Result: ", result);
+
+        if (result.modifiedCount === 1) {
+            console.log("Password successfully updated!");
+            res.redirect('/user');  // Success
+        } else {
+            console.log("Password update failed!");
+            res.status(500).send('Error updating password.');
+        }
+    } catch (err) {
+        console.error('Error during password update:', err);
+        res.status(500).send('Something went wrong, please try again.');
+    }
+});
 
 
 

@@ -168,7 +168,7 @@
                 const previewContent = entry.content.length > 10 ? entry.content.substring(0, 10) + '...' : entry.content;
 
                 const entryDiv = document.createElement('div');
-                entryDiv.innerHTML = `<br><h2 class="journal-entry-title">${entry.title}<p class="journal-entry-content">${previewContent}</p><br>`;
+                entryDiv.innerHTML = `<br><h2 class="journal-entry-title">${entry.title}${entry.mood}<p class="journal-entry-content">${previewContent}</p><br>`;
                 
                 entriesContainer.appendChild(entryDiv);
             });

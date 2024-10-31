@@ -106,7 +106,7 @@ section {
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 /* Flexbox container for the image and reminders */
-.main-content {
+.settings-content {
     display: flex;
     justify-content: space-between;
     padding: 40px 90px;
