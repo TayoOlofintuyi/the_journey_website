@@ -145,21 +145,18 @@ app.post('/change-password', async (req, res) => {
     try {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
 
-        // Log to check if the password is being hashed
         console.log("Hashed Password: ", hashedPassword);
 
-        // Update the password in the database
         const result = await collection.updateOne(
-            { _id: userId }, // Ensure you are using the correct user identifier
+            { _id: userId },
             { $set: { password: hashedPassword } }
         );
 
-        // Log to check the result of the update query
         console.log("Update Result: ", result);
 
         if (result.modifiedCount === 1) {
             console.log("Password successfully updated!");
-            res.redirect('/user');  // Success
+            res.redirect('/user');
         } else {
             console.log("Password update failed!");
             res.status(500).send('Error updating password.');
@@ -170,6 +167,44 @@ app.post('/change-password', async (req, res) => {
     }
 });
 
+app.post('/change-username', async (req, res) => {
+    const newUsername = req.body.newUsername;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+            const result = await collection.updateOne(
+                { _id: userId },
+                { $set: { username: newUsername } }
+        );
+
+        // Log to check the result of the update query
+        console.log("Update Result: ", result);
+
+        if (result.modifiedCount === 1) {
+            req.session.username = newUsername;
+            console.log("Username successfully updated!");
+            res.redirect('/user');  // Success
+        } else {
+            console.log("Username update failed!");
+            res.status(500).send('Error updating username.');
+        }
+    } catch (err) {
+        console.error('Error during username update:', err);
+        res.status(500).send('Something went wrong with username, please try again.');
+    }
+});
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if(err){
+            console.log("Error loggint out");
+        }
+    });
+    res.redirect('/login');
+});
 
 
 const port = 5001;

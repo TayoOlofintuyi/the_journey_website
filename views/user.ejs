@@ -88,36 +88,13 @@
                 form.style.display = "block";
             }
         }
-    const changePasswordForm = document.getElementById("changePasswordForm");
 
-    // Add an event listener for form submission
-    changePasswordForm.addEventListener("submit", function (event) {
-        event.preventDefault();  // Prevent the default form submission
+    const changeForm = document.getElementById("changeForm"); 
 
-        // Get the form data
-        const formData = new FormData(changePasswordForm);
-        const newPassword = formData.get("newPassword");
+    changeForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        window.location.reload(true);
 
-        // Send an AJAX request to the server to update the password
-        fetch("/change-password", {
-            method: "POST",
-            body: new URLSearchParams(formData),  // Serialize the form data
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-        })
-        .then(response => response.text())
-        .then((data) => {
-            // Show a message to the user
-            alert("Password successfully updated!");
-
-            // Force page reload
-            window.location.reload(true);  // Reload the page from the server
-        })
-        .catch((error) => {
-            console.error("Error updating password:", error);
-            alert("Something went wrong. Please try again.");
-        });
     });
     </script>
 </body>
