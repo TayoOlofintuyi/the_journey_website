@@ -111,7 +111,10 @@ section {
     justify-content: space-between;
     padding: 40px 90px;
     margin-left: 220px;
-
+}
+h2{
+    color: white;
+    margin-left: 250px;
 }
 
 /* Image section */
