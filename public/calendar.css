@@ -148,6 +148,17 @@ article {
     color: white;
     background-color: #404F24;
 }
+ #Cprev {
+    height: 20px;
+    width: 15px;
+    margin-left: 5px;
+ }
+
+ #Cnext {
+    height: 20px;
+    width: 15px;
+    margin-left: 5px;
+ }
 
 form {
     margin: 2px;
