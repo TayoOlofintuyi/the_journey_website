@@ -2,13 +2,17 @@ const express = require('express');
 const path = require("path");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const collection = require("./config");
+const { User, Journal } = require('./config');
+const bodyParser = require('body-parser');
 
 const app = express();
 
 app.use(express.json());
 
 app.use(express.urlencoded({extended: false}));
+
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.use(session({
     secret: 'your-secret-key',
@@ -22,7 +26,6 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 app.get('/login', (req,res) => {
-    //res.render('login');
     if(req.session.user) {
         res.render('login', {
             user: req.session.username
@@ -39,17 +42,6 @@ app.get('/signup', (req,res) => {
 });
 
 app.get('/main', (req, res) => {
-    /*
-    if(req.session.user) {
-        res.render('main', {
-            user: req.session.username
-        });
-    }else {
-        res.render('main', {
-            username: null
-        });
-    }
-        */
     res.render('main', { username: req.session.username });
 
 });
@@ -58,9 +50,28 @@ app.get('/about', (req, res) => {
     res.render('about', { username: req.session.username });
 });
 
-app.get('/user', (req, res) => {
-    res.render('user', { username: req.session.username });
+app.get('/user', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const journalEntries = await Journal.find({ user_id: userId })
+        .sort({ date: -1 }) 
+        //.limit(5); 
+
+        res.render('user', {
+            username: req.session.username,
+            journalEntries: journalEntries
+        });
+    } catch (error) {
+        console.error('Error fetching journal entries:', error);
+        res.status(500).send('Failed to fetch journal entries');
+    }
 });
+
 
 app.get('/resources', (req, res) => {
     res.render('resources', { username: req.session.username });
@@ -70,9 +81,76 @@ app.get('/calender', (req, res) => {
     res.render('calendar', { username: req.session.username });
 });
 
-app.get('/journal', (req, res) => {
-    res.render('journal', { username: req.session.username });
+app.get('/journal', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const journalEntries = await Journal.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        res.render('journal', {
+            username: req.session.username,
+            journalEntries: journalEntries
+        });
+    } catch (error) {
+        console.error('Error fetching journal entries:', error);
+        res.status(500).send('Failed to fetch journal entries');
+    }
 });
+
+app.get('/user-journal', async (req, res) => {
+        const userId = req.session.userId;
+    
+        if (!userId) {
+            return res.redirect('/login');
+        }
+    
+        try {
+            const journalEntries = await Journal.find({ user_id: userId })
+                .sort({ date: -1 })
+                .limit(5);
+    
+            res.json(journalEntries);
+        } catch (error) {
+            console.error('Error fetching journal entries:', error);
+            res.status(500).send('Failed to fetch journal entries');
+        }    
+});
+
+app.post('/journal', async (req, res) => {
+    const { title, content, mood, date } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+    try {
+        console.log('Received journal entry:', { title, content, mood, date });
+
+        const newJournalEntry = new Journal({
+            user_id: userId,
+            title: title,
+            content: content,
+            mood: mood,
+            date: date,
+        });
+        await newJournalEntry.save();
+        const journalEntries = await Journal.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        res.json({ success: true, journalEntries: journalEntries });
+    } catch (error) {
+        console.error('Error saving journal entry:', error);
+        res.status(500).send('Failed to save journal entry');
+    }
+});
+
 
 app.post("/signup", async (req, res) => {
     const data = {
@@ -80,27 +158,28 @@ app.post("/signup", async (req, res) => {
         password: req.body.password
     }
 
-    const existingUser = await collection.findOne({username: data.username});
+    const existingUser = await User.findOne({ username: data.username });
 
-    if(existingUser){
-        res.send("An account already exists with that username. Please choose a different username.");
-    }
-    else{
+    if (existingUser) {
+        return res.send("An account already exists with that username. Please choose a different username.");
+    } else {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
         data.password = hashedPassword;
 
-        const userData = await collection.insertMany(data);
-        console.log(userData);
-    }
-    res.render('main', {username: req.body.username});
+        const userData = new User(data); 
+        await userData.save();
 
+        console.log("User created successfully:", userData);
+    }
+
+    res.render('main', { username: req.body.username });
 });
 
 app.post("/login", async (req, res) => {
     try {
-        const check = await collection.findOne({ username: req.body.username });
+        const check = await User.findOne({ username: req.body.username });
 
         if (!check) {
             return res.send("Username not found");
@@ -109,7 +188,8 @@ app.post("/login", async (req, res) => {
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
         if (isPasswordMatch) {
             req.session.username = check.username;
-            res.render('main', { username: req.session.username });
+            req.session.userId = check._id;
+            res.redirect('/main');
         } else {
             res.send("Incorrect password");
         }
@@ -120,17 +200,82 @@ app.post("/login", async (req, res) => {
     }
 });
 
-app.post('/journal', (req, res) => {
-    // Handle the form submission
-    const title = req.body.title;
-    const content = req.body.content;
-    const mood = req.body.mood;
-    
-    // Process the journal entry, save it, etc.
-    res.redirect('/journal');
+app.post('/change-password', async (req, res) => {
+    const newPassword = req.body.newPassword;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        console.log("Hashed Password: ", hashedPassword);
+
+        const result = await User.updateOne(
+            { _id: userId },
+            { $set: { password: hashedPassword } }
+        );
+
+        console.log("Update Result: ", result);
+
+        if (result.modifiedCount === 1) {
+            console.log("Password successfully updated!");
+            res.redirect('/user');
+        } else {
+            console.log("Password update failed!");
+            res.status(500).send('Error updating password.');
+        }
+    } catch (err) {
+        console.error('Error during password update:', err);
+        res.status(500).send('Something went wrong, please try again.');
+    }
 });
 
+app.post('/change-username', async (req, res) => {
+    const newUsername = req.body.newUsername;
+    const userId = req.session.userId;
 
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+        const existingUser = await User.findOne({ username: newUsername });
+
+        if (existingUser) {
+            return res.status(400).send("This username is already taken. Please choose a different one.");
+        }
+
+        const result = await User.updateOne(
+            { _id: userId },
+            { $set: { username: newUsername } }
+        );
+
+        console.log("Update Result: ", result);
+
+        if (result.modifiedCount === 1) {
+            req.session.username = newUsername;
+            console.log("Username successfully updated!");
+            res.redirect('/user');
+        } else {
+            console.log("Username update failed!");
+            res.status(500).send('Error updating username.');
+        }
+    } catch (err) {
+        console.error('Error during username update:', err);
+        res.status(500).send('Something went wrong with username, please try again.');
+    }
+});
+
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.log("Error logging out");
+        }
+        res.redirect('/login');
+    });
+});
 
 
 const port = 5001;

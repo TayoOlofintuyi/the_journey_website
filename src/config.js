@@ -17,8 +17,34 @@ const LoginSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+});
 
-const collection = new mongoose.model("users", LoginSchema)
+const JournalSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    title: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
+    mood: {
+        type: String,
+        required: true
+    },
+    content: {
+        type: String,
+        required: true
+    }
+});
 
-module.exports = collection;
+const User = new mongoose.model("users", LoginSchema);
+const Journal = mongoose.model("Journal", JournalSchema); 
+
+module.exports = {User, Journal};
