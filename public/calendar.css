@@ -166,6 +166,11 @@ form {
     text-align: center;
 }
 
+.event-day {
+    border-color: red;
+}
+
+
 /* Footer styles */
 footer {
     background-color: #404F24;
