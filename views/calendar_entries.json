@@ -1,8 +1,8 @@
 [
     {
-        "object_type": "savedReminders",
-        "title" : "",
-        "date" : "",
-        "description" : ""
+        "object-type":"calendar-entry",
+        "calendar-name": "",
+        "date": "",
+        "notes": ""
     }
 ]

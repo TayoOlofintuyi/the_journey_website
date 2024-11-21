@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Calendar</title>
     <link rel="stylesheet" href="/calendar.css">
+    
 </head>
 <body>
     <header>
@@ -32,7 +33,11 @@
     <main class="container">
         <table id="calendar">
             <thead>
-                <tr class="month-name"></tr>
+             <tr>
+                <th><button id="prev-month"><span >&lt;</span></button></th>
+                <th colspan="5" class="month-name"></th>
+                <th><button id="next-month"><span >&gt;</span></button></th>
+             </tr> 
                 <tr id="days">
                     <th>Sunday</th>
                     <th>Monday</th>
@@ -45,33 +50,33 @@
             </thead>
             <tbody class="month-dates"></tbody>
         </table>
+
+        <aside class="create-event">
+            <form id="event-form">
+                <h1>Events and Reminders.</h1>
+                <hr>
+                <fieldset>
+                    <legend>Create an event</legend>
+    
+                    <label for="name">Name:<br>
+                        <input type="text" id="name" required></label><br>
+                    
+                    <br><label for="date">Date:<br>
+                    <input type="datetime-local" id="date" required></label><br>
+    
+                    <br><label for="notes">Event Notes:<br>
+                    <textarea name="body" cols="40" rows="20" id="notes" placeholder="Type your message here..."></textarea></label><br>
+    
+                    <input type="submit" value="Create Event" >
+                </fieldset>
+            </form>
+    
+            <article id="event-list"></article>
+            
+    
+        </aside>
+    
     </main>
-
-    <aside class="create-event">
-        <form>
-            <h1>Events and Reminders.</h1>
-            <hr>
-            <fieldset>
-                <legend>Create an event</legend>
-
-                <label for="name">Name:<br>
-                    <input type="text" id="name"></label><br>
-                
-                <br><label for="date">Date:<br>
-                <input type="datetime-local" id="date"></label><br>
-
-                <br><label for="notes">Event Notes:<br>
-                <textarea name="body" cols="40" rows="20" id="notes" placeholder="Type your message here..."></textarea></label><br>
-
-                <input type="submit" value="Create Event">
-            </fieldset>
-        </form>
-
-        <article>Note1</article>
-        <article>Note2</article>
-        <article>Note3</article>
-
-    </aside>
 
 
     <footer>
@@ -81,16 +86,20 @@
 
     <script>
         console.log("Calendar script loaded");
-        const date = new Date();
-        const year = date.getFullYear();
-        const month = date.getMonth();
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
         const day = document.querySelector(".month-dates");
         const current = document.querySelector(".month-name");
+        const eventList = document.getElementById("event-list");
 
         const months = [
             "January", "February", "March", "April", "May", "June", 
             "July", "August", "September", "October", "November", "December"
         ];
+
+        // Array to store events
+        const events = [];
 
         const generate = () => {
             const firstday = new Date(year, month, 1).getDay();
@@ -108,7 +117,8 @@
             // Current month's days
             for (let i = 1; i <= lastday; i++) {
                 const isToday = (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) ? "active" : "";
-                weekRow += `<td class="${isToday}">${i}</td>`;
+                const hasEvent = events.some(event => event.date === `${year}-${month + 1}-${i}`);
+                weekRow += `<td class="${isToday} ${hasEvent ? 'event-day' : ''}" data-day="${i}">${i}</td>`;
 
                 // Start a new row if it's the end of the week
                 if ((firstday + i) % 7 === 0) {
@@ -127,11 +137,80 @@
             day.innerHTML = weekRow; // Populate the dates
         };
 
-        generate();
+        // Handle Previous/Next month navigation
+        document.getElementById('prev-month').addEventListener('click', () => {
+            month--;
+            if (month < 0) {
+                month = 11;
+                year--;
+            }
+            generate();
+        });
 
-        prenexIcons.forEach(icon => {
-            icon
-        })
+        document.getElementById('next-month').addEventListener('click', () => {
+            month++;
+            if (month > 11) {
+                month = 0;
+                year++;
+            }
+            generate();
+        });
+
+        // Handle Event Submission
+        document.getElementById("event-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const eventName = document.getElementById("name").value;
+            const eventDate = document.getElementById("date").value.split("T")[0]; // Date in YYYY-MM-DD format
+            const eventNotes = document.getElementById("notes").value;
+
+            const event = { name: eventName, date: eventDate, notes: eventNotes };
+
+           // Send the event data to the server
+    fetch('/calendar', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(event)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Clear form inputs after successful submission
+            document.getElementById("name").value = "";
+            document.getElementById("date").value = "";
+            document.getElementById("notes").value = "";
+
+            // Optionally, display events here
+            displayEntries();
+        } else {
+            console.error('Error saving event entry:', data.message);
+        }
+    })
+    .catch(error => console.error('Error:', error));
+});
+
+// Function to display the entries after submitting a new one
+function displayEntries() {
+    fetch('/calendar') 
+    .then(response => response.json())
+    .then(entries => {
+        const eventList = document.getElementById("event-list");
+        eventList.innerHTML = ''; // Clear previous entries
+
+        entries.forEach(entry => {
+            const eventElement = document.createElement("div");
+            eventElement.innerHTML = `<strong>${entry.name}</strong> (${entry.date})<br>${entry.notes}<hr>`;
+            eventList.appendChild(eventElement);
+        });
+    })
+    .catch(error => console.error('Error fetching events:', error));
+}
+    // Initial calendar render
+    generate();
+    
+
     </script> 
 </body>
 </html>
