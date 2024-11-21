@@ -44,7 +44,7 @@ const JournalSchema = new mongoose.Schema({
     }
 });
 
-const CalendarSchema = new mongooseSchema({
+const CalendarSchema = new mongoose.Schema({
     user_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",

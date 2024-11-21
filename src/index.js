@@ -80,7 +80,8 @@ app.get('/resources', (req, res) => {
 // app.get('/calender', (req, res) => {
 //     res.render('calendar', { username: req.session.username });
 // });
-app.get('/calendar', async (req, res) => {
+
+app.get('/calender', async (req, res) => {
     const userId = req.session.userId;
 
     if (!userId) {
