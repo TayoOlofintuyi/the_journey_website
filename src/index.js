@@ -2,7 +2,7 @@ const express = require('express');
 const path = require("path");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const { User, Journal } = require('./config');
+const { User, Journal, Calendar} = require('./config');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -77,9 +77,29 @@ app.get('/resources', (req, res) => {
     res.render('resources', { username: req.session.username });
 });
 
-app.get('/calender', (req, res) => {
-    res.render('calendar', { username: req.session.username });
+// app.get('/calender', (req, res) => {
+//     res.render('calendar', { username: req.session.username });
+// });
+app.get('/calendar', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const events = await Calendar.find({ user_id: userId }).sort({ date: 1 });
+        console.log(events);
+        res.render('calendar', {
+            username: req.session.username,
+            events: events
+        });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).send('Failed to fetch events');
+    }
 });
+
 
 app.get('/journal', async (req, res) => {
     const userId = req.session.userId;
@@ -176,6 +196,33 @@ app.post("/signup", async (req, res) => {
 
     res.render('main', { username: req.body.username });
 });
+
+app.post('/calendar', async (req, res) => {
+    const { name, date, notes } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+        // Create a new event and save it to the database
+        const newEvent = new Calendar({
+            user_id: userId,
+            name: name,
+            date: new Date(date),  // Ensure correct date format
+            notes: notes
+        });
+
+        await newEvent.save();  // Save event to the database
+
+        res.json({ success: true, message: 'Event created successfully' });
+    } catch (error) {
+        console.error('Error saving event:', error);
+        res.status(500).send('Failed to save event');
+    }
+});
+
 
 app.post("/login", async (req, res) => {
     try {

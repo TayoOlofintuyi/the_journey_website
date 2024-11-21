@@ -11,7 +11,7 @@
         <h1>Calendar</h1>
         <% if (typeof username !== 'undefined') { %>
             <div class="header">
-                <p>Welcome, <%= username %>!</p>
+                <a href="/user"><p>Go to, <%= username %>'s Profile!</p></a>
             </div>
         <% } else { %>
             <div class="header">
@@ -166,51 +166,69 @@
 
             const event = { name: eventName, date: eventDate, notes: eventNotes };
 
-           // Send the event data to the server
-    fetch('/calendar', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(event)
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Clear form inputs after successful submission
+            // Add event to the events array
+            events.push(event);
+
+            // Display event under the form
+            const eventElement = document.createElement("div");
+            eventElement.innerHTML = `<strong>${event.name}</strong> (${event.date})<br>${event.notes}<hr>`;
+            eventList.appendChild(eventElement);
+
+            // Highlight the date on the calendar
+            const eventDay = new Date(event.date).getDate();
+            const eventCells = document.querySelectorAll(`[data-day='${eventDay}']`);
+            eventCells.forEach(cell => {
+                cell.classList.add('event-day');
+            });
+
+            fetch('/calendar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(event)  // Send event data as JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Event created successfully');
+                    // Optionally, you can add the event dynamically to the page here
+                    addEventToList(event);  // Function to append new event to the page
+                } else {
+                    console.error('Error creating event:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            // Clear form inputs
             document.getElementById("name").value = "";
             document.getElementById("date").value = "";
             document.getElementById("notes").value = "";
-
-            // Optionally, display events here
-            displayEntries();
-        } else {
-            console.error('Error saving event entry:', data.message);
-        }
-    })
-    .catch(error => console.error('Error:', error));
-});
-
-// Function to display the entries after submitting a new one
-function displayEntries() {
-    fetch('/calendar') 
-    .then(response => response.json())
-    .then(entries => {
-        const eventList = document.getElementById("event-list");
-        eventList.innerHTML = ''; // Clear previous entries
-
-        entries.forEach(entry => {
-            const eventElement = document.createElement("div");
-            eventElement.innerHTML = `<strong>${entry.name}</strong> (${entry.date})<br>${entry.notes}<hr>`;
-            eventList.appendChild(eventElement);
         });
-    })
-    .catch(error => console.error('Error fetching events:', error));
-}
-    // Initial calendar render
-    generate();
-    
 
+        // Initial calendar render
+        generate();
+
+        function addEventToList(event) {
+        const eventList = document.getElementById("event-list");
+
+        const eventArticle = document.createElement("section");
+        eventArticle.classList.add("event-article");
+
+        eventArticle.innerHTML = `
+            <h2>${event.name}</h2>
+            <p><strong>Date:</strong> ${new Date(event.date).toLocaleString()}</p>
+            <p><strong>Notes:</strong> ${event.notes}</p>
+        `;
+
+        eventList.appendChild(eventArticle);
+    }
+
+    function displayEvents() {
+        
+    }
     </script> 
 </body>
 </html>
