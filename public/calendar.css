@@ -95,6 +95,19 @@ nav a {
 
 }
 
+.delete-button {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 5px;
+}
+.delete-button:hover {
+    background-color: darkred;
+}
+
 
 #calendar {
     width: 70%;
@@ -163,7 +176,7 @@ aside {
     border-spacing: 0;
 }
 
-article {
+section {
     margin: 3px;
     margin-bottom: 3px;
     padding: 5px;

@@ -77,11 +77,8 @@ app.get('/resources', (req, res) => {
     res.render('resources', { username: req.session.username });
 });
 
-// app.get('/calender', (req, res) => {
-//     res.render('calendar', { username: req.session.username });
-// });
 
-app.get('/calender', async (req, res) => {
+app.get('/calendar', async (req, res) => {
     const userId = req.session.userId;
 
     if (!userId) {
@@ -89,17 +86,26 @@ app.get('/calender', async (req, res) => {
     }
 
     try {
-        const events = await Calendar.find({ user_id: userId }).sort({ date: 1 });
-        console.log(events);
+        const events = await Calendar.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        // Convert event dates to 'YYYY-MM-DD' format for easier comparison in the frontend
+        const formattedEvents = events.map(event => ({
+            ...event.toObject(),
+            date: event.date.toISOString().split('T')[0]  // Convert to 'YYYY-MM-DD' format
+        }));
+
         res.render('calendar', {
             username: req.session.username,
-            events: events
+            events: formattedEvents
         });
     } catch (error) {
         console.error('Error fetching events:', error);
         res.status(500).send('Failed to fetch events');
     }
 });
+
 
 
 app.get('/journal', async (req, res) => {
