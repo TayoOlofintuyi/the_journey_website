@@ -72,13 +72,15 @@
             </form>
     
             <section id="event-list">
-                <h2>Upcoming Events</h2>
+                <h2 id="e-header">Upcoming Events</h2>
+                <hr>
                 <% if (events.length > 0) { %>
                     <% events.forEach(function(event) { %>
-                        <div class="event">
+                        <div class="event" data-id="<%= event._id %>">
                             <strong><%= event.name %></strong><br>
-                            <em><%= event.date.toDateString() %></em><br>
+                            <em><%= event.date %></em><br>
                             <p><%= event.notes %></p>
+                            <button class="del-button" data-id="<%= event._id %>">Delete</button>
                             <hr>
                         </div>
                     <% }); %>
@@ -225,7 +227,7 @@
         });
 
         function displayEvents() {
-        fetch(`/calendar?month=${month + 1}&year=${year}`)
+        fetch(`/calendar`)
             .then(response => response.json())
             .then(events => {
                 // Clear the current event list
@@ -234,21 +236,12 @@
                 events.forEach(event => {
                     // Create the event element (using textContent to avoid HTML injection)
                     const eventElement = document.createElement("div");
+
+
+                    eventElement.appendChild(button);
                     eventElement.classList.add('event'); // Optional: add a class for styling
                     eventElement.innerHTML = `<strong>${event.name}</strong> (${event.date})<br>${event.notes}<hr>`;
 
-                    // Create the delete button
-                    const button = document.createElement('button');
-                    button.textContent = "Delete"; // Button text
-                    button.classList.add('delete-button'); // Optional: Add a class for styling
-                    
-                    // Add the delete button functionality
-                    button.addEventListener('click', () => {
-                        deleteEvent(event, eventElement);
-                    });
-
-                    // Append the delete button to the event element
-                    eventElement.appendChild(button);
 
                     // Append the event element to the event list
                     eventList.appendChild(eventElement);
@@ -262,43 +255,43 @@
                 });
             })
             .catch(error => console.error('Error fetching events:', error));
-}
+        }
 
+        document.querySelectorAll('.del-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const eventId = this.getAttribute('data-id');
+            deleteEvent(eventId);
+        });
+    });
 
         // Delete event function
-function deleteEvent(event, eventElement) {
-    // Remove event from local storage or send a DELETE request to your server
-    fetch(`/calendar`, {
-        method: 'DELETE', // Method to delete the event
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(event) // Send the event data to be deleted
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            // Remove the event from the event list on the page
-            eventElement.remove();
-            
-            // Remove the event day highlight from the calendar
-            const eventDay = new Date(event.date).getDate();
-            const eventCells = document.querySelectorAll(`[data-day='${eventDay}']`);
-            eventCells.forEach(cell => {
-                cell.classList.remove('event-day');
-            });
-        } else {
-            console.error('Error deleting event:', data.message);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
+        function deleteEvent(eventId) {
+        fetch('/calendar', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ eventId: eventId })  // Send the eventId in the request body
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert(data.message);  // Show success message
+                // Remove the event element from the DOM
+                document.querySelector(`.event[data-id='${eventId}']`).remove();
+            } else {
+                alert('Failed to delete event');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error deleting event');
+        });
+    }
 
 
         generate();
-
+    
         displayEvents();
     </script> 
 </body>

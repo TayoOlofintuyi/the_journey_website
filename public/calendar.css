@@ -95,17 +95,18 @@ nav a {
 
 }
 
-.delete-button {
-    background-color: red;
-    color: white;
+.del-button {
+    background-color: white;
+    box-shadow: 1px 2px 1px #BDD09F;
+    color: black;
     border: none;
     padding: 5px 10px;
     cursor: pointer;
     font-size: 14px;
     margin-top: 5px;
 }
-.delete-button:hover {
-    background-color: darkred;
+.del-button:hover {
+    background-color: #668D3C;
 }
 
 
@@ -202,6 +203,13 @@ form {
     text-align: center;
 }
 
+#e-header {
+    margin-bottom: 5px;
+    text-align: center;
+    background-color: #f8f4f4;
+    color: black;
+}
+
 .event-day {
     border-color: red;
 }
@@ -215,8 +223,7 @@ footer {
     padding: 10px;
     bottom: 0;
     width: 100%;
-    position: fixed; /* Adjust based on your layout needs */
-    z-index: 1;
+    position: relative;
 }
 
 
