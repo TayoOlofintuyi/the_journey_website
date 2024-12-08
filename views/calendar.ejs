@@ -174,6 +174,17 @@
             displayEvents();
         });
 
+        function HighlightE(event) {
+            const dateE = event.date.split("-");
+            const newDate = dateE[2];
+            console.log("Date:", newDate);
+            const eventCells = document.querySelectorAll(`[data-day='${newDate}']`);
+            console.log(eventCells);
+            eventCells.forEach(cell => {
+                cell.classList.add('event-day');
+            });
+        }
+
         // Handle Event Submission
         document.getElementById("event-form").addEventListener("submit", (e) => {
             e.preventDefault();
@@ -186,18 +197,14 @@
 
             // Add event to the events array
             events.push(event);
+           
 
             // Display event under the form
             const eventElement = document.createElement("div");
             eventElement.innerHTML = `<strong>${event.name}</strong> (${event.date})<br>${event.notes}<hr>`;
             eventList.appendChild(eventElement);
 
-            // Highlight the date on the calendar
-            const eventDay = new Date(event.date).getDate();
-            const eventCells = document.querySelectorAll(`[data-day='${eventDay}']`);
-            eventCells.forEach(cell => {
-                cell.classList.add('event-day');
-            });
+            HighlightE(event);
 
             fetch('/calendar', {
             method: 'POST',
@@ -210,8 +217,6 @@
             .then(data => {
                 if (data.success) {
                     alert('Event created successfully');
-                    // Optionally, you can add the event dynamically to the page here
-                    addEventToList(event);  // Function to append new event to the page
                 } else {
                     console.error('Error creating event:', data.message);
                 }
@@ -226,6 +231,8 @@
             document.getElementById("notes").value = "";
         });
 
+        
+
         function displayEvents() {
         fetch(`/calendar`)
             .then(response => response.json())
@@ -237,11 +244,8 @@
                     // Create the event element (using textContent to avoid HTML injection)
                     const eventElement = document.createElement("div");
 
-
-                    eventElement.appendChild(button);
                     eventElement.classList.add('event'); // Optional: add a class for styling
                     eventElement.innerHTML = `<strong>${event.name}</strong> (${event.date})<br>${event.notes}<hr>`;
-
 
                     // Append the event element to the event list
                     eventList.appendChild(eventElement);
@@ -254,8 +258,14 @@
                     });
                 });
             })
-            .catch(error => console.error('Error fetching events:', error));
+            .catch(error =>{ console.error('Error fetching events:', error)});
         }
+
+        document.querySelectorAll('.event').forEach(div => {
+            div.addEventListener("click", function() {
+                        HighlightE(event);
+                });
+        });
 
         document.querySelectorAll('.del-button').forEach(button => {
         button.addEventListener('click', function() {
@@ -288,7 +298,6 @@
             alert('Error deleting event');
         });
     }
-
 
         generate();
     
