@@ -44,7 +44,28 @@ const JournalSchema = new mongoose.Schema({
     }
 });
 
+const CalendarSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    name: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now,
+        required: true
+    },
+    notes: {
+        type: String
+    }
+});
+
 const User = new mongoose.model("users", LoginSchema);
 const Journal = mongoose.model("Journal", JournalSchema); 
+const Calendar = mongoose.model("Calendar", CalendarSchema);
 
-module.exports = {User, Journal};
+module.exports = {User, Journal, Calendar};

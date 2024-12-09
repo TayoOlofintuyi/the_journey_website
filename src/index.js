@@ -2,7 +2,7 @@ const express = require('express');
 const path = require("path");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const { User, Journal } = require('./config');
+const { User, Journal, Calendar} = require('./config');
 const bodyParser = require('body-parser');
 
 const app = express();
@@ -77,9 +77,36 @@ app.get('/resources', (req, res) => {
     res.render('resources', { username: req.session.username });
 });
 
-app.get('/calender', (req, res) => {
-    res.render('calendar', { username: req.session.username });
+
+app.get('/calendar', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const events = await Calendar.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        // Convert event dates to 'YYYY-MM-DD' format for easier comparison in the frontend
+        const formattedEvents = events.map(event => ({
+            ...event.toObject(),
+            date: event.date.toISOString().split('T')[0]  // Convert to 'YYYY-MM-DD' format
+        }));
+
+        res.render('calendar', {
+            username: req.session.username,
+            events: formattedEvents
+        });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).send('Failed to fetch events');
+    }
 });
+
+
 
 app.get('/journal', async (req, res) => {
     const userId = req.session.userId;
@@ -177,6 +204,63 @@ app.post("/signup", async (req, res) => {
     res.render('main', { username: req.body.username });
 });
 
+app.post('/calendar', async (req, res) => {
+    const { name, date, notes } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+        // Create a new event and save it to the database
+        const newEvent = new Calendar({
+            user_id: userId,
+            name: name,
+            date: new Date(date),  // Ensure correct date format
+            notes: notes
+        });
+
+        await newEvent.save();  // Save event to the database
+
+        res.json({ success: true, message: 'Event created successfully' });
+    } catch (error) {
+        console.error('Error saving event:', error);
+        res.status(500).send('Failed to save event');
+    }
+});
+
+app.delete('/calendar', async (req, res) => {
+    const userId = req.session.userId;
+    const eventId = req.body.eventId;  // Get the event ID from the request body
+
+    if (!userId) {
+        return res.status(401).send('User not logged in');  // Ensure the user is logged in
+    }
+
+    if (!eventId) {
+        return res.status(400).send('Event ID is required');  // Make sure an event ID is provided
+    }
+
+    try {
+        // Find the event by its ID and ensure it belongs to the logged-in user
+        const event = await Calendar.findOne({ _id: eventId, user_id: userId });
+
+        if (!event) {
+            return res.status(404).send('Event not found or does not belong to this user');
+        }
+
+        // Delete the event
+        await Calendar.findByIdAndDelete(eventId);
+
+        res.json({ success: true, message: 'Event deleted successfully' });  // Send success response
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        res.status(500).send('Failed to delete event');  // Handle any errors
+    }
+});
+
+
 app.post("/login", async (req, res) => {
     try {
         const check = await User.findOne({ username: req.body.username });
@@ -267,6 +351,7 @@ app.post('/change-username', async (req, res) => {
         res.status(500).send('Something went wrong with username, please try again.');
     }
 });
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {

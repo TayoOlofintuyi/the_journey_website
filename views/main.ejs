@@ -31,8 +31,6 @@
   <% } %>
 </header>
 
-
-
 <div class="container">
   <nav>
       <ul>
@@ -45,14 +43,12 @@
 
 
 
-
   <main>
       <section class="welcomeSign">
           <h2>Welcome To The Journey, Where Your Self-Care Journey Begins</h2>
           <p>Here you can keep track and record your thoughts and feelings with support from local resources.</p>
         
       </section>
-
 
 
 
@@ -142,37 +138,6 @@
 
 
 </html>
-<script>
-   const journalPrompts = [
-       "Are you taking enough risks in your life? Would you like to change your relationship to risk? If so, how?",
-       "At what point in your life have you had the highest self-esteem?",
-       "What pet peeves do you have? Any idea why they drive you so crazy?",
-       "Explain what is hardest for you in as many words as it takes."
-   ]
-  
-   function getRandomJournalPrompts()
-   {
-       const randomIndex = Math.floor(Math.random() * journalPrompts.length);
-       return journalPrompts[randomIndex];
-   }
-  
-   function displayRandomJournalPrompts()
-   {
-       const journalPromptsElement = document.getElementById("journalPrompt");
-  
-       if (journalPromptsElement)
-       {
-           journalPromptsElement.innerText = getRandomJournalPrompts();
-       }
-       else
-       {
-           console.error("Element with ID 'journalPrompt' not found.");
-       }
-  
-      
-   }
-  
-   displayRandomJournalPrompts();</script>
 
 <script>
 const dailyAffrmations = [
