@@ -188,7 +188,7 @@ app.post("/signup", async (req, res) => {
     const existingUser = await User.findOne({ username: data.username });
 
     if (existingUser) {
-        return res.send("An account already exists with that username. Please choose a different username.");
+        return res.json({ success: true, message: "An account already exists with that username. Please choose a different username."});
     } else {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
@@ -266,7 +266,7 @@ app.post("/login", async (req, res) => {
         const check = await User.findOne({ username: req.body.username });
 
         if (!check) {
-            return res.send("Username not found");
+            return res.status(404).send("Username not found");
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
