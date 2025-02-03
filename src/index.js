@@ -4,7 +4,6 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { User, Journal, Calendar} = require('./config');
 const bodyParser = require('body-parser');
-const notify = require('popups');
 
 const app = express();
 
@@ -189,7 +188,7 @@ app.post("/signup", async (req, res) => {
     const existingUser = await User.findOne({ username: data.username });
 
     if (existingUser) {
-        return notify.alert("An account already exists with that username. Please choose a different username.");
+        return res.send("An account already exists with that username. Please choose a different username.");
     } else {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
@@ -267,7 +266,7 @@ app.post("/login", async (req, res) => {
         const check = await User.findOne({ username: req.body.username });
 
         if (!check) {
-            return res.status(404).send("Username not found");
+            return res.status(404).json({error: "Username not found"});
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
@@ -276,12 +275,12 @@ app.post("/login", async (req, res) => {
             req.session.userId = check._id;
             res.redirect('/main');
         } else {
-            res.send("Incorrect password");
+            res.status(404).json({ error: "Incorrect password"});
         }
 
     } catch (error) {
         console.error("Error during login:", error); 
-        res.send("Something went wrong, please try again.");
+        res.status(500).json({ error: "Something went wrong, please try again."});
     }
 });
 
@@ -290,7 +289,7 @@ app.post('/change-password', async (req, res) => {
     const userId = req.session.userId;
 
     if (!userId) {
-        return res.status(400).send('User not logged in');
+        return res.status(400).json({ error: 'User not logged in'});
     }
 
     try {
@@ -306,14 +305,15 @@ app.post('/change-password', async (req, res) => {
 
         if (result.modifiedCount === 1) {
             console.log("Password successfully updated!");
+            res.status(200).json({success: "Password successfully updated!"})
             res.redirect('/user');
         } else {
             console.log("Password update failed!");
-            res.status(500).send('Error updating password.');
+            res.status(500).json({error: 'Error updating password.'});
         }
     } catch (err) {
         console.error('Error during password update:', err);
-        res.status(500).send('Something went wrong, please try again.');
+        res.status(500).json({ error: 'Something went wrong, please try again.'});
     }
 });
 
@@ -322,7 +322,7 @@ app.post('/change-username', async (req, res) => {
     const userId = req.session.userId;
 
     if (!userId) {
-        return res.status(400).send('User not logged in');
+        return res.status(400).json({error: 'User not logged in'});
     }
 
     try {
