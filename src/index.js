@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const { User, Journal, Calendar} = require('./config');
 const bodyParser = require('body-parser');
+const notify = require('popups');
 
 const app = express();
 
@@ -188,7 +189,7 @@ app.post("/signup", async (req, res) => {
     const existingUser = await User.findOne({ username: data.username });
 
     if (existingUser) {
-        return res.send("An account already exists with that username. Please choose a different username.");
+        return notify.alert("An account already exists with that username. Please choose a different username.");
     } else {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
