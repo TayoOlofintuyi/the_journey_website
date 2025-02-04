@@ -2,7 +2,7 @@
 Creating a centralized notification system for the website.
 */
 
-function showPopup(message, type = 'error') {
+function showPopup(message, type) {
     const container = document.getElementById("notification-container");
 
     // Create a new popup element

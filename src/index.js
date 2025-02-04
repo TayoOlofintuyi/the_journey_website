@@ -24,6 +24,9 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "js")));
+//app.use('/src',express.static(path.join(__dirname, 'src')));
+
 
 app.get('/login', (req,res) => {
     if(req.session.user) {

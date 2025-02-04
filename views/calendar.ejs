@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Calendar</title>
     <link rel="stylesheet" href="/calendar.css">
-    
+    <script src="notification.js"></script>
 </head>
 <body>
     <header>
@@ -215,7 +215,8 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Event created successfully');
+                    // alert('Event created successfully');
+                    showPopup('Event created successfully', 'success');
                 } else {
                     console.error('Error creating event:', data.message);
                 }
