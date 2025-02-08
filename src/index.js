@@ -24,7 +24,7 @@ app.use(session({
 app.set('view engine', 'ejs');
 
 app.use(express.static("public"));
-app.use(express.static(path.join(__dirname, "js")));
+//app.use(express.static(path.join(__dirname, "js")));
 //app.use('/src',express.static(path.join(__dirname, 'src')));
 
 
@@ -148,7 +148,7 @@ app.get('/user-journal', async (req, res) => {
             res.json(journalEntries);
         } catch (error) {
             console.error('Error fetching journal entries:', error);
-            res.status(500).send('Failed to fetch journal entries');
+            res.status(500).json({ error : 'Failed to fetch journal entries'});
         }    
 });
 
@@ -177,7 +177,7 @@ app.post('/journal', async (req, res) => {
         res.json({ success: true, journalEntries: journalEntries });
     } catch (error) {
         console.error('Error saving journal entry:', error);
-        res.status(500).send('Failed to save journal entry');
+        res.status(500).json({error : 'Failed to save journal entry'});
     }
 });
 
@@ -229,7 +229,7 @@ app.post('/calendar', async (req, res) => {
         res.json({ success: true, message: 'Event created successfully' });
     } catch (error) {
         console.error('Error saving event:', error);
-        res.status(500).send('Failed to save event');
+        res.status(500).json({error: 'Failed to save event'});
     }
 });
 
@@ -269,7 +269,7 @@ app.post("/login", async (req, res) => {
         const check = await User.findOne({ username: req.body.username });
 
         if (!check) {
-            return res.status(404).json({error: "Username not found"});
+            return res.status(401).json({error: "Username not found"});
         }
 
         const isPasswordMatch = await bcrypt.compare(req.body.password, check.password);
@@ -278,7 +278,7 @@ app.post("/login", async (req, res) => {
             req.session.userId = check._id;
             res.redirect('/main');
         } else {
-            res.status(404).json({ error: "Incorrect password"});
+            res.status(401).json({ error: "Incorrect password"});
         }
 
     } catch (error) {

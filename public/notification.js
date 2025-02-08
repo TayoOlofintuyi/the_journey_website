@@ -3,19 +3,27 @@ Creating a centralized notification system for the website.
 */
 
 function showPopup(message, type) {
-    const container = document.getElementById("notification-container");
-
+    let container = document.getElementById("notification-container");
+    if (!container) {
+        container = document.createElement("div");
+        container.id = "notification-container";
+        container.style.position = "fixed";
+        container.style.top = "20px";
+        container.style.right= "20px";
+        container.style.zIndex = "1000";
+        document.body.appendChild(container);
+    }
     // Create a new popup element
     const popup = document.createElement("div");
     popup.classList.add("popup");
 
     // Style the popup based on the type (error, success, etc.)
     if (type === 'error') {
-        popup.style.backgroundColor = '#f44336';  // Red for errors
+        popup.classList.add('error');  // Red for errors
     } else if (type === 'success') {
-        popup.style.backgroundColor = '#4CAF50';  // Green for success
+        popup.classList.add('success');  // Green for success
     } else {
-        popup.style.backgroundColor = '#2196F3';  // Blue for general messages
+        popup.classList.add('info');  // Blue for general messages
     }
 
     // Add message to popup
@@ -23,9 +31,15 @@ function showPopup(message, type) {
 
     // Append the popup to the container
     container.appendChild(popup);
+    console.log(popup);
+
+    setTimeout(() => {
+        popup.classList.add("show");
+    }, 100);
 
     // Automatically hide the popup after 3 seconds
     setTimeout(() => {
+        popup.classList.remove("show");
         popup.classList.add("hide");
         setTimeout(() => {
             container.removeChild(popup);

@@ -276,27 +276,27 @@
 
         // Delete event function
         function deleteEvent(eventId) {
-        fetch('/calendar', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ eventId: eventId })  // Send the eventId in the request body
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                alert(data.message);  // Show success message
-                // Remove the event element from the DOM
-                document.querySelector(`.event[data-id='${eventId}']`).remove();
-            } else {
-                alert('Failed to delete event');
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Error deleting event');
-        });
+            fetch('/calendar', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ eventId: eventId })  // Send the eventId in the request body
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(data.message);  // Show success message
+                    // Remove the event element from the DOM
+                    document.querySelector(`.event[data-id='${eventId}']`).remove();
+                } else {
+                    alert('Failed to delete event');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting event');
+            });
     }
 
         generate();

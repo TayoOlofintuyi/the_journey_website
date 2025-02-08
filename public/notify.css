@@ -1,0 +1,19 @@
+/* Example CSS for notifications */
+.popup {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.popup.show {
+    opacity: 1;
+}
+
+.popup.hide {
+    opacity: 0;
+}

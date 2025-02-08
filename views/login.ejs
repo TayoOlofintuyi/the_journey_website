@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login.css">
+    <link rel="stylesheet" href="notify.css">
     <title>Login</title>
-    <script src="/notification.js"></script>
+    <script src="notification.js"></script>
 </head>
 <body>
     <div class="center">
@@ -43,8 +44,28 @@
     </div>
 </body>
 <script>
-    function validate() {
-        
-    }
+    let user = document.getElementById("username").value;
+    let psswd = document.getElementById("password").value
+        fetch('/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ user, psswd }) 
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.sucess) {
+                window.location.href = data.redirect;
+            } else {
+                const errMessage = data.error || "An unknown error has occured. Please try again"
+                showPopup(errMessage, 'error');
+                console.log('error: ', errMessage);
+            }
+        })
+        .catch(error => {
+            console.error("Login eror:", error);
+            showPopup("An error occured, please try again.", 'error');
+        });
 </script>
 </html>
