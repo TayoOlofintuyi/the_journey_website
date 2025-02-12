@@ -265,6 +265,7 @@ app.delete('/calendar', async (req, res) => {
 
 
 app.post("/login", async (req, res) => {
+    console.log("Received login request with:", req.body);
     try {
         const check = await User.findOne({ username: req.body.username });
 
@@ -278,7 +279,7 @@ app.post("/login", async (req, res) => {
             req.session.userId = check._id;
             res.redirect('/main');
         } else {
-            res.status(401).json({ error: "Incorrect password"});
+            return res.status(401).json({ error: "Incorrect password"});
         }
 
     } catch (error) {
