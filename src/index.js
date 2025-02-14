@@ -268,7 +268,7 @@ app.post("/login", async (req, res) => {
     console.log("Received login request with:", req.body);
     try {
         const check = await User.findOne({ username: req.body.username });
-
+        console.log("Check: ", check);
         if (!check) {
             return res.status(401).json({error: "Username not found"});
         }
@@ -277,6 +277,7 @@ app.post("/login", async (req, res) => {
         if (isPasswordMatch) {
             req.session.username = check.username;
             req.session.userId = check._id;
+            res.status(200).json({success: true, message: 'Login successful!'});
             res.redirect('/main');
         } else {
             return res.status(401).json({ error: "Incorrect password"});
