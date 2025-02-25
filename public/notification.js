@@ -8,9 +8,12 @@ function showPopup(message, type) {
         container = document.createElement("div");
         container.id = "notification-container";
         container.style.position = "fixed";
-        container.style.top = "20px";
-        container.style.right= "20px";
+        container.style.top = "10px";
+        container.style.width= "440px";
         container.style.zIndex = "1000";
+        container.style.display = "flex";
+        container.style.justifyContent = "center";
+        container.style.alignItems = "center";
         document.body.appendChild(container);
     }
     // Create a new popup element
