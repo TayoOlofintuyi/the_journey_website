@@ -261,6 +261,57 @@ app.delete('/calendar', async (req, res) => {
 });
 
 
+app.delete('/journal', async (req, res) => {
+    const userId = req.session.userId;
+    const entryId = req.body.entryId;
+
+    if(!userId) {
+        return res.status(401).send('User not logged in');
+    }
+
+    if(!entryId){
+        return res.status(400).send('Entry ID is required');
+    }
+
+    try{
+        const entry = await Journal.findOne({_id: entryId, user_id: userId});
+
+        if(!entry){
+            return res.status(404).send('Entry not found or does not belong to this user');
+        }
+
+        res.json({ success: true, message: 'Entry deleted successfully'});
+    } catch (error){
+        console.error('Error deleting entry:', error);
+        res.status(500).send('Failed to delete entry');
+    }
+    
+});
+
+// app.delete('/journal', async(rec, res) => {
+//     const { title, content, mood, date } = req.body;
+//     const userId = req.session.userId;
+    
+//     if (!userId) {
+//         return res.status(401).send('User not loggeed in');
+//     }
+//     try {
+
+//         const entry = await Journal.findOne({_id: entryId, user_id: userId});
+ 
+//         if(!entry) {
+//             return res.status(404).send('Entry not found or does not belong to this user');
+
+//         }
+
+//         await Journal.findByIdAndDelete(journalEntries);
+//         res.json({ success: true, message: 'Journal entry deleted successfully' });
+//     } catch (error) {
+//         console.error('Error deleting event:', error);
+//         res.status(500).send('Failed to delete entry');
+//     }
+// });
+
 app.post("/login", async (req, res) => {
     try {
         const check = await User.findOne({ username: req.body.username });
