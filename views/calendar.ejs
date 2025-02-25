@@ -1,249 +1,308 @@
 <!DOCTYPE html>
 <html>
+<head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="/calendar.css">
+    <link rel="stylesheet" href="/notify.css">
     <title>Calendar</title>
-    <link rel="stylesheet" href="calendar.css">
-    <script src="script.js"></script>
-    <body>
-        <header>
-            <% if (typeof username !== 'undefined') { %>
-                <div class="header">
-                    <h1 class="title">Calendar</h1>
-                    <img src="/images/noprofilephoto.jpg" alt="Profile Photo" class="profile-photo">
-                    <div class="username-dropdown">
-                        <span class="profile-name"><%= username %></span>
-                        <div class="dropdown-content">
-                            <p><a href="/user">Profile</a></p>
-                            <p><a href="/user">Settings</a></p>
-                            <p><a href="/user">Logout</a></p>
-        
-                        </div>
-                    </div>
-                </div>
-            <% } else { %>
-                <div class="header">
+    <script src="notification.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Calendar</h1>
+        <% if (typeof username !== 'undefined') { %>
+            <div class="header">
+                <a href="/user"><p>Go to, <%= username %>'s Profile!</p></a>
+            </div>
+        <% } else { %>
+            <div class="header">
                 <p><a href="/login">Login</a></p>
-                </div>
-            <% } %>
-        </header>
-        <nav>
-            <ul>
-                <li><a href="/main">Home</a></li> 
-                <li><a href="/about">About</a></li>
-                <li><a href="/resources">Resources</a></li>
-                <li><a href="/calender">Calendar</a></li>
-                <li><a href="/journal">Journal</a></li>
-            </ul>
+            </div>
+        <% } %>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="/main">Home</a></li> 
+            <li><a href="/resources">Resources</a></li>
+            <li><a href="/calendar">Calendar</a></li>
+            <li><a href="/journal">Journal</a></li>
+        </ul>
+    </nav>
+
+    <main class="container">
+        <table id="calendar">
+            <thead>
+             <tr>
+                <th><button id="prev-month"><span >&lt;</span></button></th>
+                <th colspan="5" class="month-name"></th>
+                <th><button id="next-month"><span >&gt;</span></button></th>
+             </tr> 
+                <tr id="days">
+                    <th>Sunday</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th> Friday </th>
+                    <th>Saturday</th>
+                </tr>
+            </thead>
+            <tbody class="month-dates"></tbody>
+        </table>
+
+        <aside class="create-event">
+            <form id="event-form">
+                <h1>Events and Reminders.</h1>
+                <hr>
+                <fieldset>
+                    <legend>Create an event</legend>
     
-        </nav>
-        
-        <style>
-            body{
-                background-image: url('images/Background.jpg');
-            }
-        </style>
-        
-            <!-- Basics for the calendar outline -->
-            <div class="container">
-                 <div class="month">
-                    <ul >
-                        <button style="float:left;" class="prev" onclick="nextprev()">prev</button>
-                        <li id="mName" value="11">December<br></li>
-                        <li><span style="font-size:18px">2023</span></li>
-                        <button class="next" style="float:right;" type="button" onclick="next()">next</button>
-                    </ul>
-                </div>
-                <div>
-                    <ul class="weekdays">
-                        <li>Sun</li>
-                        <li>Mon</li>
-                        <li>Tue</li>
-                        <li>Wed</li>
-                        <li>Thurs</li>
-                        <li>Fri</li>
-                        <li>Sat</li>
-                        <button id="add" class="collapsible" onclick="toggleRem()">+</button>
-                    </ul>
-                </div>
-                <div class="calendar-dates">
-                    <ul class="dates"></ul>
-                </div>
-            </div>
-            <div id="form" class="RemAEvents">
-                <form method="post">
-                    <label>Events & Reminders</label><br>
-                    <label for="name">Title: </label>
-                    <input type ="text" id="name" name="name"><br>
-                    <br>
-                    <label for="dateTime">Date:</label>
-                    <input type="datetime-local" id="dateTime" name="dateTime"><br>
-                    <br>
-                    <label for="description">Description</label><br>
-                    <textarea id="descInfo" name="description" rows="4" cols="30"></textarea>
-                    <br>
-                    <input style="float:left;" type="submit" value="Save">
-                    <input type="reset" value="Exit">
-                    <input type="button", onclick="nReminder()", value="Saved Events">
-
-                </form>
-
-                <div id="savedReminders">
-                    <h2 id ="savedTitle"></h2>
-                    <p id="savedDescription"></p>
-                </div>
-            </div>
-        <footer>
-            <p>&copy; 2023 The Journey. All rights reserved.</p>
-            <p>Contacts</p>
-        </footer>
-
-
-        <script>
-        // storing full name of all months in array
-        const months = ["January", "February", "March", "April", "May", "June", "July",
-                    "August", "September", "October", "November", "December"];
-            const mName = document.getElementById("mName").textContent;
-            var index = document.getElementById("mName").value;
-            console.log("number", index);
-        const numberedmonths = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-            var currentMonth = months[index];
-            const maxMonth = 11;
-            let currMonthindex = 0;
-            let currentmName = "";
-            var monthStart = [1, 4, 4, 7, 2, 5, 7, 3, 6, 1, 4, 6];
-            let start = 0;
-            //let emptyvalues = document.createElement('li');
-
-
-        function toggleRem() {
-            var x = document.getElementById("form");
-            if (x.style.display === "none") {
-                x.style.display = "block";
-            } else {
-                x.style.display = "none";
-            }
-            }
-            toggleRem();
-
+                    <label for="name">Name:<br>
+                        <input type="text" id="name" required></label><br>
+                    
+                    <br><label for="date">Date:<br>
+                    <input type="datetime-local" id="date" required></label><br>
+    
+                    <br><label for="notes">Event Notes:<br>
+                    <textarea name="body" cols="40" rows="20" id="notes" placeholder="Type your message here..."></textarea></label><br>
+    
+                    <input type="submit" value="Create Event" >
+                </fieldset>
+            </form>
+    
+            <section id="event-list">
+                <h2 id="e-header">Upcoming Events</h2>
+                <hr>
+                <% if (events.length > 0) { %>
+                    <% events.forEach(function(event) { %>
+                        <div class="event" data-id="<%= event._id %>">
+                            <strong><%= event.name %></strong><br>
+                            <em><%= event.date %></em><br>
+                            <p><%= event.notes %></p>
+                            <button class="del-button" data-id="<%= event._id %>">Delete</button>
+                            <hr>
+                        </div>
+                    <% }); %>
+                <% } else { %>
+                    <p>No events for this month.</p>
+                <% } %>
+            </section>
             
-            for (i = 0; i <months.length; i++) {
-                if(months[i] == mName) {
-                currentMonth = i;
-                currMonthindex = i;
+        </aside>
+    
+    </main>
+
+
+    <footer>
+        <p>&copy; 2023 The Journey. All rights reserved.</p>
+        <p>Contacts</p>
+    </footer>
+
+    <script>
+        console.log("Calendar script loaded");
+        let date = new Date();
+        let year = date.getFullYear();
+        let month = date.getMonth();
+        const day = document.querySelector(".month-dates");
+        const current = document.querySelector(".month-name");
+        const eventList = document.getElementById("event-list");
+
+        const months = [
+            "January", "February", "March", "April", "May", "June", 
+            "July", "August", "September", "October", "November", "December"
+        ];
+
+        // Array to store events
+        const events = [];
+
+        const generate = () => {
+            const firstday = new Date(year, month, 1).getDay();
+            const lastday = new Date(year, month + 1, 0).getDate();
+            const ldayd = new Date(year, month, lastday).getDay();
+            const prevlstday = new Date(year, month, 0).getDate();
+            let td = "";
+            let weekRow = "<tr>";
+
+            // Previous month's days
+            for (let i = firstday; i > 0; i--) {
+                weekRow += `<td class="inactive">${prevlstday - i + 1}</td>`;
+            }
+
+            // Current month's days
+            for (let i = 1; i <= lastday; i++) {
+                const isToday = (i === date.getDate() && month === new Date().getMonth() && year === new Date().getFullYear()) ? "active" : "";
+                const hasEvent = events.some(event => event.date === `${year}-${month + 1}-${i}`);
+                weekRow += `<td class="${isToday} ${hasEvent ? 'event-day' : ''}" data-day="${i}">${i}</td>`;
+
+                // Start a new row if it's the end of the week
+                if ((firstday + i) % 7 === 0) {
+                    weekRow += "</tr><tr>"; // Close current row and start a new one
                 }
             }
-            currentmName = months[currentMonth];
-            //console.log("WTF: ", currMonthindex);
-            findnewMonth();
+
+            // Next month's days
+            for (let i = ldayd + 1; i <= 6; i++) {
+                weekRow += `<td class="inactive">${i - ldayd}</td>`;
+            }
+
+            weekRow += "</tr>"; // Close the last row
+
+            current.innerHTML = `<th colspan="7">${months[month]} ${year}</th>`;
+            day.innerHTML = weekRow; // Populate the dates
+            displayEvents();
+        };
+
+        // Handle Previous/Next month navigation
+        document.getElementById('prev-month').addEventListener('click', () => {
+            month--;
+            if (month < 0) {
+                month = 11;
+                year--;
+            }
+            generate();
+            displayEvents();
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            month++;
+            if (month > 11) {
+                month = 0;
+                year++;
+            }
+            generate();
+            displayEvents();
+        });
+
+        function HighlightE(event) {
+            const dateE = event.date.split("-");
+            const newDate = dateE[2];
+            console.log("Date:", newDate);
+            const eventCells = document.querySelectorAll(`[data-day='${newDate}']`);
+            console.log(eventCells);
+            eventCells.forEach(cell => {
+                cell.classList.add('event-day');
+            });
+        }
+
+        // Handle Event Submission
+        document.getElementById("event-form").addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const eventName = document.getElementById("name").value;
+            const eventDate = document.getElementById("date").value.split("T")[0]; // Date in YYYY-MM-DD format
+            const eventNotes = document.getElementById("notes").value;
+
+            const event = { name: eventName, date: eventDate, notes: eventNotes };
+
+            // Add event to the events array
+            events.push(event);
+           
+
+            // Display event under the form
+            const eventElement = document.createElement("div");
+            eventElement.innerHTML = `<strong>${event.name}</strong> (${event.date})<br>${event.notes}<hr>`;
+            eventList.appendChild(eventElement);
+
+            HighlightE(event);
+
+            fetch('/calendar', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(event)  // Send event data as JSON
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // alert('Event created successfully');
+                    showPopup('Event created successfully', 'success');
+                } else {
+                    console.error('Error creating event:', data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+
+            // Clear form inputs
+            document.getElementById("name").value = "";
+            document.getElementById("date").value = "";
+            document.getElementById("notes").value = "";
+        });
+
         
 
-              function nextprev() {
-                if (index > 0) {
-                    index--;
-                    currMonthindex--;
-                }
-                currentMonth = months[index];
-                currentmName = currentMonth;
-                start = monthStart[index];
-                //console.log("previous month to load: ", currentMonth);
-                console.log("index: ", currMonthindex);
-                document.query
-                findnewMonth();
-                resetCalendar();
-                updateCalendar();
-              }
-              nextprev();
-
-
-        function next() {
-            if (index < 11) {
-                    index++;
-                    currMonthindex++;
-                }
-                currentMonth = months[index];
-                currentmName = currentMonth;
-                start = monthStart[index];
-                console.log("next month to load: ", currentMonth);
-                findnewMonth();
-                resetCalendar();
-                updateCalendar();
-        }
-        next();
-
-        function findnewMonth() {
-            var content = document.getElementById('mName');
-            content.textContent = " " + currentmName;
-            console.log("Now4: ", currentMonth);
-            //console.log("name5:", currentmName);
-        }
-        findnewMonth();
-
-
-        function resetCalendar() {
-            var data = document.querySelector('.dates');
-            while(data.hasChildNodes()) {
-                data.removeChild(data.firstChild);
-            }
-        }
-        resetCalendar();
-
-        function updateCalendar() {
-            var num = numberedmonths[currMonthindex];
-            var name = currentmName;
-            var startofMonth = start;
-            console.log("What does this get? : ", startofMonth);
-
-            if (startofMonth != 1) {
-                for (i = 1; i < startofMonth; i++) {
-                    emptyvalues = document.createElement('li');
-                    emptyvalues.innerText = ".";
-                    document.querySelector('.dates').appendChild(emptyvalues);
-                    emptyvalues.addEventListener("click", nReminder);
+        function displayEvents() {
+        fetch(`/calendar`)
+            .then(response => response.json())
+            .then(events => {
+                // Clear the current event list
+                eventList.innerHTML = '';
                 
-                    if ( i == startofMonth - 1){ 
-                        for (j = 1; j <= numberedmonths[currMonthindex]; j++) {
-                           let apples = document.querySelector('.dates').lastElementChild;
-                            newNode = document.createElement('li');
-                            newNode.innerText = j;
-                            document.querySelector('.dates').insertBefore(newNode, null);
-                            newNode.addEventListener("click", nReminder);
-                        }
-                    }
-                }
-            }
-            else if (start == 1) {
-                for ( a = 1; a <= numberedmonths[currMonthindex]; a++) {
-                let list = document.createElement('li');
-                list.innerText = a;
-                document.querySelector('.dates').appendChild(list);
-                list.addEventListener("click", nReminder);
-                }
-            }
-        }
-        updateCalendar();
+                events.forEach(event => {
+                    // Create the event element (using textContent to avoid HTML injection)
+                    const eventElement = document.createElement("div");
 
+                    eventElement.classList.add('event'); // Optional: add a class for styling
+                    eventElement.innerHTML = `<strong>${event.name}</strong> (${event.date})<br>${event.notes}<hr>`;
 
-        function nReminder() {
-            const savedReminders = localStorage.getItem("Reminders");
-            const remContainer = document.getElementById("savedReminders");
+                    // Append the event element to the event list
+                    eventList.appendChild(eventElement);
 
-            if (savedReminders) {
-                const storedReminders = JSon.parse(savedReminders);
-
-                storedReminders.forEach(rem => {
-                    const reminDer = document.createElement('div');
-                    reminDer.innerHTML = `<br><h2 class="saved-title">${rem.title}</h2><br><h2 class="saved-date">${rem.date}</h2>
-                        <p class="saved-desc">${rem.description}</p><br>`;
-                        remContainer.appendChild(reminDer);
-                })
-            }
-            else {
-                document.getElementById('savedTitle'). textContent = ""
-                document.getElementById('savedDescription').textContent = "Nothing has been added.";
-            }
+                    // Highlight the event date on the calendar
+                    const eventDay = new Date(event.date).getDate();
+                    const eventCells = document.querySelectorAll(`[data-day='${eventDay}']`);
+                    eventCells.forEach(cell => {
+                        cell.classList.add('event-day');
+                    });
+                });
+            })
+            .catch(error =>{ console.error('Error fetching events:', error)});
         }
 
+        document.querySelectorAll('.event').forEach(div => {
+            div.addEventListener("click", function() {
+                        HighlightE(event);
+                });
+        });
 
-        </script>
-    </body>
+        document.querySelectorAll('.del-button').forEach(button => {
+        button.addEventListener('click', function() {
+            const eventId = this.getAttribute('data-id');
+            deleteEvent(eventId);
+        });
+    });
+
+        // Delete event function
+        function deleteEvent(eventId) {
+            fetch('/calendar', {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ eventId: eventId })  // Send the eventId in the request body
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    showPopup('Event deleted successfully', 'success');  // Show success message
+                    // Remove the event element from the DOM
+                    document.querySelector(`.event[data-id='${eventId}']`).remove();
+                } else {
+                    alert('Failed to delete event');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error deleting event');
+            });
+    }
+
+        generate();
+    
+        displayEvents();
+    </script> 
+</body>
 </html>
