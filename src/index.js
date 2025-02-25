@@ -2,9 +2,8 @@ const express = require('express');
 const path = require("path");
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const collection = require("./config");
+const { User, Journal, Calendar} = require('./config');
 const bodyParser = require('body-parser');
-
 
 const app = express();
 
@@ -27,7 +26,6 @@ app.set('view engine', 'ejs');
 app.use(express.static("public"));
 
 app.get('/login', (req,res) => {
-    //res.render('login');
     if(req.session.user) {
         res.render('login', {
             user: req.session.username
@@ -44,17 +42,6 @@ app.get('/signup', (req,res) => {
 });
 
 app.get('/main', (req, res) => {
-    /*
-    if(req.session.user) {
-        res.render('main', {
-            user: req.session.username
-        });
-    }else {
-        res.render('main', {
-            username: null
-        });
-    }
-        */
     res.render('main', { username: req.session.username });
 
 });
@@ -63,21 +50,134 @@ app.get('/about', (req, res) => {
     res.render('about', { username: req.session.username });
 });
 
-app.get('/user', (req, res) => {
-    res.render('user', { username: req.session.username });
+app.get('/user', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const journalEntries = await Journal.find({ user_id: userId })
+        .sort({ date: -1 }) 
+        //.limit(5); 
+
+        res.render('user', {
+            username: req.session.username,
+            journalEntries: journalEntries
+        });
+    } catch (error) {
+        console.error('Error fetching journal entries:', error);
+        res.status(500).send('Failed to fetch journal entries');
+    }
 });
+
 
 app.get('/resources', (req, res) => {
     res.render('resources', { username: req.session.username });
 });
 
-app.get('/calender', (req, res) => {
-    res.render('calendar', { username: req.session.username });
+
+app.get('/calendar', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const events = await Calendar.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        // Convert event dates to 'YYYY-MM-DD' format for easier comparison in the frontend
+        const formattedEvents = events.map(event => ({
+            ...event.toObject(),
+            date: event.date.toISOString().split('T')[0]  // Convert to 'YYYY-MM-DD' format
+        }));
+
+        res.render('calendar', {
+            username: req.session.username,
+            events: formattedEvents
+        });
+    } catch (error) {
+        console.error('Error fetching events:', error);
+        res.status(500).send('Failed to fetch events');
+    }
 });
 
-app.get('/journal', (req, res) => {
-    res.render('journal', { username: req.session.username });
+
+
+app.get('/journal', async (req, res) => {
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.redirect('/login');
+    }
+
+    try {
+        const journalEntries = await Journal.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        res.render('journal', {
+            username: req.session.username,
+            journalEntries: journalEntries
+        });
+    } catch (error) {
+        console.error('Error fetching journal entries:', error);
+        res.status(500).send('Failed to fetch journal entries');
+    }
 });
+
+app.get('/user-journal', async (req, res) => {
+        const userId = req.session.userId;
+    
+        if (!userId) {
+            return res.redirect('/login');
+        }
+    
+        try {
+            const journalEntries = await Journal.find({ user_id: userId })
+                .sort({ date: -1 })
+                .limit(5);
+    
+            res.json(journalEntries);
+        } catch (error) {
+            console.error('Error fetching journal entries:', error);
+            res.status(500).send('Failed to fetch journal entries');
+        }    
+});
+
+app.post('/journal', async (req, res) => {
+    const { title, content, mood, date } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+    try {
+        console.log('Received journal entry:', { title, content, mood, date });
+
+        const newJournalEntry = new Journal({
+            user_id: userId,
+            title: title,
+            content: content,
+            mood: mood,
+            date: date,
+        });
+        await newJournalEntry.save();
+        const journalEntries = await Journal.find({ user_id: userId })
+            .sort({ date: -1 })
+            .limit(5);
+
+        res.json({ success: true, journalEntries: journalEntries });
+    } catch (error) {
+        console.error('Error saving journal entry:', error);
+        res.status(500).send('Failed to save journal entry');
+    }
+});
+
 
 app.post("/signup", async (req, res) => {
     const data = {
@@ -85,27 +185,136 @@ app.post("/signup", async (req, res) => {
         password: req.body.password
     }
 
-    const existingUser = await collection.findOne({username: data.username});
+    const existingUser = await User.findOne({ username: data.username });
 
-    if(existingUser){
+    if (existingUser) {
         return res.send("An account already exists with that username. Please choose a different username.");
-    }
-    else{
+    } else {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(data.password, saltRounds);
 
         data.password = hashedPassword;
 
-        const userData = await collection.insertMany(data);
-        console.log(userData);
-    }
-    res.render('main', {username: req.body.username});
+        const userData = new User(data); 
+        await userData.save();
 
+        console.log("User created successfully:", userData);
+    }
+
+    res.render('main', { username: req.body.username });
 });
+
+app.post('/calendar', async (req, res) => {
+    const { name, date, notes } = req.body;
+    const userId = req.session.userId;
+
+    if (!userId) {
+        return res.status(400).send('User not logged in');
+    }
+
+    try {
+        // Create a new event and save it to the database
+        const newEvent = new Calendar({
+            user_id: userId,
+            name: name,
+            date: new Date(date),  // Ensure correct date format
+            notes: notes
+        });
+
+        await newEvent.save();  // Save event to the database
+
+        res.json({ success: true, message: 'Event created successfully' });
+    } catch (error) {
+        console.error('Error saving event:', error);
+        res.status(500).send('Failed to save event');
+    }
+});
+
+app.delete('/calendar', async (req, res) => {
+    const userId = req.session.userId;
+    const eventId = req.body.eventId;  // Get the event ID from the request body
+
+    if (!userId) {
+        return res.status(401).send('User not logged in');  // Ensure the user is logged in
+    }
+
+    if (!eventId) {
+        return res.status(400).send('Event ID is required');  // Make sure an event ID is provided
+    }
+
+    try {
+        // Find the event by its ID and ensure it belongs to the logged-in user
+        const event = await Calendar.findOne({ _id: eventId, user_id: userId });
+
+        if (!event) {
+            return res.status(404).send('Event not found or does not belong to this user');
+        }
+
+        // Delete the event
+        await Calendar.findByIdAndDelete(eventId);
+
+        res.json({ success: true, message: 'Event deleted successfully' });  // Send success response
+    } catch (error) {
+        console.error('Error deleting event:', error);
+        res.status(500).send('Failed to delete event');  // Handle any errors
+    }
+});
+
+
+app.delete('/journal', async (req, res) => {
+    const userId = req.session.userId;
+    const entryId = req.body.entryId;
+
+    if(!userId) {
+        return res.status(401).send('User not logged in');
+    }
+
+    if(!entryId){
+        return res.status(400).send('Entry ID is required');
+    }
+
+    try{
+        const entry = await Journal.findOne({_id: entryId, user_id: userId});
+
+        if(!entry){
+            return res.status(404).send('Entry not found or does not belong to this user');
+        }
+
+        res.json({ success: true, message: 'Entry deleted successfully'});
+    } catch (error){
+        console.error('Error deleting entry:', error);
+        res.status(500).send('Failed to delete entry');
+    }
+    
+});
+
+// app.delete('/journal', async(rec, res) => {
+//     const { title, content, mood, date } = req.body;
+//     const userId = req.session.userId;
+    
+//     if (!userId) {
+//         return res.status(401).send('User not loggeed in');
+//     }
+//     try {
+
+//         const entry = await Journal.findOne({_id: entryId, user_id: userId});
+ 
+//         if(!entry) {
+//             return res.status(404).send('Entry not found or does not belong to this user');
+
+//         }
+
+//         await Journal.findByIdAndDelete(journalEntries);
+//         res.json({ success: true, message: 'Journal entry deleted successfully' });
+//     } catch (error) {
+//         console.error('Error deleting event:', error);
+//         res.status(500).send('Failed to delete entry');
+//     }
+// });
 
 app.post("/login", async (req, res) => {
     try {
-        const check = await collection.findOne({ username: req.body.username });
+        const check = await User.findOne({ username: req.body.username });
 
         if (!check) {
             return res.send("Username not found");
@@ -115,7 +324,7 @@ app.post("/login", async (req, res) => {
         if (isPasswordMatch) {
             req.session.username = check.username;
             req.session.userId = check._id;
-            res.render('main', { username: req.session.username });
+            res.redirect('/main');
         } else {
             res.send("Incorrect password");
         }
@@ -124,14 +333,6 @@ app.post("/login", async (req, res) => {
         console.error("Error during login:", error); 
         res.send("Something went wrong, please try again.");
     }
-});
-
-app.post('/journal', (req, res) => {
-    const title = req.body.title;
-    const content = req.body.content;
-    const mood = req.body.mood;
-    
-    res.redirect('/journal');
 });
 
 app.post('/change-password', async (req, res) => {
@@ -144,10 +345,9 @@ app.post('/change-password', async (req, res) => {
 
     try {
         const hashedPassword = await bcrypt.hash(newPassword, 10);
-
         console.log("Hashed Password: ", hashedPassword);
 
-        const result = await collection.updateOne(
+        const result = await User.updateOne(
             { _id: userId },
             { $set: { password: hashedPassword } }
         );
@@ -176,18 +376,23 @@ app.post('/change-username', async (req, res) => {
     }
 
     try {
-            const result = await collection.updateOne(
-                { _id: userId },
-                { $set: { username: newUsername } }
+        const existingUser = await User.findOne({ username: newUsername });
+
+        if (existingUser) {
+            return res.status(400).send("This username is already taken. Please choose a different one.");
+        }
+
+        const result = await User.updateOne(
+            { _id: userId },
+            { $set: { username: newUsername } }
         );
 
-        // Log to check the result of the update query
         console.log("Update Result: ", result);
 
         if (result.modifiedCount === 1) {
             req.session.username = newUsername;
             console.log("Username successfully updated!");
-            res.redirect('/user');  // Success
+            res.redirect('/user');
         } else {
             console.log("Username update failed!");
             res.status(500).send('Error updating username.');
@@ -197,13 +402,15 @@ app.post('/change-username', async (req, res) => {
         res.status(500).send('Something went wrong with username, please try again.');
     }
 });
+
+
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
-        if(err){
+        if (err) {
             console.log("Error logging out");
         }
+        res.redirect('/login');
     });
-    res.redirect('/login');
 });
 
 

@@ -1,137 +1,208 @@
-/* Reset some default styles to ensure consistency */
-body, h1, h2, p, ul, li {
-    margin: 0;
-    padding: 0;
+/* Reset default margins and paddings */
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
-h2{
-    text-align: center;
-    color:#404F24;
-}
-
-h3{
-    text-align: center; 
-
-}
-
-/* Set a background color for the entire page */
 body {
-    background-color: #f8f4f4;
-    font-family: Georgia, 'Times New Roman', Times, serif;
+   font-family: 'Futura', sans-serif;
+   background-image: url('images/Background.jpg');
+   display: flex;
+   flex-direction: column;
+   height: 100%;
 }
 
-/* Style the header */
-header {
-    background-color: #404F24;
-    color: #f8f4f4;
-    text-align: center;
-    padding: 20px;
-}
-
+/* Header Styling */
 .header {
-    background-color: #404F24;
-    color: #ffff;
-    padding: 10px;
-    text-align: right;
-    font-size: 1.0em;
+   background-color: #404F24;
+   color: #fff;
+   padding: 20px;
+   text-align: center;
 }
 
-/* Style the navigation menu */
-nav {
-    background-color: #668D3C;
-    color: #f8f4f4;
-    padding: 10px;
-}
-
-nav ul {
-    list-style-type: none;
-}
-
-nav ul li {
-    display: inline;
-    margin-right: 20px;
-}
-
-nav a {
-    text-decoration: none;
-    color: #f8f4f4;
-}
-
-/* Style the main content area */
-main {
-    padding: 20px;
-}
-
-section {
-    background-color: #f8f4f4;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
-}
-
-/* Style the footer */
-footer {
-    background-color: #404F24;
-    color: #f8f4f4;
-    text-align: center;
-    padding: 10px;
-    bottom:0;
-    width: 100%;
-    position: relative;
-}
 .profile-section {
-    display: flex;
-    align-items: center;
+   display: flex;
+   align-items: center;
+   justify-content: flex-end;
 }
+
 .profile-photo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    margin-left: auto;
-}
-.profile-name {
-    margin-right: 10px;
-    margin-left: auto;
-    font-weight: bold;
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   margin-right: 10px;
 }
 
 .username-dropdown {
-    position: relative;
-    display: inline-block;
+   position: relative;
 }
 
-.username-dropdown span {
-    cursor: pointer;
-    font-weight: bold;
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: white;
-    box-shadow: 0px 8px 16px rgba(0,0,0,0.1);
-    min-width: 90px;
-    z-index: 1;
-    font-size: 12px;
-    text-align: center;
+.username-dropdown .dropdown-content {
+   display: none;
+   position: absolute;
+   background-color: white;
+   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+   min-width: 100px;
+   z-index: 10;
 }
 
 .username-dropdown:hover .dropdown-content {
-    display: block;
+   display: block;
 }
 
-.dropdown-content a {
-    padding: 8px 10px;
-    display: block;
-    text-decoration: none;
-    color: black;
+/* Main Container Layout */
+.container {
+   display: flex;
+   flex-grow: 1;
 }
 
-.dropdown-content a:hover {
-    background-color: #f1f1f1;
+/* Navigation Menu */
+nav {
+   background-color: #668D3C; 
+   width: 300px;
+   color: #fff;
+   padding: 20px;
+   height: inherit;
 }
 
-.title {
-    text-align: center;
+nav ul {
+   list-style: none;
+}
+
+nav ul li {
+   margin-bottom: 20px;
+}
+
+nav ul li a {
+   text-decoration: none;
+   color: #fff;
+   transition: color 0.3s;
+}
+
+nav ul li a:hover {
+   color: #ccc;
+}
+
+/* Main Content */
+main {
+   flex-grow: 1;
+   padding: 20px;
+}
+
+/* Welcome Section */
+section.welcomeSign {
+   background-color: #f8f4f4;
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+   margin-bottom: 20px;
+   text-align: center;
+}
+
+section {
+   background-color: #f8f4f4;
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+   margin-bottom: 20px;
+}
+
+/* Headings */
+h2 {
+   text-align: center;
+   color: #404F24;
+}
+
+/* Side-by-Side Sections */
+.side-by-side-container {
+   display: flex;
+   flex-wrap: wrap; /* Allow wrapping for smaller screens */
+   gap: 20px; /* Space between sections */
+   margin-bottom: 20px; /* Space below the container */
+}
+
+.side-section {
+   flex: 1; /* Ensure sections take equal width */
+   background-color: #f8f4f4;
+   padding: 20px;
+   border-radius: 5px;
+   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1); /* Light shadow for effect */
+}
+
+.side-section h2 {
+   color: #404F24; /* Heading color */
+   text-align: center;
+}
+
+.side-section p {
+   text-align: center;
+}
+
+/* Tips Section Styling */
+.tips-section {
+   background-color: #f8f4f4;
+   padding: 20px;
+   border-radius: 5px;
+}
+
+.tip {
+   display: flex;
+   align-items: flex-start;
+   margin-bottom: 20px;
+}
+
+.tip-image {
+   width: 150px;
+   height: auto;
+   margin-right: 20px;
+}
+
+.tip-text {
+   flex-grow: 1;
+}
+
+/* Footer Styling */
+footer {
+   background-color: #404F24;
+   color: white;
+   text-align: center;
+   padding: 10px;
+   width: 100%;
+   margin-top: auto;
+   position: relative;
+}
+
+/* Content Container */
+.content-container {
+   display: flex;
+   flex-direction: row;
+   gap: 20px;
+}
+
+.main-section {
+   flex: 1;
+}
+
+.journal-prompt {
+   border: 1px solid #ccc;
+   padding: 10px;
+   margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+   nav {
+       width: 100%;
+       height: auto;
+       text-align: center;
+   }
+
+   .side-by-side-container {
+       flex-direction: column; /* Stack sections vertically */
+   }
+
+   .side-section {
+       margin-bottom: 10px;
+   }
 }

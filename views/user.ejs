@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>User Profile</title> 
-    <link rel=" stylesheet"  href="user.css">
+    <link rel="stylesheet" href="user.css">
 </head>
 
 <body>
@@ -20,30 +20,13 @@
     <nav>
         <ul>
             <li><a href="/main">Home</a></li> 
-            <li><a href="/about">About</a></li>
             <li><a href="/resources">Resources</a></li>
-            <li><a href="/calender">Calendar</a></li>
+            <li><a href="/calendar">Calendar</a></li>
             <li><a href="/journal">Journal</a></li>
-    
         </ul>
     </nav>
     <main>
-        <div class="collapsible-section">
-            <button class="collapsible">Collapsible List Item 1</button>
-            <div class="content">
-                <p>This is the content for item 1.</p>
-            </div>
-    
-            <button class="collapsible">Collapsible List Item 2</button>
-            <div class="content">
-                <p>This is the content for item 2.</p>
-            </div>
-    
-            <button class="collapsible">Collapsible List Item 3</button>
-            <div class="content">
-                <p>This is the content for item 3.</p>
-            </div>
-        </div>
+
         <h2>Settings</h2>
         <div class="settings-content">
             <button onclick="toggleForm('usernameForm')">Change Username</button>
@@ -62,15 +45,33 @@
 
             <button><a href="/logout">Logout</a></button>
         </div>
+
+        
+        <h2>Your Journal Entries</h2>
+        <div class="collapsible-section">
+            <% if (journalEntries && journalEntries.length > 0) { %>
+                <% journalEntries.forEach(entry => { %>
+                    <button class="collapsible">
+                        <strong><%= entry.title %></strong>
+                        | <%= entry.date.toISOString().split('T')[0] %> 
+                        | Mood: <%= entry.mood %>
+                    </button>
+                    <div class="content">
+                        <p><%- entry.content %></p>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p>No journal entries found. Start writing today!</p>
+            <% } %>
+        </div>
     </main>
-    
+
     <script>
         var collapsibles = document.querySelectorAll(".collapsible");
     
         collapsibles.forEach(function(collapsible) {
             collapsible.addEventListener("click", function() {
                 this.classList.toggle("active");
-    
                 var content = this.nextElementSibling;
                 if (content.style.display === "block") {
                     content.style.display = "none";
@@ -88,16 +89,6 @@
                 form.style.display = "block";
             }
         }
-
-    const changeForm = document.getElementById("changeForm"); 
-
-    changeForm.addEventListener("submit", function (event) {
-        event.preventDefault();
-        window.location.reload(true);
-
-    });
     </script>
 </body>
 </html>
-
-
